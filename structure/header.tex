@@ -1,0 +1,229 @@
+\documentclass[11pt,a4paper,titlepage,
+chapterprefix,headsepline,parskip,pdftex,
+,pointlessnumbers,bibtotoc]{scrreprt}
+
+%%% paragraph for lower depth
+\makeatletter %% remove @ meaning
+\renewcommand{\paragraph}{\@startsection
+   {paragraph} % name
+   {4} % depth
+   {0mm} % indention
+   {-\baselineskip} % before
+   {0.1\baselineskip} % after
+   {\normalfont\normalsize\bfseries}} % stil
+\makeatother %% add @ meaning
+
+\makeatletter %% remove @ meaning
+\renewcommand{\subparagraph}{\@startsection
+   {subparagraph} % name
+   {5} % depth
+   {0mm} % indention
+   {-\baselineskip} % before
+   {0.1\baselineskip} % after
+   {\normalfont\normalsize\bfseries}} % stil
+\makeatother %% add @ meaning
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage[pdftex]{graphicx}
+
+% for colours
+\usepackage[pdftex]{color}
+
+% Configure defintions
+\usepackage{amsthm}
+\newtheorem{mydef}{Definition}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+% \usepackage{subfigure} // cannot be used with subcaption
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage[colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    pagecolor=black,
+    urlcolor=black,
+    breaklinks=true,
+    bookmarksnumbered=true,
+    hypertexnames=false,
+    pdfpagemode=UseOutlines,
+    pdfview=FitH,
+    plainpages=false,
+    pdfpagelabels,
+    bookmarks=true,
+    linktocpage=true]{hyperref}
+
+\hypersetup{pdfauthor={Markus Hiesmair},
+    pdftitle={Austrian Parliament Analyzer},
+    pdfsubject={Bachelor's Thesis},
+    pdfkeywords={},
+    pdfcreator={pdfLaTeX with hyperref (\today})}
+
+%%% Source-Code
+\usepackage{listings}
+\lstset{language=Java}
+
+\lstset{% general command to set parameter(s)
+basicstyle=\small, % print whole listing small
+tabsize=2, %
+keywordstyle=\color[rgb]{0.00,0.00,0.50}{}\bfseries,
+%identifierstyle=, % nothing happens
+commentstyle=\color[rgb]{0.00,0.50,0.25}{},
+%stringstyle=\ttfamily, % typewriter type for strings
+%showstringspaces=false} % no special string spaces
+numbers=left, numberstyle=\tiny, numbersep=5pt}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+% Custom definition for JSON
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\lstset{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+}
+
+
+% Figure
+\newcommand{\cffigure}[1]{\hyperref[#1]
+{cf. \ref*{#1}~\nameref{#1}}}
+
+
+%%% continous footnote
+\newcounter{cfootnotecounter}
+\newcommand{\cfootnote}[1]{\stepcounter{cfootnotecounter}
+\footnote[\value{cfootnotecounter}]{#1}}
+
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
+
+\flushbottom
+
+% change page settings
+\setlength{\hoffset}{0mm} \setlength{\voffset}{0mm}
+\setlength{\evensidemargin}{14.6mm}
+\setlength{\oddsidemargin}{14.6mm} \setlength{\topmargin}{-20mm}
+\setlength{\headheight}{15mm} \setlength{\headsep}{9mm}
+\setlength{\textheight}{242mm} \setlength{\textwidth}{145mm}
+\setlength{\footskip}{10mm}
+
+
+%%% seperation of float-environment
+\setlength{\textfloatsep}{25pt plus5pt minus5pt}
+\setlength{\intextsep}{25pt plus5pt minus5pt}
+
+%%% Gliederungs-Nummern in den Rand schreiben
+\renewcommand*{\othersectionlevelsformat}[1]{%
+\llap{\csname the#1\endcsname\autodot\enskip}}
+
+%%% only chapter name in headline
+\renewcommand*{\chaptermarkformat}{}
+
+%%% format of the chapter looks
+\setkomafont{chapter}{\Huge}
+\renewcommand*{\chapterformat}{\LARGE{\chapappifchapterprefix{\ }\thechapter\autodot\enskip}}
+
+%%% headline
+\usepackage[automark]{scrpage2}
+
+\clearscrheadings \clearscrplain \clearscrheadfoot
+\pagestyle{scrheadings}
+\ohead{\pagemark}
+\ihead{\headmark}
+\cfoot{}
+
+%%% design of chapter pages
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+%% indices from TOC and numbering depth
+\setcounter{tocdepth}{\subsubsectionlevel}
+\setcounter{secnumdepth}{\paragraphlevel}
+
+%%% Array for tables
+\usepackage{array}
+
+%%% fonts
+\addtokomafont{chapter}{\sffamily}
+\addtokomafont{sectioning}{\rmfamily}
+
+% language
+\usepackage[english]{babel}
+% inputencoding
+\usepackage[utf8]{inputenc}
+% fontencoding
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+
+% URLs
+\usepackage{url}
+
+%%% orphan  und widow
+\clubpenalty = 10000
+\widowpenalty = 10000 \displaywidowpenalty = 10000
+
+
+%%% Einbinden von kompletten PDF-Seiten
+\usepackage{pdfpages}
+
+\usepackage{subcaption}
+\expandafter\def\csname ver@subfig.sty\endcsname{}
+
+\usepackage{ifluatex}
+\ifluatex
+  \usepackage{pdftexcmds}
+  \makeatletter
+  \let\pdfstrcmp\pdf@strcmp
+  \let\pdffilemoddate\pdf@filemoddate
+  \makeatother
+\fi
+
+\usepackage{svg}
+
+\usepackage{amsmath}
+
+\usepackage{xr}
+
+\usepackage{epstopdf}
+
+\usepackage{wrapfig}

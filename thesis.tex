@@ -1,0 +1,62 @@
+%%% Header
+\input{structure/header}
+
+% comment the following line for final submission
+%\newcommand{\manuscriptmode}[0]{draft}
+
+\newcommand{\thesistitle}[0]{Making Computers Understand Coalition and Opposition in Parliamentary Democracy}
+
+%%% Custom commands
+% provides support for a \todo command
+\input{customc.tex}
+
+%%% hyphenation
+\input{structure/hyphenation}
+
+\begin{document}
+
+%%% cover page
+\pagenumbering{roman}
+\includepdf{structure/cover/cover.pdf}
+
+%%% structure parts
+\pagenumbering{Roman}
+%\ifx\manuscriptmode\undefined{}
+	%\include{structure/dedication}
+%\fi
+\include{structure/affidavit}
+%\include{structure/acknowledgment}
+\include{structure/abstract}
+\input{structure/indices}
+
+%%% content
+\newpage
+\pagenumbering{arabic}
+
+% Introduction
+\input{chapters/intro}
+
+% Related work
+\input{chapters/related}
+
+% Implementation
+\input{chapters/impl}
+
+% Evaluation
+\input{chapters/eval}
+
+% Conclusion
+\input{chapters/conclusion}
+
+%%% appendix
+\appendix
+
+\input{appendices/tools}
+
+% \input{structure/abbreviations}
+
+\input{structure/bibliography}
+
+% curriculum vitae
+%\input{structure/cv}
+\end{document}

@@ -1,0 +1,21 @@
+% This file contains custom commands - makes the rest of the structure updateable
+
+% A ToDo Command that is used only during drafts
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{To-Do:} #1}}
+
+% Common picture
+\newcommand{\cpic}[3]{\begin{figure}[!t]\centering
+\includegraphics[width=3.5in]{#1}
+\caption{#2} \label{#3}\end{figure}}
+
+\newcommand{\cpicw}[4]{\begin{figure}[!t]\centering
+\includegraphics[width=#4]{#1}
+\caption{#2} \label{#3}\end{figure}}
+
+% A command that highlights java classes
+\newcommand{\inlinecode}[1]{\emph{#1}}
+
+
+
+\newcommand{\linebreakcell}[2][l]{%
+  \begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
