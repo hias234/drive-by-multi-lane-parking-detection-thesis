@@ -262,14 +262,20 @@ Currently the road side parking situation in most cities is rather untransparent
 
 \section{Problem Definition}
 
-Detection of road side parking spaces and their states is a challenging task. Of course an obvious solution to the problem would be to put sensors to every parking space in the city, which check, if the corresponding parking space is occupied or vacant. This, however, has the drawback to be very expensive as, for big cities, millions of sensors would have to be bought, installed and maintained. Furthermore, because the parking situation does not change often, the high frequency of sensing with such a system would be rather inefficient.
+Detection of road side parking spaces and their states is a challenging task. Of course an obvious approach to the problem would be to put sensors to every parking space in the city, which check, if the corresponding parking space is occupied or vacant. This, however, has the drawback to be very expensive as, for big cities, thousands of sensors would have to be bought, installed and maintained. Furthermore, because the parking situation does not change often, the high frequency of sensing with such a system would be rather inefficient.
 
-Another option to sensing a city's parking situation is the use of mobile instead of static sensors. For instance, Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed their system "ParkNet" which could sense parking spaces using an ultrasonic range finder which was mounted on the co-driver's side of the car. The sensor measured the distance to the nearest obstacle on the right side of the road (in many cases a parking car). Using this information and GPS measurements they could derive the parking space counts and the parking occupancy rates by an accuracy of over 90\%.
+Another approach to sensing a city's parking situation is the use of mobile sensors instead of static ones.
+For instance, vehicles which drive through the cities could sense parking spaces while they drive by. There already exists some work on this subject. Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed their system "ParkNet" which can sense parking spaces using an ultrasonic range finder. 
+While the car is driving through the city, the sensor continuously measures the distance to the nearest obstacle on the right side of the road (in many cases a parking car). Using this information and GPS measurements the parking space counts and the parking occupancy rates could be derived by an accuracy of over 90\%.
+
+However, such mobile sensing systems currently only work on single lane roads. To work in real world scenarios, lane detection has to be incorporated. 
 
 
 
 \section{Goals and Detailed Approach}
-In this thesis, the parking situation should be sensed differently. Vehicles should be used as mobile sensors, and while they drive through the city, the collected sensor measurements should be used to derive the current parking availability situation. Such a system should have the advantage to be more cost effective and should also provide a sufficient accurate estimate of the current parking availability in real time.
+
+
+%In this thesis, the parking situation should be sensed differently. Vehicles should be used as mobile sensors, and while they drive through the city, the collected sensor measurements should be used to derive the current parking availability situation. Such a system should have the advantage to be more cost effective and should also provide a sufficient accurate estimate of the current parking availability in real time.
 
 \section{Milestones}
 
