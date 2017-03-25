@@ -264,7 +264,7 @@ Currently the road side parking situation in most cities is rather untransparent
 
 Detection of road side parking spaces and their states is a challenging task. Of course an obvious approach to the problem would be to put sensors to every parking space in the city, which check, if the corresponding parking space is occupied or vacant. This, however, has the drawback to be very expensive as, for big cities, thousands of sensors would have to be bought, installed and maintained. Furthermore, because the parking situation does not change often, the high frequency of sensing with such a system would be rather inefficient.
 
-Another option to sensing a city's parking situation is the use of mobile sensors instead of static ones. This approach has the advantage to be usually more cost effective and can provide sufficient accuracy.
+Another promising option to sense a city's parking situation is the use of mobile sensors instead of static ones. This approach has the advantage to be usually more cost effective and can provide sufficient accuracy.
 There has already been done some research on cars which analyze parking availability while they drive through the city. For instance, Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed a system which uses distance information from the vehicle to the right side of the road to reason about parking spaces. Another approach, which was done by Zhou et al. \cite{Zhou_2d_range} looks for car bumper shaped signal parts in the distance measurements to identify parking cars.
 
 However, all of the mentioned mobile sensing approaches only work in single lane scenarios. Multi lane streets bring much more complexity in the recognition of parking spaces. There are many special cases which have to be addressed to work properly on multi lane roads. For example, the recognition of other driving vehicles and the recognition of the lane the sensing vehicle is on at the moment.
@@ -278,14 +278,17 @@ However, all of the mentioned mobile sensing approaches only work in single lane
 The overall aim of this thesis is to evaluate if it is possible to reach a sufficient high accuracy in road side parking detection on multi lane roads using a sensing vehicle which drives through the city and senses parking spaces while driving by. 
 For the parking detection an optical distance sensor will be used to measure the distance to the nearest obstacle on the right side of the road (in many cases a parking car). This sensor will be mounted on the co-driver's side of the car and will continuously measure the distance while the car is driving. Furthermore, a GPS sensor will be used to include the spatial information of the vehicle. Using these measurements, the prototype should reason about the parking situation at the right side of the road. 
 
-In a first step, the sensor will be tested on accuracy and reliability. Then, after all sensors are mounted on the car, test measurements will be collected while driving through some selected streets in Linz, Austria. The test scenes should include single lane as well as multi lane streets and measurements in all streets should be done several times. To determine the ground truth of the parking availability a camera will be used which takes pictures of the parking situation at the street during the tests.
+%In a first step, the sensor will be tested on accuracy and reliability. 
+In a first step, after the sensors have been mounted on a car, test measurements will be collected while driving through some selected streets in Linz, Austria. The test scenes should include single lane- as well as multi lane streets and measurements in all streets should be done several times. To determine the ground truth of the parking availability a camera will be used, which takes pictures of the parking situation at the street during the tests.
 
-After these measurements have been taken, first an algorithm should be developed which only works for single lane streets. The algorithm should be evaluated on the test measurements and the result of the evaluation are parking space count accuracy and parking occupancy rate accuracy. This can later be used as baseline in comparison to multi lane road detection. 
+%After these measurements have been taken, first an algorithm should be developed which only works for single lane streets. The algorithm should be evaluated on the test measurements and the result of the evaluation are parking space count accuracy and parking occupancy rate accuracy. This can later be used as baseline in comparison to multi lane road detection. 
 
-On multi lane streets, the situation is much more complex. There are many special cases which have to be considered. First of all, the lane in which the sensing vehicle is going has to be detected and has to be incorporated in the parking detection algorithm. Furthermore, the system should also detect when the car overtakes another driving car, because this could lead to falsely detected parking spaces. To address all of these issues, another algorithm should be developed which is able to detect parking spaces on all lanes. For this to work it has to be able to detect the lane the vehicle is going in and to handle special cases based on the distance sensor measurements.
+After these measurements have been taken, the measurements should be analyzed, pre-processed, and then an algorithm should be developed (or learned) to classify the current parking situation. An important part of the algorithm will be the handling of multi lane roads, because there are many special cases which have to be considered. First of all, the lane in which the sensing vehicle is going has to be detected and has to be incorporated in the algorithm. Furthermore, the system should also detect when the car overtakes another driving car, because this could lead to falsely detected parking spaces.
 
-In the end, the results of the single- and multi lane detection should be evaluated and compared in terms of parking space count accuracy and parking occupancy rate accuracy. Furthermore, the lane detection algorithm based on the distance sensor will be evaluated on its performance.
+In a final step, possible approaches should be evaluated, which can further enhance the results. For example, the cooperation of multiple sensing vehicles which are going at the same time at the same street can maybe help to increase the parking detection accuracy. Finally, the results of single- and multi lane detection should be evaluated and compared in terms of parking space count accuracy and parking occupancy rate accuracy. 
+%Furthermore, the lane detection algorithm based on the distance sensor will be evaluated on its performance.
 
+%\newpage
 
 %\section{Literature}
 
@@ -301,18 +304,19 @@ In the end, the results of the single- and multi lane detection should be evalua
 \centering
 \begin{tabular}{r|l}
 \emph{Date} & \emph{Milestone} \\\hline
-07.04.2017 & Hardware is available \\
-28.04.2017 & Hardware parts work together and sensor data can be retrieved. \\
+21.04.2017 & Hardware is available \\
+05.05.2017 & Hardware parts work together and sensor data can be retrieved. \\
  & Tests regarding the accuracy and range of the optical distance sensor \\
  & are taken. \\
 12.05.2017 & The sensors are mounted on the car. \\
 19.05.2017 & Test data has been collected on a single lane road. \\
-31.06.2017 & Single lange parking detection is implemented and has been evaluated. \\
+31.06.2017 & Single lane parking detection is implemented and has been evaluated. \\
 15.07.2016 & Test data has been collected on multi lane roads in different scenarios. \\
 01.09.2016 & Lane detection algorithm has been implemented and evaluated. \\
 31.10.2017 & Parking detection on multi lane road has been implemented and \\
  & evaluated \\
-01.12.2017 & Submission of the thesis
+30.11.2017 & Further improvements have been implemented and evaluated \\
+31.01.2018 & Submission of the thesis
 \end{tabular}
 \caption{\label{tab:milestones} Milestones}
 \end{table}
