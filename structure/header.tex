@@ -56,9 +56,9 @@ chapterprefix,headsepline,parskip,pdftex,
     bookmarks=true,
     linktocpage=true]{hyperref}
 
-\hypersetup{pdfauthor={Markus Hiesmair},
-    pdftitle={Austrian Parliament Analyzer},
-    pdfsubject={Bachelor's Thesis},
+\hypersetup{pdfauthor={Matthias Steinbauer},
+    pdftitle={Testtitel},
+    pdfsubject={Dissertation},
     pdfkeywords={},
     pdfcreator={pdfLaTeX with hyperref (\today})}
 
@@ -134,10 +134,6 @@ numbers=left, numberstyle=\tiny, numbersep=5pt}
 \newcommand{\cfootnote}[1]{\stepcounter{cfootnotecounter}
 \footnote[\value{cfootnotecounter}]{#1}}
 
-\usepackage{footnote}
-\makesavenoteenv{tabular}
-\makesavenoteenv{table}
-
 \flushbottom
 
 % change page settings
@@ -205,25 +201,3 @@ numbers=left, numberstyle=\tiny, numbersep=5pt}
 
 %%% Einbinden von kompletten PDF-Seiten
 \usepackage{pdfpages}
-
-\usepackage{subcaption}
-\expandafter\def\csname ver@subfig.sty\endcsname{}
-
-\usepackage{ifluatex}
-\ifluatex
-  \usepackage{pdftexcmds}
-  \makeatletter
-  \let\pdfstrcmp\pdf@strcmp
-  \let\pdffilemoddate\pdf@filemoddate
-  \makeatother
-\fi
-
-\usepackage{svg}
-
-\usepackage{amsmath}
-
-\usepackage{xr}
-
-\usepackage{epstopdf}
-
-\usepackage{wrapfig}

@@ -1,2 +1,110 @@
-\externaldocument{eval}
+\chapter{Tooling}
+\label{appendix:tooling}
+\markright{Tooling}
+
+\newcommand{\versionEL}{2.2}
+\newcommand{\versionJava}{1.7.0\_45-b18}
+\newcommand{\versionJSF}{2.1.7}
+\newcommand{\versionJSP}{2.2}
+\newcommand{\versionMaven}{3.1.1}
+\newcommand{\versionObjectAid}{1.1.6}
+\newcommand{\versionPrimeFaces}{3.3.1}
+\newcommand{\versionServlet}{3.0}
+\newcommand{\versionSigmaJS}{0.1}
+\newcommand{\versionSpring}{3.1.1}
+\newcommand{\versionSpringWebflow}{2.3.1}
+\newcommand{\versionTomcat}{7.0.29}
+\newcommand{\versionZooKeeper}{3.4.5}
+
+The real world implementation of this thesis available as open source software. The code, detailed instructions, and code samples can be found at \url{http://www.dynamograph.net/}. The following chapter gives a brief overview of the tools in use, lists their versions, and purpose they were used for.
+
+\section{Java, JavaScript, Web}
+
+As highlighted in chapter \ref{chap:referenceimplementation} the prototype implementation was mainly implemented with the Java programming language. There are basically two components worth mentioning in this respect. The first component is the computing cluster which is implemented as a standalone distributed Java application that can be deployed to possibly many worker nodes in a computer cluster. The second component is the web based user interface which is implemented as a Java Enterprise web application that runs in a Servlet container. The the following paragraphs and sections describe the tools and versions used in these components.
+
+For software project management in general and automated dependency management the infamous Apache Maven \versionMaven{} toolset is used. All components of the prototype are available as a Maven configured artifacts and can be automatically built and tested on state-of-the-art software integration services such as Jenkins \url{http://jenkins-ci.org}. Although continuous integration is currently performed from the developers machines since the project team was rather small and most of the time consisted only of the thesis author.
+
+Although Java 8 was already available at the time of writing this the prototype was still compiled and tested with Java \versionJava{} since first tests with Java 8 VMs have shown that some minor changes in object serialization could cause problems with the distributed compute cluster and the new features available in Java 8 were not used by the project anyway.
+
+In the following list shows all Maven projects in alphabetical order and their purpose is briefly explained.
+
+\begin{description}
+\item[analytics:] The analytics project is a helper project that contains Java and R code for general statistical analysis of datasets and is not available on production installations of the system.
+\item[census:] This contains lists of firstname and lastname, and their frequency of occurance in the 1990 USA census \cite{GenealogyDataFreq:0EXyVZ6p}. The project contains a library that can be used to assign unique firstname, lastname pairs to vertices which is used to assign random names to make anonymized datasets. This process has proven to make anonymized datasets better readable.
+\item[commandline:] This project contains command-line utilities that allow some control over a running temporal graph processing cluster. Mainly it can be used to properly shut down a cluster and to perform other maintenance tasks.
+\item[common:] This project contains general data-structures to describe a temporal graph such as vertices and edges and also contains more general data-structures such as the implementation of a temporal map which is the basic foundation of most data components in the system.
+\item[configuration:] As the name suggests this project is just a helper that allows to read configuration files from disk and provides the loaded configuration as static variables to the many other components of the system.
+\item[datasources:] This project provides libraries that enable access to diverse data-sources such as static data-sets that hold temporal edge lists, relational databases, e-mail database parsers, and dynamic data-sources such as directly streaming data from Twitter.
+\item[distributed:] This resembles the core of the distributed compute cluster and holds the code for all components such as the master node, the worker node, election process, graph partition table, and all the communication and multi-threading code. Implementation details of this project are described in greater detail in \ref{appendix:distributed}.
+\item[dynamo-graph:] This is an almost empty Maven parent project. It just holds a Maven project object model that can be used to build, test, and deploy all system components in one coherent build process.
+\item[frontend:] Here the web based user interface is implemented. The project can be built to a standard Java EE web application contained in a WAR file and deployable to any standard compliant Servlet container as explained in more detail in \ref{appendix:frontend}.
+\item[opencv:] This project contains code that allows to reconstruct past social networks from image data. Such that user provided picture libraries can be imported and a temporal social network is extracted from them.
+\item[playground:] The playground project is a potpourri of different code snippets that were used for testing. To the interested reader this project might be interesting because it shows how code can be run on top of the distributed computing framework. Especially interesting might be the parts that allow developers to run the system in so called local developer mode to debug distributed algorithms.
+\item[staticdata:] This is a project that contains static data-sets used during testing and evaluating this thesis. The data-sets are mostly compiled from temporal edge lists. Each data-set available to the system also contains a configuration file that can be parsed by the frontend application and contains information like a data-set description, the color coding used and the edge types contained in the data-set.
+\item[uml:] This project contains ObjectAid \versionObjectAid{} UML class diagrams that are automatically synced with the code in the other projects. The UML diagrams are used for documentation purposes in this thesis and on the project website.
+\item[utils:] Finally the utils project contains general purpose utilities that did not fit in with any other project but are used throughout many components of the project. Such utilities are a extended version of an URL resolver, parser for files encoded as comma separated values, and a tool that is capable of merging colors available as RGB color codes.
+\end{description}
+
+\subsection{Distributed Java Applications}
+\label{appendix:distributed}
+
+As already explained in great detail the distributed graph computing framework is implemented as a standalone Java application. 
+
+\todo{ZooKeeper}
+
+\subsection{Client API Methods}
+\label{appendix:clientapimethods}
+
+addEdge(String, Edge, long)
+addNode(String, Node)
+benchMarking()
+containsModel(String)
+createModel(String, Resolution)
+deleteModel(String)
+deleteVertex(String, long)
+deleteVertex(String, Node)
+executeAlgorithm(String, String)
+executeAlgorithm(String, String, SuperStepContext)
+executeAlgorithm(String, String, SuperStepContext, Timeframe)
+getMaximumTimeframe(String)
+getModelDescriptor(String)
+getVertex(String, long)
+getVertex(String, long, Timeframe)
+listModels()
+loadCode(String, byte[])
+queryAlgorithmContext(long)
+queryAlgorithmState(long)
+queryExceptions(long)
+queryVertices(String, GraphQuery)
+unloadCode(String)
+updateVertex(String, Node)
+waitForAlgorithmState(long, ExecutionProfileState...)
+waitForCompletion(long)
+
+
+\subsection{Web-based User Interface}
+\label{appendix:frontend}
+
+As explained in \ref{chap:impl} users working with a system like the presented will most likely prefer to use web-based user interfaces. The high volume of data do be processed is just one argument for web-based access which practically allows the user to have the data completely stored in the cloud and just interface the processing from a web-browser. In the case of this project state-of-the-art web technology was used to build the user interface. The application is built as Java web application compliant with version \versionServlet{} of the Servlet, version \versionJSP{} of the JSP (Java Server Pages), and \versionEL{} of the EL (Expression Language) specifications. The visual rendering of the web pages is based on the JSF (Java Server Faces) \versionJSF{} implementation provided by PrimeFaces \versionPrimeFaces{} which guarantees that the user interface also complies with current standards for cross platform web-design.
+
+For graph visualization the frontend relies on the JavaScript based graph drawing library SigmaJS \versionSigmaJS{} which was extended by a few simple modules which allow the user to move vertices in the graph via drag and drop, enable context information for each vertex such that computed scores for each vertex can be displayed, and the users are able to directly interact with vertices to drill deeper in a graph when necessary.
+
+In general the web-based user interface can be built via Maven by running a build in the \emph{frontend} project. The result is a web application archive (WAR) that can be deployed on any arbitrary Servlet \versionServlet{} container. During the implementation and testing of this thesis mainly Apache Tomcat \versionTomcat{} and earlier was used and thus apache Tomcat is highly recommend for production environments also.
+
+\todo{add: jQuery}
+
+\todo{add: Highcharts.js}
+
+\section{Cloud Stacks}
+
+\subsection{openNebula}
+
+\subsection{openStack}
+\label{appendix:openstack}
+
+\subsection{Infrastructure Abstraction}
+\label{appendix:provisioning}
+
+\subsubsection{Chef, Puppet, Dockr.io}
+
 
