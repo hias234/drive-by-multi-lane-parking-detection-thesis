@@ -20,15 +20,27 @@ One of the most important contributors to high search times for parking spaces i
 
 Detection of road side parking spaces and their states is a challenging task. Of course an obvious approach to the problem would be to put stationary sensors to every parking space in the city, which check, if the corresponding parking space is occupied or vacant. This, however, has the drawback to be very expensive as, for big cities, thousands of sensors would have to be bought, installed and maintained. Furthermore, because the parking situation does not change often, the high frequency of sensing with such a system would be rather inefficient.
 
+
+
 \section{Drive-By Park Sensing}
 
-A new promising option to sense a city's parking situation is the use of mobile sensors instead of static ones. Crowd sensing has the advantage to be usually more cost effective and can provide sufficient accuracy for the purpose of providing parking space maps.
-There has already been done some research on cars which analyze parking availability while they drive through the city. For instance, Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed a system which uses distance information from the vehicle to the right side of the road to reason about parking spaces. Another approach, which was done by Zhou et al. \cite{Zhou_2d_range} looks for car bumper shaped signal parts in the distance measurements to identify parking cars.
+A promising new option to sense a city's parking situation is the use of mobile sensors instead of static ones. Crowd sensing has the advantage to be usually more cost effective and can provide sufficient accuracy for the purpose of providing parking space availability maps.
+
+
+
+%There has already been done some research on cars which analyze parking availability while they drive through the city. For instance, Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed a system which uses distance information from the vehicle to the right side of the road in combination with GPS location measurements to reason about the state of parking spaces. Another approach, which was done by Zhou et al. \cite{Zhou_2d_range} looks for car bumper shaped signal parts in the distance measurements to identify parking cars.
 
 However, all of the mentioned mobile sensing approaches only work in single lane scenarios. Multi lane streets bring much more complexity in the recognition of parking spaces. There are many special cases which have to be addressed to work properly on multi lane roads. For example, the recognition of other driving vehicles and the recognition of the lane the sensing vehicle is on at the moment.
 
 %For instance, vehicles which drive through the cities could sense parking spaces while they drive by. There already exists some work on this subject. Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed their system "ParkNet" which can sense parking spaces using an ultrasonic range finder. While the car is driving through the city, the sensor continuously measures the distance to the nearest obstacle on the right side of the road (in many cases a parking car). Using this information and GPS measurements the parking space counts and the parking occupancy rates can be derived by an accuracy of over 90\%. However, such mobile sensing systems currently only work on single lane roads. To work in real world scenarios, lane detection has to be incorporated. 
 %Most current approaches on lane detection use cameras which analyse the road markings in the captured pictures. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/drive-by-parking-situation-pictogram.eps}
+	\caption{The sensing vehicle passes by two parked cars and should identify a vacant spot between using the distance measurements. \todo{Hier Referenz zu Parknet-Paper??? Ähnliche Grafik...}
+	\label{fig:driveby_standard_parking_situation}
+\end{figure}
 
 \section{Goals}
 goals...
