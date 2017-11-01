@@ -26,7 +26,9 @@ Detection of road side parking spaces and their states is a challenging task. Of
 
 A promising new option to sense a city's parking situation is the use of mobile sensors instead of static ones. Crowd sensing has the advantage to be usually more cost effective and can provide sufficient accuracy for the purpose of providing parking space availability maps.
 
+There are several approaches to sense parking availability. A few of them will be discussed in chapter \ref{chap:relatedwork}. In this thesis the a "drive-by park sensing" approach will be implemented. Several sensing vehicles drive through the city and each of them is equipped with a few sensors, namely a distance sensor to measure the distance to the nearest obstacle on the right side of the road and a GPS receiver which determines the current position of the vehicle. 
 
+ \cite{Mathur:2010:PDS:1814433.1814448} et al. 
 
 %There has already been done some research on cars which analyze parking availability while they drive through the city. For instance, Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed a system which uses distance information from the vehicle to the right side of the road in combination with GPS location measurements to reason about the state of parking spaces. Another approach, which was done by Zhou et al. \cite{Zhou_2d_range} looks for car bumper shaped signal parts in the distance measurements to identify parking cars.
 
@@ -38,7 +40,7 @@ However, all of the mentioned mobile sensing approaches only work in single lane
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/drive-by-parking-situation-pictogram.eps}
-	\caption{The sensing vehicle passes by two parked cars and should identify a vacant spot between using the distance measurements. \todo{Hier Referenz zu Parknet-Paper??? Ähnliche Grafik...}
+	\caption{The sensing vehicle passes by two parked cars and should identify a vacant spot between using the distance measurements. \todo{Hier Referenz zu Parknet-Paper??? Ähnliche Grafik...}}
 	\label{fig:driveby_standard_parking_situation}
 \end{figure}
 
