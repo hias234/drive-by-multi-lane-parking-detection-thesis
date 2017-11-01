@@ -1,7 +1,7 @@
 \chapter{Introduction}
 \label{sec:introduction}
 
-
+\todo{soll hier ein kurzer überblick über die Arbeit und das Kapitel gegeben werden? Also wo was beschrieben ist usw?}
 
 
 
@@ -26,10 +26,15 @@ Detection of road side parking spaces and their states is a challenging task. Of
 
 A promising new option to sense a city's parking situation is the use of mobile sensors instead of static ones. Crowd sensing has the advantage to be usually more cost effective and can provide sufficient accuracy for the purpose of providing parking space availability maps.
 
-There are several approaches to mobile parking availability sensing, which will be discussed in chapter \ref{chap:relatedwork}. In this thesis a "drive-by park sensing" approach will be implemented, tested and evaluated. Several sensing vehicles drive through the city and each of them is equipped with a few sensors, namely a distance sensor to measure the distance to the nearest obstacle on the right side of the road and a GPS receiver which determines the current position of the vehicle. Using these data parking cars should be detected and vacant parking spaces should be derived as well through the usage of parking space maps.
+There are several approaches to mobile parking availability sensing, which will be discussed in chapter \ref{chap:relatedwork}. In this thesis a "drive-by park sensing" approach will be implemented, tested and evaluated. The approach works as follows: Several sensing vehicles drive through the city and each of them is equipped with a few sensors, namely a distance sensor to measure the distance to the nearest obstacle on the right side of the road and a GPS receiver which determines the current position of the vehicle. Using these data parking cars should be detected and vacant parking spaces should be derived as well using parking space maps.
 Figure \ref{fig:driveby_standard_parking_situation} shows a standard scenario of a sensing vehicle which passes two parked cars and a vacant parking space in between them. The distance measurements while passing the parked cars will be much shorter than the measurements while passing the vacant parking space. This should allow a basic algorithm to recognize parking cars and vacant parking spaces.
 
-However, the situation which is shown in figure \ref{fig:driveby_standard_parking_situation} is an idealistic situation. In real life traffic, there will be much more complex situations to face, which are not as easily detectable. For instance, the sensing vehicle might not drive in the right-most lane, therefore the measured distances will be much longer. Another possible issue are other driving cars, motorcycles or bicycles which the sensing car overtakes. Such overtaking  situations have to be filtered out to ensure that there are no false detections. 
+However, the situation which is shown in figure \ref{fig:driveby_standard_parking_situation} is an idealistic one. In real life traffic, there will be much more complex situations to face, which are not as easily detectable and which might influence the success of the detection. For instance, the sensing vehicle might not drive in the right-most lane, therefore the measured distances will be much longer. Another possible issue are other driving cars, motorcycles or bicycles which the sensing car overtakes. Such overtaking  situations have to be filtered out to ensure that there are no false detections. 
+
+The high complexity of urban traffic and the many distractions during sensing make it nearly impossible to create a rule set based on the sensor measurements which would be able to detect parking situations at a sufficient accuracy. Furthermore, such rule sets would have to be created for each city individually because of the different nature of the roads and the parking spaces. For instance, the distance between roads and parking spaces can vary highly between two cities.
+In this thesis, several machine learning techniques are tested and being compared to each other to find out if machine learning can be used to identify complex road side parking situations, to filter out distractions like overtaking situations and to detect vacant parking spaces. 
+
+During test runs with a prototype car in Linz, Austria, sample measurements are being recorded, where the focus lies on creating very diverse and realistic situations. The recorded data is being filtered and pre-processed before it is used as input for the machine learning algorithms. 
 
 %There has already been done some research on cars which analyze parking availability while they drive through the city. For instance, Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed a system which uses distance information from the vehicle to the right side of the road in combination with GPS location measurements to reason about the state of parking spaces. Another approach, which was done by Zhou et al. \cite{Zhou_2d_range} looks for car bumper shaped signal parts in the distance measurements to identify parking cars.
 
