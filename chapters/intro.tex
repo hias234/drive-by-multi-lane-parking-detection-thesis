@@ -60,23 +60,25 @@ The high complexity of urban traffic and the many distractions during sensing ma
 
 
 
-\section{Research Goals}
+\section{Research Goals and Approach}
 
-The overall goal of this thesis is to determine which accuracy can be achieved for detecting the parking space situation in urban real world traffic scenarios using drive-by park sensing. Furthermore, distracting situations should be identified and strategies to cope with them should be found to be able to keep the detection accuracy high. To achieve these goals, the following steps will be executed:
+The overall goal of this thesis is to determine which accuracy can be achieved for detecting the parking space situation in urban real world traffic scenarios using drive-by park sensing. Furthermore, distracting situations should be identified and strategies to cope with them should be found to be able to keep the detection accuracy high. In contrast to existing approaches in this thesis machine learning will be applied to classify different road traffic and parking scenarios to be able to better cope with the high variety of situations possible. To achieve these goals, the following steps will be executed:
 
 \begin{description}
 
-\item[Building a test bed] First, a test bed has to be built, which is able to access the required sensors to record all the necessary data. A Raspberry PI will be used as processing device because of its popularity and the many compatible sensors which work with this platform. It is connected to a LIDAR-Lite v3 sensor which continuously measures the distance to the nearest obstacle on the right side of the road. A GPS receiver will track the location of the sensing vehicle and a camera will be used to record images of the ground truth for evaluation purposes only.
+\item[Building a test bed] First, a test bed has to be built, which is able to access the required sensors to record all the necessary data. A Raspberry PI will be used as processing device because of its popularity and the many compatible sensors which work with this platform. It is connected to a LIDAR-Lite v3 sensor which continuously measures the distance to the nearest obstacle on the right side of the road. A GPS receiver will track the location of the sensing vehicle and a camera will be used to record images of the ground truth for evaluation purposes only. \todo{evtl. referenz zur section wo die hardware genauer beschrieben wird...}
 
-\item[Acquiring a dataset] As soon as the test bed is ready, the sensors should be mounted on the prototype car to be able to start recording the dataset. 
+\item[Acquiring a dataset] As soon as the test bed is ready, the sensors should be mounted on the prototype car to be able to start recording the dataset. Test drives should be done in some selected streets in Linz, Austria with the focus of variety of the recorded situations. The test scenes should include single lane as well as multi lane streets and measurements in all streets should be done several times. Furthermore, the car should be driving as it would in regular traffic (not only in the right most lane, etc...) and the scenes should also include high and low traffic scenarios to have a high amount of diverse data. All measured distances, GPS locations and ground truth images should be saved to files with the according timestamps to be able to evaluate the approaches later on.
 
-\item[Ground Truth Tagging]
+\item[Ground truth tagging] All captured pictures with the camera have to be manually labelled in different class (Parked car, free space, overtaken car, ...) to be able to evaluate the performance of detection algorithms later on.
 
-\item[Preprocessing and filtering the sensor data]
+\item[Preprocessing and filtering the sensor data] As next step the measured sensor values have to be preprocessed and filtered in order for the following algorithms to work. Sensing and overflow errors as well as outliers in the measurements should be identified and removed before further processing.
 
-\item[Segmentation]
+\item[Segmentation] As parking cars and other cases which should be classified are made up of several sensor measurements, the corresponding measurements should be grouped together and merged to segments which will be later classified.
 
-\item[Machine learning and deep learning]
+\item[Classification] Features on the created segments are calculated (for instance length, average distance and variation of the distances) and are being used to train and evaluate several machine learning algorithms which will be compared on their performance. Furthermore, some deep learning models will also be evaluated on the raw sensor data of the segments and will be compared to common machine learning results.
+
+\item[Post processing] \todo{todo}
 
 \end{description}
 
