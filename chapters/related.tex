@@ -15,7 +15,17 @@ There already exist numerous approaches to detecting the states of parking space
 \subsection{Stationary Park Sensing}
 \label{sec:stationary_park_sensing}
 
+The most obvious and technically simple solution to park sensing is to use stationary sensors to determine the state of parking spaces. Usually one sensor per parking space is used which determines its state and sends it to a central server. However, some approaches exist where one sensor senses several parking spaces close to each other. Reference projects of both solutions will be discussed in this section.
+
+In San Francisco a first prototype of the SFpark project \cite{SFPark} has been implemented from 2008 to 2011. In specific down town areas in San Francisco with high traffic, wireless stationary sensors have been placed at about 8.200 road side parking spaces. These sensors are able to detect the state of one parking space in real time and send this information to a central server. Furthermore, parking garages also counted the in- and outgoing vehicles and shared this information, so that the parking situation in the areas with park sensing can be derived. The gained information has been shared as open data, so third party developers and researchers can also use the dataset for all kind of projects. Furthermore, from SFpark itself, there exists an App to help drivers find available nearby parking spaces, navigate to it and pay as they go with their phones. 
+
 SFPark, London, Streetline, Google Open Spot
+
+Advantages:
+Highly accurate. Real-time.
+
+Disadvantages:
+Highly inefficient. Only metered parking spaces. High costs.
 
 multi-classifier image detection system\cite{stationary_camera_sensing}
 
