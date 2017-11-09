@@ -8,28 +8,29 @@ This chapter will cover work related to park sensing and machine learning. Secti
 \section{Approaches to Park Sensing}
 \label{sec:parksensing}
 
-There already exist numerous approaches to detecting the states of parking spaces as well as the parking situation in a city. In this section parking detection approaches will be categorized in five different categories and in the following subsections several reference papers for all categories will be discussed. The first section about stationary park sensing (section \ref{sec:stationary_park_sensing}) will reference approaches where sensors are stationary deployed per parking space or parking area. Section \ref{sec:counting_in_out_park_sensing} will discuss counting in- and outgoing vehicles to coarsely detect parking space counts. Another approach is to detect certain events (for instance parking and unparking) to estimate parking space counts. Section \ref{sec:event_detection_park_sensing} will discuss several related papers in this area. Drive-by sensing will be discussed in sections \ref{sec:related_driveby_park_sensing_cameras} and \ref{sec:related_driveby_park_sensing_distance}. Using cameras to detect parking spaces while driving by will be referenced in section \ref{sec:related_driveby_park_sensing_cameras}, while section \ref{sec:related_driveby_park_sensing_distance} will cover using distance sensors. \todo{evtl. comparison, advantages, disadvantages section}
+There already exist numerous approaches to detecting the states of parking spaces as well as the parking situation in a city. In this section parking detection approaches will be categorized in five different categories and in the following subsections several reference papers for all categories will be discussed. The first section about stationary park sensing (section \ref{sec:stationary_park_sensing}) will reference approaches where sensors are stationary deployed per parking space. Section \ref{sec:stationary_park_sensing_cameras} will cover camera-based systems which detect parking spaces in a dedicated area. Counting in- and outgoing vehicles to coarsely estimate parking space counts is discussed in section \ref{sec:counting_in_out_park_sensing}. Another approach is to detect certain events (for instance parking and unparking) to estimate parking space counts. Section \ref{sec:event_detection_park_sensing} will discuss several related papers in this area. Drive-by sensing will be discussed in sections \ref{sec:related_driveby_park_sensing_cameras} and \ref{sec:related_driveby_park_sensing_distance}. Using cameras to detect parking spaces while driving by will be referenced in section \ref{sec:related_driveby_park_sensing_cameras}, while section \ref{sec:related_driveby_park_sensing_distance} will cover using distance sensors. \todo{evtl. comparison, advantages, disadvantages section}
 
 
 
 \subsection{Stationary Park Sensing}
 \label{sec:stationary_park_sensing}
 
-The most obvious and technically simple solution to park sensing is to use stationary sensors to determine the state of parking spaces. Usually one sensor per parking space is used which determines its state and sends it to a central server. However, some approaches exist where one sensor (a camera) senses several parking spaces close to each other. Reference projects of both solutions will be discussed in this section.
+The most obvious and technically simple solution to park sensing is to use stationary sensors to determine the state of parking spaces. Usually one sensor per parking space is used which determines its state and sends it to a central server. In the following paragraphs a few reference projects will be discussed.
 
 In San Francisco a first prototype of the SFpark project \cite{SFPark} has been implemented from 2008 to 2011. In specific down town areas in San Francisco with high amounts of traffic, wireless stationary sensors have been placed at about 8.200 road side parking spaces. These sensors are able to detect the state of one parking space in real time and send this information to a central server. Furthermore, parking garages also count the in- and outgoing vehicles and shared this information, so that the parking situation in the areas with park sensing can be derived. The gained information is being shared as open data, so third party developers and researchers can also use the dataset for all kind of projects. Furthermore, there exists an App from SFpark itself to help drivers find available nearby parking spaces, navigate to it and pay as they go with their phones. 
 
 A top priority goal of the SFpark project is to increase the availability of parking spaces in every block throughout the city. To achieve this goal, they are using demand responsive pricing. If (almost) all parking spaces in a neighbourhood are occupied for a long time, they raise the price in this specific area and vice versa if no parking spaces are occupied they lower prices. This leads to high overall parking space availabilities (20 - 40\%) and also to lower traffic congestion and $CO_2$ emissions. However, besides the advantages of high accuracy and being a real time system, there also are disadvantages. First of all, only metered parking spaces can be tracked, as sensors have to be installed per parking space, so areas where parking is allowed but there are no clearly marked parking spaces cannot be sensed with a reasonable accuracy. Furthermore, another big drawback are the high overall costs. The about 8.200 stationary sensors have to be bought, installed and maintained, which obviously causes high costs while only covering a tiny fraction of the overall San Francisco down town. So if the system should be available in the whole down town, costs would increase dramatically.
 
-There also exist a lot of similar projects which deploy stationary sensors at a high range. 
+Google Open Spot, London,
 
-London, Streetline, Google Open Spot
 
-Advantages:
-Highly accurate. Real-time.
 
-Disadvantages:
-Highly inefficient. Only metered parking spaces. High costs.
+\subsection{Stationary Park Sensing using Cameras}
+\label{sec:stationary_park_sensing_cameras}
+
+Another approach while using stationary sensors is to use cameras which record images of a parking scene and analyze it for parking spaces. 
+
+ Streetline, 
 
 multi-classifier image detection system\cite{stationary_camera_sensing}
 
