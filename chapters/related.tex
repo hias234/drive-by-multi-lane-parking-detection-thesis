@@ -51,7 +51,7 @@ In recent years deep learning, which is a specific variant of neural networks, g
 
 In 2016 Amato et al. \cite{Amato2016} trained two different CNNs on classifying parking space states and compared their performances afterwards. They used the publicly available PKLot dataset as well as a dataset collected by themselves to train and evaluate their neural networks. In total they had over 700.000 images in different weather conditions and with different levels of quality (in some situations parking lots were almost fully occluded by trees or lamp posts, etc.). Results of the CNN's classifications were promising. Despite the fact that some of the images did not exactly match the parking space and there were a lot of occlusions, the best performing deep neural network gained an accuracy of above 91\% on all subsets of the datasets. 
 
-Another work in the field of deep learning has been done by Di Mauro also in 2016 \cite{DiMauro2016}. They also used CNNs and the PKLot dataset as well as a self acquired dataset. However, they had a slightly different CNN as they also used a technique called pseudo-labelling of the data which can be seen as semi-supervised approach. When using pseudo-labelling both labelled and unlabelled data are used at the same time to train the network. For unlabelled data the label which was computed by the CNN in the forward pass is used, that is also why it is called pseudo-labelling. Furthermore, a different loss function has to be used as the pseudo labelled data has much less significance than the ground truth labelled data. Di Mauro et al. trained the CNN with about 5\% of the data and achieved an accuracy of above 96\% with a the fully supervised approach. The pseudo-labelling approach reached about the same levels of accuracy, but the dataset had to be balanced for it to work.
+Another work in the field of deep learning has been done by Di Mauro also in 2016 \cite{DiMauro2016}. They also used CNNs and the PKLot dataset as well as a self acquired dataset. However, they had a slightly different CNN as they also used a technique called pseudo-labelling of the data which can be seen as semi-supervised approach. When using pseudo-labelling both labelled and unlabelled data are used at the same time to train the network. For unlabelled data the label which was computed by the CNN in the forward pass is used, that is also why it is called pseudo-labelling. Furthermore, a different loss function has to be used as the pseudo labelled data has much less significance than the ground truth labelled data. Di Mauro et al. trained the CNN with about 5\% of the data and achieved an accuracy of above 96\% with a the fully supervised approach. The pseudo-labelling approach reached about the same levels of accuracy, however the dataset had to be balanced for it to work properly.
 
 
 \paragraph{Advantages and Disadvantages of using stationary Cameras}
@@ -62,9 +62,17 @@ As described in this section, there is already a lot of research how cameras can
 
 
 
-\subsection{Counting Vehicles}
+\subsection{Counting In- and Outgoing Vehicles}
 \label{sec:counting_in_out_park_sensing}
-smart urban parking detection \cite{smarturbanparkingdetection}
+
+A rather simple approach of estimating the number of free parking spaces is to count in- and outgoing vehicles at parking zones. Zadeh et al. \cite{smarturbanparkingdetection} developed a prototype which counts all in- and outgoing vehicles using a Raspberry Pi and two ultrasonic range finders at each gate. Ultrasonic sensors measure the distance from the side of the road to a potentially passing vehicle. Two ultrasonic sensors are needed to detect if a vehicle is going in or out. According to the order in which the ultrasonic sensors detect a passing vehicle it is decided whether a vehicle is going in or out. Furthermore, the two sensors are also used to differentiate a passing person from a vehicle. Both sensors are as far apart as they can detect a vehicle at the same time but not a person. Using this technique misleading detections of passengers are filtered.
+
+As described this technique is technically simple to develop and the hardware costs are also quite cheap. However, this system is only designed for parking areas which have a low number of gates where cars go in and out and not for a city wide deployment. For closed parking areas it is easy to detect in- and outgoing vehicles whereas it is hard to do so in open traffic and street scenarios. Furthermore, the counting also will not work with ultrasonic sensors in open street scenarios as there are often several lanes, which would make the sensing impossible as passing cars would possibly occlude each other.
+
+
+
+
+
 
 \subsection{Event Detection based Park Sensing using Smartphones}
 \label{sec:event_detection_park_sensing}
@@ -74,6 +82,12 @@ updetection\cite{Ma:2014:USP:2674918.2674929}
 parsense \cite{Nawaz:2013:PSB:2500423.2500438}
 
 pocketparker \cite{Nandugudi:2014:PPP:2632048.2632098}
+
+
+
+
+
+
 
 \subsection{Drive-by Park Sensing using Cameras}
 \label{sec:related_driveby_park_sensing_cameras}
