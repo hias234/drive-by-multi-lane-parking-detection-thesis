@@ -140,11 +140,15 @@ parknet... \cite{Mathur:2010:PDS:1814433.1814448}
 
 \section{Limitations of current Park Sensing Approaches}
 
-
+%The previous section (\ref{sec:parksensing}) discussed several approaches to the problem of sensing a city's parking availability situation. In this section, limitations of currently available approaches will be discussed. 
 
 
 
 \section{Acquiring Parking Space Maps}
+
+Parking space maps are of great importance when sensing a city's parking availability. Knowing where parking is allowed and how parking is possible is crucial information for park sensing approaches. Several of the in section \ref{sec:parksensing} discussed approaches use some kind of parking space map. Coarsely grained parking maps in the form of parking space counts for road segments/parking lots are necessary for several approaches, like the counting all in- and outing vehicles approach discussed in section \ref{sec:counting_in_out_park_sensing}. Furthermore, such information is also necessary for event-based park sensing (section \ref{sec:event_detection_park_sensing}) as well as drive-by sensing (sections \ref{sec:related_driveby_park_sensing_cameras} and \ref{sec:related_driveby_park_sensing_distance}). Of course parking space maps with a higher granularity can be beneficial in most cases and is sometimes even necessary. The exact position and orientation of parking spaces can increase the performance of several approaches drastically.
+
+Most previously discussed papers assume that such parking space maps are already available, for example at city authorities. However, even if a city authority has a parking space map of their road side parking spaces, that does not mean that it is ready for processing or containing the necessary information. That is why Coric et al. \cite{Coric2013} developed an algorithm to derive parking space maps from the data stream of an ultrasonic range finder. They used the same equipment as ParkNet \cite{Mathur:2010:PDS:1814433.1814448} to record GPS and distance information to the right side of the road. Using this test bed, they acquired two datasets in Highland Park, New Jersey and in Brooklyn in New York City. 
 
 crowdsensing maps of on-street parking spaces
 
