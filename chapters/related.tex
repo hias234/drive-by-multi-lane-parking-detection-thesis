@@ -121,7 +121,7 @@ Grassi et al. evaluated their prototype with real world experiments in Paris, Lo
 
 \paragraph{Advantages and disadvantages of camera based drive-by park sensing}
 
-As only the last approach discussed in this section, is designed for parking space availability estimation, this paragraph will be focused only on ParkMaster's advantages and disadvantages. The main arguments, Grassi et al. give to promote their approach is the high enough accuracy and that high hardware costs can be avoided, because of the use of smartphones of end users as processing devices. If smartphones are used, costs would be lower, however, as already discussed in section \ref{sec:event_detection_park_sensing}, smartphone apps would need to have a high enough distribution for enough drivers to sense available parking space. Furthermore, drivers would have to mount their phone each time they drive through the city and this obviously also costs a lot of battery hours. Therefore, it is not sure if a smartphone based system would give a good enough coverage. Of course dedicated cameras could be used as part of a hardware installation in a car, but this would of course introduce new costs, while still keeping costs lower than with stationary sensor deployments.
+As only the last approach discussed in this section, is designed for parking space availability estimation, this paragraph will be focused only on ParkMaster's advantages and disadvantages. The main arguments, Grassi et al. give to promote their approach is the high enough accuracy and that high hardware costs can be avoided, because of the use of smartphones of end users as processing devices. If smartphones are used, costs would be lower, however, as already discussed in section \ref{sec:event_detection_park_sensing}, smartphone apps would need to have a high enough distribution for enough drivers to sense available parking space. Furthermore, drivers would have to mount their phone each time they drive through the city and this obviously also costs a lot of battery hours. Therefore, it is not sure if a smartphone based system would give a good enough coverage. Of course dedicated cameras could be used as part of a hardware installation in a car, but this would of course introduce new costs, while still keeping costs lower than with stationary sensor deployments. Further limitations of drive-by park sensing in general will be discussed section \ref{sec:limitations_driveby_sensing}.
 
 
 
@@ -140,9 +140,28 @@ To show that their system is more cost effective than stationary sensor deployme
 
 \paragraph{Advantages and disadvantages using distance sensor based drive-by park sensing}
 
+As already discussed ParkNet is much more cost effective than stationary sensor deployments while providing a sufficient accuracy in down town areas with enough sensing vehicles. In contrast to camera based drive-by sensing a higher accuracy can be achieved, due to the fact that distance information is available and therefore free spaces can be identified. Camera based drive-by sensing can only detect cars and then estimate the vacant parking spaces using an overall count of parking spaces per road segment. Furthermore, ParkNet is also able to assign parked cars to single parking spaces. This enables better parking analytics and may be also used by parking enforcement to spot illegally parked cars. Limitations of drive-by park sensing in general will be discussed in the next section.
 
 
-\subsection{Comparison and limitations of the existing park sensing approaches}
+\subsection{Limitations of current drive-by park sensing approaches}
+\label{sec:limitations_driveby_sensing}
+
+In this section limitations which apply to both camera based- and distance sensor based drive-by park sensing will be discussed.
+The first limitation is based on the cars which are detectable. Drive-by sensing approaches currently only try to detect parallel parking cars. Even if in most cities parallel parking spaces are the most prominent type of parking spaces, obviously there exist a lot of other parking spaces (the different types of parking spaces are shown in figure \ref{fig:types_of_parking_cars}). Camera-based drive-by sensing would have to also learn to detect images of such parking cars and distance sensor based drive-by sensing would have to be much more variable in terms of length of detected cars as well as the patterns of the detected distance to the obstacle. For instance, in the case of angular parking spaces, the discussed approach of distance sensor based drive-by sensing would not work as they only apply thresholding and therefore it is likely that such parking spaces would not be detected correctly.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/types-of-parking-cars.eps}
+	\caption{Different types of parking cars}
+	\label{fig:types_of_parking_cars}
+\end{figure}
+
+Another limitation for drive-by sensing are multi-lane roads. All the discussed drive-by sensing approaches only work when the sensing vehicle drives in the right-most lane
+
+
+
+
+\subsection{Comparison of the existing park sensing approaches}
 
 Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the park sensing approaches which were discussed in this section. All of the above discussed approaches show high accuracy (>= 90\%) but not all of them are suited for all kinds of park sensing. For instance, the drive-by approaches are not able to detect parking availabilities in dedicated parking lots or parking garages whereas vehicle counting cannot detect the parking situation of road side parking spaces and thus a city's overall parking situation. 
 
@@ -209,19 +228,6 @@ The costs of the different approaches also varies highly. Approaches with statio
 
 
 
-\section{Limitations of current drive-by park sensing approaches}
-
-%TODO
-Most of the in the previous section discussed approaches to park sensing can be used designed for city-wide deployments and to sense road side parking spaces as shown in table \ref{table:comparison_park_sensing_approaches}. However, the different approaches also have various limitations in their design which currently makes it not feasible to deploy them on a larger city-wide scale. For example, all the discussed drive-by sensing approaches only try to detect parallel parking cars. Even if in most cities parallel parking spaces are the most prominent type of parking spaces, obviously there exist a lot of other parking spaces (the different types of parking spaces are shown in figure \ref{fig:types_of_parking_cars}). Camera-based drive-by sensing would have to also learn to detect images of such parking cars and distance sensor based drive-by sensing would have to be much more variable in terms of length of detected cars as well as the patterns of the detected distance to the obstacle. For instance, in the case of angular parking spaces, the discussed approach of distance sensor based drive-by sensing would not work as they only apply thresholding and therefore it is likely that such parking spaces would not be detected correctly.
-
-Another limitation for drive-by sensing are multi-lane roads. All the discussed drive-by sensing approaches only work when the sensing vehicle drives in the right-most lane
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{img/types-of-parking-cars.eps}
-	\caption{Different types of parking cars}
-	\label{fig:types_of_parking_cars}
-\end{figure}
 
 
 
