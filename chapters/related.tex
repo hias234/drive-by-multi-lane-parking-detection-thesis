@@ -156,7 +156,7 @@ The first limitation is based on the cars which are detectable. Drive-by sensing
 	\label{fig:types_of_parking_cars}
 \end{figure}
 
-Another limitation for drive-by sensing are multi-lane roads. All the discussed drive-by sensing approaches only work when the sensing vehicle drives in the right-most lane
+Another limitation of drive-by sensing are multi-lane roads. All of the discussed drive-by sensing approaches only work when the sensing vehicle drives in the right-most lane. In modern cities, there are often multiple lanes and GPS is too inaccurate to estimate the lane, where a vehicle is going. Therefore, to work properly lane detection would have to performed to be able to work on multi lane roads. However, it would be preferable to have a algorithm which also works in other lanes than the right most as then the coverage of detections would be greater. For algorithms to work on non-right lanes, they also have to face several distractions. Of course, the distances to parking cars will be greater if the sensing vehicle is going on a left lane. Additionally, when a sensing vehicle overtakes another car which is going slower, it will record the distances to this vehicle instead of the distance to parked cars. Furthermore, also distractions such as traffic lights or traffic jams have to be taken into account for a real life installation of such prototypes.
 
 
 
