@@ -135,11 +135,9 @@ Another approach of drive-by sensing is to use a distance sensor instead of a ca
 parknet... \cite{Mathur:2010:PDS:1814433.1814448}
 
 
-\subsection{Comparison of the existing park sensing approaches}
+\subsection{Comparison and limitations of the existing park sensing approaches}
 
 Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the park sensing approaches which were discussed in this section. All of the above discussed approaches show high accuracy (>= 90\%) but not all of them are suited for all kinds of park sensing. For instance, the drive-by approaches are not able to detect parking availabilities in dedicated parking lots or parking garages whereas vehicle counting cannot detect the parking situation of road side parking spaces and thus a city's overall parking situation. 
-
-The costs of the different approaches also varies highly. Approaches with stationary sensors usually have the highest accuracy, but also bring the highest costs. Event-based sensing operates on very low costs because it usually uses smartphones as sensing and processing devices. However, to reach a high accuracy a lot of people have to sense parking events. Furthermore, such apps will also drain the user's battery faster than usual. Drive-by park sensing approaches are in the medium cost range because the vehicles which are sensing have to be equipped with the required sensors, but in contrast to stationary sensing, much fewer sensors can reach a sufficient degree of accuracy.
 
 \begin{table}
 
@@ -198,12 +196,25 @@ The costs of the different approaches also varies highly. Approaches with statio
 \label{table:comparison_park_sensing_approaches}
 \end{table}
 
+The costs of the different approaches also varies highly. Approaches with stationary sensors usually have the highest accuracy, but also bring the highest costs. Event-based sensing operates on very low costs because it usually uses smartphones as sensing and processing devices. However, to reach a high accuracy a lot of people have to sense parking events. Furthermore, such apps will also drain the user's battery faster than usual. Drive-by park sensing approaches are in the medium cost range because the vehicles which are sensing have to be equipped with the required sensors, but in contrast to stationary sensing, much fewer sensors can reach a sufficient degree of accuracy.
 
 
 
-\section{Limitations of current Park Sensing Approaches}
 
-%The previous section (\ref{sec:parksensing}) discussed several approaches to the problem of sensing a city's parking availability situation. In this section, limitations of currently available approaches will be discussed. 
+
+\section{Limitations of current drive-by park sensing approaches}
+
+%TODO
+Most of the in the previous section discussed approaches to park sensing can be used designed for city-wide deployments and to sense road side parking spaces as shown in table \ref{table:comparison_park_sensing_approaches}. However, the different approaches also have various limitations in their design which currently makes it not feasible to deploy them on a larger city-wide scale. For example, all the discussed drive-by sensing approaches only try to detect parallel parking cars. Even if in most cities parallel parking spaces are the most prominent type of parking spaces, obviously there exist a lot of other parking spaces (the different types of parking spaces are shown in figure \ref{fig:types_of_parking_cars}). Camera-based drive-by sensing would have to also learn to detect images of such parking cars and distance sensor based drive-by sensing would have to be much more variable in terms of length of detected cars as well as the patterns of the detected distance to the obstacle. For instance, in the case of angular parking spaces, the discussed approach of distance sensor based drive-by sensing would not work as they only apply thresholding and therefore it is likely that such parking spaces would not be detected correctly.
+
+Another limitation for drive-by sensing are multi-lane roads. All the discussed drive-by sensing approaches only work when the sensing vehicle drives in the right-most lane
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/types-of-parking-cars.eps}
+	\caption{Different types of parking cars}
+	\label{fig:types_of_parking_cars}
+\end{figure}
 
 
 
