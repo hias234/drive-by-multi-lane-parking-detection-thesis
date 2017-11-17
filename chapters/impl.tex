@@ -5,19 +5,25 @@ This chapter will discuss how the prototype was designed, implemented and evalua
 
 \section{System Design}
 \label{sec:system_design}
-- System description (type of sensors, requirements); overall envisioned system of
-cars detecting free spaces and communicating the information
+
+This section will describe the envisioned system for the urban parking availability detection system. The proposed system is a mobile sensing system where sensing vehicles try to detect parking cars while driving through the city. 
+
+- System description (type of sensors, requirements); overall envisioned system of cars detecting free spaces and communicating the information
+
+\subsection{Test Bed Description}
+\label{sec:test_bed}
+
 - Testbed description (concrete HW and technical capabilities)
+
+Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\textwidth]{img/car.jpg}
+	\includegraphics[width=\textwidth]{img/car.jpg}
 	\caption{Prototype of the sensing car, which is composed of a LIDAR Lite v3 optical distance sensor, a GPS receiver, a camera for ground truth collection and a Raspberry Pi as processing device}
 	\label{fig:sensing_car}
 \end{figure}
 
-\subsection{Test Bed Description}
-\label{sec:test_bed}
 
 \section{Experiment description and data collection}
 \label{sec:experiment_description_data_collection}
