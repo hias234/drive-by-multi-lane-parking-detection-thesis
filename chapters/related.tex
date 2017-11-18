@@ -5,14 +5,14 @@ This chapter will cover work related to park sensing and machine learning. Secti
 
 
 
-\section{Approaches to Park Sensing}
+\section{Approaches to park sensing}
 \label{sec:parksensing}
 
 There already exist numerous approaches for detecting the states of parking spaces as well as the parking situation in a city. In this section parking detection approaches will be categorized in six different categories and in the following subsections several reference papers for all categories will be discussed. The first section about stationary park sensing (section \ref{sec:stationary_park_sensing}) will reference approaches where sensors are stationary deployed per parking space. Section \ref{sec:stationary_park_sensing_cameras} will cover camera-based systems which detect parking spaces in a dedicated parking area. Counting in- and outgoing vehicles to coarsely estimate parking space counts is discussed in section \ref{sec:counting_in_out_park_sensing}. Another approach is to detect certain events (for instance parking and unparking) to estimate parking space counts. Section \ref{sec:event_detection_park_sensing} will discuss several related papers in this area. Drive-by sensing will be discussed in sections \ref{sec:related_driveby_park_sensing_cameras} and \ref{sec:related_driveby_park_sensing_distance}. Using cameras to detect parking spaces while driving by will be referenced in section \ref{sec:related_driveby_park_sensing_cameras}, while section \ref{sec:related_driveby_park_sensing_distance} will cover using distance sensors. Limitations of both drive-by sensing approaches will be discussed in section \ref{sec:limitations_driveby_sensing} and an overall comparison of all discussed approaches will be given in section \ref{sec:comparison_park_sensing_approaches}.
 
 
 
-\subsection{Stationary Park Sensing}
+\subsection{Stationary park sensing}
 \label{sec:stationary_park_sensing}
 
 The most obvious and technically simple solution to park sensing is to use stationary sensors to determine the state of parking spaces. Usually one sensor per parking space is used which determines its state (occupied or vacant) and sends it to a central server. Several reference projects already exist \cite{SFPark, VehicleSense} implementing this technique. In this section as a representation of all the similar systems, the SFpark project will be examined.
@@ -27,12 +27,12 @@ A top priority goal of the SFpark project is to increase the availability of par
 
 
 
-\subsection{Stationary Park Sensing using Cameras}
+\subsection{Stationary park sensing using cameras}
 \label{sec:stationary_park_sensing_cameras}
 
 Another approach while using stationary sensors is to use fixed deployed cameras which continuously record images of parking areas and analyze them for vacant parking spaces. Cameras can monitor up to one hundred parking spaces simultaneously with an accuracy up to 96\%. Challenges of image detection are of course different lightning and weather conditions as well as occlusions depending on the angle which the camera records the parking scene. Detection algorithms using standard digital image processing will be discussed in this section as well as approaches using deep learning and convolutional neural networks (CNNs).
 
-\paragraph{Parking Detection using Digital Image Processing}
+\paragraph{Parking detection using digital image processing}
 
 There exist a few common approaches using digital image processing to detect the state of parking spaces using a captured image of a parking area. First of all, edge detection is often used for parking space classification. Common edge detectors such as Canny Edge Detector or Sobel can be used to derive the edge pixels of an image. As next step the edges or edge pixels are counted and if they are above a certain threshold, the space will be detected as occupied. The assumption behind this approach is, that usually a vacant parking space has a plain surface and therefore a low amount of edges whereas a image of a parking car should have a lot of edges. Blumer et al. \cite{Blumer2012} and Liu et al. \cite{stationary_camera_sensing} both used this technique as part of their algorithms. 
 
@@ -45,7 +45,7 @@ Liu et al. \cite{stationary_camera_sensing} used all of the above mentioned tech
 %\cite{Marmol2016}  Streetline, 
 %arm smart camera \cite{stationary_camera_sensing_arm_smart_camera}
 
-\paragraph{Parking Detection using Deep Learning and CNNs}
+\paragraph{Parking detection using deep learning and CNNs}
 
 In recent years deep learning, which is a specific variant of neural networks, gained a lot of significance in the field of machine learning. For example in image recognition, convolutional neural networks (CNNs) preform nowadays as well as humans in classifying everyday objects in digital images. A CNN is a neural network with a possibly large amount of hidden layers of which some of them are convolutional layers, which take into account the spatial relationships between neighbouring pixels (in the case of image recognition). This rise in learning power also leads to projects which try to train CNNs in classifying the states of parking spaces while using camera images of a parking area.
 
@@ -54,7 +54,7 @@ In 2016 Amato et al. \cite{Amato2016} trained two different CNNs on classifying 
 Another work in the field of deep learning has been done by Di Mauro also in 2016 \cite{DiMauro2016}. They also used CNNs and the PKLot dataset as well as a self acquired dataset. However, they had a slightly different CNN as they also used a technique called pseudo-labelling of the data which can be seen as semi-supervised approach. When using pseudo-labelling both labelled and unlabelled data are used at the same time to train the network. For unlabelled data the label which was computed by the CNN in the forward pass is used, that is also why it is called pseudo-labelling. Furthermore, a different loss function has to be used as the pseudo labelled data has much less significance than the ground truth labelled data. Di Mauro et al. trained the CNN with about 5\% of the data and achieved an accuracy of above 96\% with a the fully supervised approach. The pseudo-labelling approach reached about the same level of accuracy, however, the dataset had to be balanced for it to work properly.
 
 
-\paragraph{Advantages and Disadvantages of using stationary Cameras}
+\paragraph{Advantages and disadvantages of using stationary cameras}
 
 As described in this section, there exists already a lot of research how cameras can be used to classify the states of parking spaces. Advantages of cameras are the high level of accuracy they reach while covering a lot of cars at once. However, for all of the above discussed approaches to work cameras would have to manually calibrated before usage to know where parking spaces are. Furthermore, most of the research focused on the use of cameras for detection the parking space situation of a single parking lot with many cars rather than for road side parking spaces. For this approach to work at a city wide scope, cameras would have to be mounted at least at every block. Similar to the dedicated sensors per parking space (section \ref{sec:stationary_park_sensing}) this would cause high costs not only in the form of hardware but also in installation and maintenance costs. Furthermore, mounting cameras throughout the city obviously brings up privacy issues.
 
@@ -62,7 +62,7 @@ As described in this section, there exists already a lot of research how cameras
 
 
 
-\subsection{Counting In- and Outgoing Vehicles}
+\subsection{Counting in- and outgoing vehicles}
 \label{sec:counting_in_out_park_sensing}
 
 A rather simple approach of estimating the number of free parking spaces is to count in- and outgoing vehicles at parking zones. Zadeh et al. \cite{smarturbanparkingdetection} developed a prototype which counts all in- and outgoing vehicles using a Raspberry Pi and two ultrasonic range finders at each gate. Ultrasonic sensors measure the distance from the side of the road to a potentially passing vehicle. Two ultrasonic sensors are needed to detect if a vehicle is going in or out. According to the order in which the ultrasonic sensors detect a passing vehicle it is decided whether a vehicle is going in or out. Furthermore, the two sensors are also used to differentiate a passing person from a vehicle. Both sensors are as far apart as they can detect a vehicle at the same time but not a person. Misleading detections of passengers are filtered using this technique.
@@ -74,7 +74,7 @@ As described this approach is technically simple to develop and the hardware cos
 
 
 
-\subsection{Event Detection based Park Sensing using Smartphones}
+\subsection{Event detection based park sensing using smartphones}
 \label{sec:event_detection_park_sensing}
 
 Detecting parking and unparking events using a driver's smartphone is another approach to estimate parking space availabilities, which is especially interesting because nowadays almost everybody has a personal smartphone. As soon as these parking related information is available for a high enough rate of drivers, a city's parking availability situation can be roughly estimated. There already exist a few research papers which discuss different approaches to this topic. Three of these will be discussed in this section.
@@ -83,13 +83,13 @@ In 2013 Nawaz et al. developed ParkSense \cite{Nawaz:2013:PSB:2500423.2500438} w
 
 A similar approach to the problem of parking related event detection has been done by Ma et al. \cite{Ma:2014:USP:2674918.2674929} in 2014. The overall goal of this research paper was to robustly identify parking and unparking events using different sensors of a typical smartphone. They identified in total nine indicators which could give hints whether a parking/unparking event occurred. For instance, they used several accelerometer measurements to identify the change of the user from walking to driving and vice versa. Other indicators used were the Bluetooth signal strength of the car, sounds of a started motor sensed via a smartphone's microphone, Wifi fingerprints and accessing parking payment apps. To decrease the amount of energy consumed by the application, certain low power sensors (e.g. accelerometer) measured periodically while other high consumption sensors (e.g. microphone) only confirmed or rejected events which were already sensed by low power sensors. Using all indicators, Ma et al. built a model based on conditional probabilities which should be able to show the probability of an event at a certain time. To evaluate their approach, they developed an Android application which they used to manually collect their ground truth events. They then used 40 parking samples to train their model and tested it on 60 other samples. Their best configuration achieved 93\% recall and 90\% precision on parking events and 81\% recall and 93\% precision on unparking events.
 
-\paragraph{Estimating Events by non-tracked Drivers}
+\paragraph{Estimating events by non-tracked drivers}
 
 All of the above mentioned approaches would only work if almost all drivers in a specific city would have had the respective smartphone app installed, so that all parking and unparking events could be detected. That way the states of all parking spaces would be known and parking availability could be derived. However, this is highly unlikely as people would have to know that such an app exists in the first place and furthermore there is no instant positive effect of having such an application installed for a single user. Such an app might also have a negative influence on the battery life of a user's smartphone even if all of the above applications are designed for a low power consumption. 
 
 Facing this problem in 2014 Nandugudi et al. proposed PocketParker \cite{Nandugudi:2014:PPP:2632048.2632098}, a smartphone application which should not only detect parking and unparking events but also estimate the amount of so called "hidden drivers" - drivers that do not have the application installed. PocketParker uses a simple model to detect parking and unparking events. It uses the Google Play Services activity recognition library to detect changes from driving to walking and vice versa and thus derives parking and unparking events. After this information is available, PocketParker tries to estimate the amount of drivers having the application installed, so that all detected events could be scaled to the right proportion and taken into the overall parking estimation process. The PocketParker app not only identifies the parking space location, but also the user's end target after parking his vehicle. That way they want to identify parking spaces which would be nearer to the end destination of the user, but probably are occupied since the user parked further away and did not take the closest parking space. Using this approach PocketParker derives parking space counts at dedicated parking lots. The overall parking space count of these parking lots is known before. To evaluate its performance Nandugudi et al. performed an experiment at their university's parking lot. 105 users generated 10.827 events over 45 days, therefore an average of 241 events per day. They used cameras to identify the ground truth and then evaluated their results against it. With an estimated driver fraction (drivers which had the app installed) of about 20\%, they achieved a parking space count accuracy of about 94\% for the university's parking lot.
 
-\paragraph{Advantages and Disadvantages of using an event-based Approach}
+\paragraph{Advantages and disadvantages of using an event based approach}
 
 There are obviously a number of advantages using smartphones to detect parking availabilities. Nowadays almost everybody has at least one smartphone which he/she carries around all day. Therefore, smartphones are the optimal sensing devices for detecting a user's activities throughout the day. Also parking and unparking activities can be detected and parking availabilities can be derived. The whole detection process would cause no additional costs for hardware installations and maintenance for city authorities. Furthermore, the detection process could all be done without the user even noticing, because the detection process could theoretically run fully as a background process. 
 
@@ -100,7 +100,7 @@ However, a big concern of mobile applications is power usage. Activity detection
 
 
 
-\subsection{Drive-by Park Sensing using Cameras}
+\subsection{Drive-by park sensing using cameras}
 \label{sec:related_driveby_park_sensing_cameras}
  
 In contrast to approaches with stationary sensors which were discussed in sections \ref{sec:stationary_park_sensing} and \ref{sec:stationary_park_sensing_cameras}, drive-by sensing approaches use sensors which are mounted on vehicles driving through the city to sense vacant and occupied parking spaces. Using such mobile sensors has the goal of achieving a high enough accuracy at a fraction of the costs of stationary solutions. In this section the usage of cameras mounted on driving vehicles to detect parking spaces is discussed.
@@ -127,7 +127,7 @@ As only the last approach discussed in this section, is designed for parking spa
 
 
 
-\subsection{Drive-by Park Sensing using Distance Sensors}
+\subsection{Drive-by park sensing using distance sensors}
 \label{sec:related_driveby_park_sensing_distance}
 
 Another approach of drive-by sensing is to use a distance sensor instead of a camera as discussed in the previous section. Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed such a prototype, called ParkNet, in 2010. It consists of an ultrasonic range finder which measures the distance to the nearest obstacle on the right side of the road and a GPS receiver which records the corresponding locations. Furthermore, a camera was used for obtaining ground truth information through manual tagging of the captured images. Distance measurements are taken continuously at an interval of about 50 milliseconds (20 measurements per second). Mathur et al. deployed their system on a standard car, which collected test data in drives during daily commuting throughout 2 months in selected areas in Highland Park, New Jersey. Altogether, about 500 miles of street parking scenes were collected during their test period. 
@@ -233,7 +233,7 @@ Drive-by park sensing approaches are in the medium cost range because the vehicl
 
 
 
-\section{Acquiring Parking Space Maps}
+\section{Acquiring parking space maps}
 \label{sec:acquiring_parking_space_maps}
 
 Parking space maps are of great importance when sensing a city's parking availability. Knowing where parking is allowed and how parking is possible is crucial information for park sensing approaches. Several of the in section \ref{sec:parksensing} discussed approaches use some kind of parking space map. Coarsely grained parking maps in the form of parking space counts for road segments/parking lots are necessary for several approaches, like the counting all in- and outing vehicles approach discussed in section \ref{sec:counting_in_out_park_sensing}. Furthermore, such information is also necessary for event-based park sensing (section \ref{sec:event_detection_park_sensing}) as well as drive-by sensing (sections \ref{sec:related_driveby_park_sensing_cameras} and \ref{sec:related_driveby_park_sensing_distance}). Of course parking space maps with a higher granularity can be beneficial in most cases and are sometimes even necessary. For instance, the exact position and orientation of parking spaces can increase the performance of drive-by sensing.
@@ -248,5 +248,5 @@ Using sensor readings from several runs they try to aggregate this data to deriv
 
 
 
-\section{Machine Learning}
+\section{Machine learning}
 
