@@ -3,12 +3,25 @@
 
 As already discussed in chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. In this thesis a prototype of drive-by sensing using an optical distance sensor was designed, implemented and evaluated.
 
-This chapter will describe the setup and implementation of the prototype. In particular, section \ref{sec:system_design} will discuss the overall envisioned system, the prototype car and the required sensors with their capabilities. In section \ref{sec:experiment_description_data_collection} the experimental setup will be discussed as well as the acquiring of the test dataset through test drives in the city of Linz, Austria. Finally, section \ref{sec:data_processing} will describe the preprocessing of the data, definition of the features and a short description of all used machine learning algorithms with their configurations. \todo{update :)}
+This chapter will describe the setup and implementation of the prototype. In particular, section \ref{sec:system_design} will discuss the overall envisioned system, the prototype car and the required sensors with their capabilities. In section \ref{sec:experiment_description_data_collection} the experimental setup will be discussed as well as the acquiring of the test dataset through test drives in the city of Linz, Austria. Finally, section \ref{sec:data_processing} will describe the preprocessing of the data, definition of the features and a short description of all used machine learning algorithms with their configurations. 
+\todo{update :)}
+
+
+
 
 \section{System design}
 \label{sec:system_design}
 
-This section will describe the envisioned system for the urban parking availability detection system. The proposed system is a mobile sensing system where sensing vehicles try to detect parking cars while driving through the city. The sensing vehicles are equipped with several sensors. Most importantly an optical distance sensor measures the distance to the nearest obstacle on the right side of the road continuously while the vehicle is driving through the city. Furthermore, a GPS receiver determines the corresponding positions. 
+%This section will describe the envisioned system for the urban parking availability detection system. The proposed system is a mobile sensing system where sensing vehicles try to detect parking cars while driving through the city. The sensing vehicles are equipped with several sensors. Most importantly an optical distance sensor measures the distance to the nearest obstacle on the right side of the road continuously while the vehicle is driving through the city. Furthermore, a GPS receiver determines the corresponding position. 
+
+This section will describe the envisioned system for the urban parking availability detection system.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/envisioned-system.eps}
+	\caption{Envisioned system of several vehicles driving through the city and sensing its parking availability situation}
+	\label{fig:envisioned_system}
+\end{figure}
 
 - System description (type of sensors, requirements); overall envisioned system of cars detecting free spaces and communicating the information
 
