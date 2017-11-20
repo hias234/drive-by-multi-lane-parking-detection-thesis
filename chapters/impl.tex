@@ -14,7 +14,10 @@ This chapter will describe the setup and implementation of the prototype. In par
 
 %This section will describe the envisioned system for the urban parking availability detection system. The proposed system is a mobile sensing system where sensing vehicles try to detect parking cars while driving through the city. The sensing vehicles are equipped with several sensors. Most importantly an optical distance sensor measures the distance to the nearest obstacle on the right side of the road continuously while the vehicle is driving through the city. Furthermore, a GPS receiver determines the corresponding position. 
 
-This section will describe the envisioned system for the urban parking availability detection system.
+This section will describe the envisioned system for the urban parking availability detection system. Figure \ref{fig:envisioned_system} shows an overview of how a drive-by sensing system could work. On the left a scene of urban streets is depicted, where cars are parking beside the road and sensing vehicles sense parking cars while they are driving by. The sensing vehicles operate by using an optical distance sensor which is continuously measuring the distance to the nearest obstacle on the right side of the road. Furthermore, a GPS receiver determines the corresponding position. This information is used for the analysis of the parking situation and parking cars and vacant parking spaces are being derived with the recorded sensor data.
+
+The parking analysis can be performed by each sensing vehicle for itself. After obtaining the results, all the derived information may be sent to central server, which then combines the data of all sensing vehicles and computes a parking availability map. This map of free and vacant parking spaces can then be used for showing users the current parking situation (e.g. through a web application) before they even decide if they go by car or by public transport. Furthermore, the information of vacant parking spaces could be used effectively by GPS navigation systems which could direct the driver to a vacant parking space close to his end destination and therefore maybe prevent long parking search times.
+%In addition to having a central server, sensing vehicles may send the location of vacant parking spaces in real time to other cars which are searching for parking possibilities. 
 
 \begin{figure}
 	\centering
@@ -22,8 +25,6 @@ This section will describe the envisioned system for the urban parking availabil
 	\caption{Envisioned system of several vehicles driving through the city and sensing its parking availability situation}
 	\label{fig:envisioned_system}
 \end{figure}
-
-- System description (type of sensors, requirements); overall envisioned system of cars detecting free spaces and communicating the information
 
 \subsection{Test bed description}
 \label{sec:test_bed}
