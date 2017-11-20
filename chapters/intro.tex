@@ -62,13 +62,33 @@ The high complexity of urban traffic and the many distractions during sensing ma
 
 
 
-\section{Research goals and methodology}
+\section{Research goals and envisioned system}
 
-The overall goal of this thesis is to determine which accuracy can be achieved for detecting the parking space situation in urban real world traffic scenarios using drive-by park sensing. Furthermore, distracting situations should be identified and strategies to cope with them should be found to be able to keep the detection accuracy high. In contrast to existing approaches in this thesis machine learning will be applied to classify different road traffic and parking scenarios to be able to better cope with the high variety of situations possible. As a first step, sensor data has to be collected in real world traffic scenarios including distance sensor measurements and GPS locations of the sensing vehicle. To be able to apply supervised learning all sensor measurements have to get assigned their ground truth manually. As next step different machine learning algorithms will be applied, evaluated and compared to each other in terms of accuracy for the different classes. The detailed methodology which will be followed includes the following steps:
+The overall goal of this thesis is to determine which accuracy can be achieved for detecting the parking space situation in urban real world traffic scenarios using drive-by park sensing on multi lane streets. Furthermore, distracting situations should be identified and strategies to cope with them should be found to be able to keep the detection accuracy high. In contrast to existing approaches in this thesis machine learning will be applied to classify different road traffic and parking scenarios to be able to better cope with the high variety of situations possible. As a first step, sensor data has to be collected in real world traffic scenarios including distance sensor measurements and GPS locations of the sensing vehicle. To be able to apply supervised learning all sensor measurements have to get assigned their ground truth manually. As next step different machine learning algorithms will be applied, evaluated and compared to each other in terms of accuracy for the different classes. The detailed methodology will be discussed in section \ref{sec:methodology}.
+
+Figure \ref{fig:envisioned_system} shows an overview of how the proposed drive-by sensing system could work. On the left a scene of urban streets is depicted, where cars are parking beside the road and sensing vehicles sense parking cars while they are driving by. The sensing vehicles operate by using an optical distance sensor which is continuously measuring the distance to the nearest obstacle on the right side of the road. Furthermore, a GPS receiver determines the corresponding position. This information is used for the analysis of the parking situation, where parking cars and vacant parking spaces are being detected with the recorded sensor data.
+
+The parking situation analysis can be performed by each sensing vehicle for itself. After obtaining the results, all the derived information may be sent to central server, which then combines the data of all sensing vehicles and computes a parking availability map. This map of free and occupied parking spaces can then be used for showing users the current parking situation (e.g. through a web application) so that they can decide if they want to go by car or by public transport. Furthermore, the information of vacant parking spaces could be used effectively by GPS navigation systems which could direct the driver to a vacant parking space close to his end destination and therefore maybe prevent long parking search times.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/envisioned-system.eps}
+	\caption{Envisioned system of several vehicles driving through the city and sensing its parking availability situation}
+	\label{fig:envisioned_system}
+\end{figure}
+
 
 \begin{description}
 
-\item[Building a test bed] As a first step a test bed has to be built, which is able to access the required sensors to record all the necessary data. A Raspberry Pi will be used as processing device because of its popularity and the many compatible sensors which work with this platform. It is connected to a LIDAR-Lite v3 sensor which continuously measures the distance to the nearest obstacle on the right side of the road. A GPS receiver will track the location of the sensing vehicle and a camera will be used to record images of the ground truth for evaluation purposes only. In section \ref{sec:system_design} the complete setup of the test bed is described as well as all the specific hard ware parts and their abilities.
+
+
+
+
+\section{Methodology}
+\label{sec:methodology}
+
+
+\item[Building a test bed] As a first step a test bed has to be built which is able to access the required sensors to record all the necessary data. A Raspberry Pi will be used as processing device because of its popularity and the many compatible sensors which work with this platform. It is connected to a LIDAR-Lite v3 sensor which continuously measures the distance to the nearest obstacle on the right side of the road. A GPS receiver will track the location of the sensing vehicle and a camera will be used to record images of the ground truth for evaluation purposes only. In section \ref{sec:system_design} the complete setup of the test bed is described as well as all the specific hard ware parts and their abilities.
 
 \item[Acquiring a dataset] As soon as the test bed is ready, the sensors should be mounted on the prototype car to be able to start recording the dataset. Test drives should be done in some selected streets in Linz, Austria with the focus of variety of the recorded situations. The test scenes should include single lane as well as multi lane streets and measurements in all streets should be done several times. Furthermore, the car should be driving as it would in regular traffic (not only in the right most lane, etc...) and the scenes should also include high and low traffic scenarios to have a high amount of diverse data. All measured distances, GPS locations and ground truth images have to be saved to files with the according timestamps to be able to evaluate the results of different approaches later on. Furthermore, using the images taken by the camera, ground truth values will be manually labelled in different classes (Parked car, free space, overtaken car, ...). A detailed description about the dataset and the ground truth tagging can be found in section \todo{ref} \ref{sec:dataset}.
 
