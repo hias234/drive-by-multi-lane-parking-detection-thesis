@@ -132,7 +132,9 @@ A camera is used to record images of the ground truth. In our prototype a Logite
 
 \section{Collecting Sensor Measurements}
 
-Figure \ref{fig:sample_sensor_trace} shows a sample sensor trace :)
+To collect the sensor readings while the sensing vehicle is driving a python script was developed which saves all sensor readings in a text file and the images captured by the camera into a specific folder on the Raspberry Pi. The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) runs asynchronously in separate threads so that none of them influence the other sensor's reading. For accessing the GPS receiver the python gps library was used whereas for measuring the distance using our Lidar Lite sensor, an open source library available on github.com was used (\url{https://github.com/Sanderi44/Lidar-Lite}). A library called "pygame.camera" was used to capture the images from the webcam. 
+
+Figure \ref{fig:sample_sensor_trace} shows a part of a sensor trace which was acquired during a test drive. It contains GPS and distance measurements. The first column determines which sensor was used for the specific measurement and the second one is the time stamp of the Raspberry Pi's system time in seconds. GPS measurements also show latitude, longitude and speed measurements while the Lidar Lite measurements only show the measured distance in centimeters.
 
 \begin{figure}
 	\centering
