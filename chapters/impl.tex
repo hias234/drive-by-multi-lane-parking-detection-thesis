@@ -41,10 +41,6 @@ As already discussed in chapter \ref{chap:introduction}, sensing a city's parkin
 
 Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For collecting, processing and saving the sensed data a Raspberry Pi 2 Model B\footnote{\url{https://www.raspberrypi.org/products/raspberry-pi-2-model-b/}} is being used. A Raspberry Pi was chosen because of its simplicity to connect and access sensors and moreover because it is really easy to program with it as it is just a regular linux-based computer. Furthermore, the price of a Raspberry Pi is also quite low (about \euro{35}), therefore the overall cost of the system will remain low.
 
-To determine the location of the sensing vehicles while driving through the city, a Navilock USB GPS receiver\footnote{\url{http://www.navilock.de/produkte/G_61840/merkmale.html?setLanguage=en}} is being used. It can be connected to the Raspberry Pi using a USB Port and can measure the GPS location (latitude and longitude) at a rate of about 1 Hz. According to the manufacturer the acquired positions are correct in the range of 2.5 meters. The Navilock USB GPS sensor starts at a price of about \euro{50}.
-
-
-
 
 \begin{figure}
 	\centering
@@ -52,6 +48,11 @@ To determine the location of the sensing vehicles while driving through the city
 	\caption{Prototype of the sensing car, which is composed of a LIDAR Lite v3 optical distance sensor, a GPS receiver, a camera for ground truth collection and a Raspberry Pi as processing device}
 	\label{fig:sensing_car}
 \end{figure}
+
+
+To determine the location of the sensing vehicles while driving through the city, a Navilock USB GPS receiver\footnote{\url{http://www.navilock.de/produkte/G_61840/merkmale.html?setLanguage=en}} is being used. It can be connected to the Raspberry Pi using a USB Port and can measure the GPS location (latitude and longitude) at a rate of about 1 Hz. According to the manufacturer the acquired positions are correct in the range of 2.5 meters. The Navilock USB GPS sensor starts at a price of about \euro{50}.
+
+For the use of a distance sensor there were two options. Either a ultrasonic range sensor could be used or an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance system, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for using drive-by sensing on multi-lane roads or with high speed.   Due to these limitations the optical distance sensor "Lidar Lite v3\footnote{\url{https://www.sparkfun.com/products/14032}}" is being used. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters at a distance greater than one meter. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While ultrasonic sensors can be bought under \euro{10}, the Lidar Lite v3 and other comparable sensors are about \euro{150}. Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of ultrasonic sensors and the our used Lidar Lite v3 sensor. The most significant limitation is the sampling frequency. While optical laser sensors are based on the speed of light, ultrasonic sensors are based on the speed of sound, which is much slower. Therefore, also the distances between consecutive measurements varies highly from an ultrasonic to an optical laser sensor. At a speed of 50km/h and when sensing an object which is 10 meters away, a sensing vehicle would dirve about 80 cm between the measurements with an ultrasonic sensor while only driving 1 cm with an optical distance sensor.
 
 
 
@@ -62,29 +63,69 @@ To determine the location of the sensing vehicles while driving through the city
 \begin{tabular}{| r || c | c |}
 \hline
    & 
-   \textbf{Sampling Frequency} & 
-   \textbf{Costs per Sensor} \\
+   \textbf{Ultrasonic Range Finder} & 
+   \textbf{Lidar Lite v3} \\
 %\hline
 \hline
-  \textbf{Lidar Lite v3} & 
-   ~200 measurements/s &
-   \euro{169,00} \\
+  \textbf{Costs} & 
+   from about \euro{5,00} to \euro{100,00} &
+   about \euro{150,00} \\
 \hline
-  \textbf{Navilock USB} & 
-   ~1 measurement/s &
-   \euro{74,90} \\
-   \textbf{GPS receiver} & & \\
+  \textbf{Sampling Frequency} & 
+   up to 20 Hz &
+   up to 500 Hz \\
+  \textbf{(distance > 10 m)} & & \\
+\hline
+  \textbf{Range} & 
+   2 cm - 10 m &
+   30 cm - 40 m \\
+\hline
+  \textbf{Distance between Measurements} & 
+   about 80 cm &
+   about 1 cm \\
+  \textbf{at 50 km/h and a distance of 10 m} & & \\
 \hline
 
 \end{tabular}
 \egroup
 
-\caption{The used sensors}
-\label{table:sensors_capabilities}
+\caption{Comparison of ultrasonic sensors and optical (LiDAR) sensors}
+\label{table:comparison_us_lidar}
 \end{table}
 
 
+%\begin{table}
+%
+%\bgroup
+%\def\arraystretch{1.5}
+%\begin{tabular}{| r || c | c |}
+%\hline
+%   & 
+%   \textbf{Sampling Frequency} & 
+%   \textbf{Costs per Sensor} \\
+%%\hline
+%\hline
+%  \textbf{Lidar Lite v3} & 
+%   ~200 measurements/s &
+%   \euro{169,00} \\
+%\hline
+%  \textbf{Navilock USB} & 
+%   ~1 measurement/s &
+%   \euro{74,90} \\
+%   \textbf{GPS receiver} & & \\
+%\hline
+%
+%\end{tabular}
+%\egroup
+%
+%\caption{The used sensors}
+%\label{table:sensors_capabilities}
+%\end{table}
+
+
 \section{Collecting Sensor Measurements}
+
+Figure \ref{fig:sample_sensor_trace} shows a sample sensor trace :)
 
 \begin{figure}
 	\centering
