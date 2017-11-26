@@ -1,37 +1,52 @@
-\chapter{Prototype Implementation}
+\chapter{Testbed - Prototype Implementation}
 \label{chap:referenceimplementation}
 
-As already discussed in chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. In this thesis a prototype of drive-by sensing using an optical distance sensor was designed, implemented and evaluated.
+As already discussed in chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. In this thesis a prototype of drive-by sensing using an optical distance sensor was designed, implemented and evaluated. This chapter will discuss the test bed which was developed to acquire the necessary dataset to run the machine learning experiments.
 
-This chapter will describe the setup and implementation of the prototype. In particular, section \ref{sec:system_design} will discuss the overall envisioned system, the prototype car and the required sensors with their capabilities. In section \ref{sec:experiment_description_data_collection} the experimental setup will be discussed as well as the acquiring of the test dataset through test drives in the city of Linz, Austria. Finally, section \ref{sec:data_processing} will describe the preprocessing of the data, definition of the features and a short description of all used machine learning algorithms with their configurations. 
+%This chapter will describe the setup and implementation of the prototype. In particular, section \ref{sec:system_design} will discuss the overall envisioned system, the prototype car and the required sensors with their capabilities. In section \ref{sec:experiment_description_data_collection} the experimental setup will be discussed as well as the acquiring of the test dataset through test drives in the city of Linz, Austria. Finally, section \ref{sec:data_processing} will describe the preprocessing of the data, definition of the features and a short description of all used machine learning algorithms with their configurations. 
 \todo{update :)}
 
 
 
 
-\section{System design}
-\label{sec:system_design}
-
-%This section will describe the envisioned system for the urban parking availability detection system. The proposed system is a mobile sensing system where sensing vehicles try to detect parking cars while driving through the city. The sensing vehicles are equipped with several sensors. Most importantly an optical distance sensor measures the distance to the nearest obstacle on the right side of the road continuously while the vehicle is driving through the city. Furthermore, a GPS receiver determines the corresponding position. 
-
-%This section will describe the envisioned system for the urban parking availability detection system. Figure \ref{fig:envisioned_system} shows an overview of how a drive-by sensing system could work. On the left a scene of urban streets is depicted, where cars are parking beside the road and sensing vehicles sense parking cars while they are driving by. The sensing vehicles operate by using an optical distance sensor which is continuously measuring the distance to the nearest obstacle on the right side of the road. Furthermore, a GPS receiver determines the corresponding position. This information is used for the analysis of the parking situation and parking cars and vacant parking spaces are being derived with the recorded sensor data.
-
-%The parking analysis can be performed by each sensing vehicle for itself. After obtaining the results, all the derived information may be sent to central server, which then combines the data of all sensing vehicles and computes a parking availability map. This map of free and vacant parking spaces can then be used for showing users the current parking situation (e.g. through a web application) before they even decide if they go by car or by public transport. Furthermore, the information of vacant parking spaces could be used effectively by GPS navigation systems which could direct the driver to a vacant parking space close to his end destination and therefore maybe prevent long parking search times.
-%In addition to having a central server, sensing vehicles may send the location of vacant parking spaces in real time to other cars which are searching for parking possibilities. 
+%\section{System design}
+%\label{sec:system_design}
 
 
+%\begin{description}
+%
+%
+%\item[Building a test bed] As a first step a test bed has to be built which is able to access the required sensors to record all the necessary data. A Raspberry Pi will be used as processing device because of its popularity and the many compatible sensors which work with this platform. It is connected to a LIDAR-Lite v3 sensor which continuously measures the distance to the nearest obstacle on the right side of the road. A GPS receiver will track the location of the sensing vehicle and a camera will be used to record images of the ground truth for evaluation purposes only. In section \ref{sec:system_design} the complete setup of the test bed is described as well as all the specific hard ware parts and their abilities.
+%
+%\item[Acquiring a dataset] As soon as the test bed is ready, the sensors should be mounted on the prototype car to be able to start recording the dataset. Test drives should be done in some selected streets in Linz, Austria with the focus of variety of the recorded situations. The test scenes should include single lane as well as multi lane streets and measurements in all streets should be done several times. Furthermore, the car should be driving as it would in regular traffic (not only in the right most lane, etc...) and the scenes should also include high and low traffic scenarios to have a high amount of diverse data. All measured distances, GPS locations and ground truth images have to be saved to files with the according timestamps to be able to evaluate the results of different approaches later on. Furthermore, using the images taken by the camera, ground truth values will be manually labelled in different classes (Parked car, free space, overtaken car, ...). A detailed description about the dataset and the ground truth tagging can be found in section \todo{ref} \ref{sec:dataset}.
+%
+%\item[Data processing and segmentation] As next step the measured sensor values have to be preprocessed and filtered in order for the following algorithms to work. Sensing and overflow errors as well as outliers in the measurements should be identified and removed before further processing. After the raw data has been filtered, the sensor data has to be segmented. As parking cars and other cases which should be classified consist of several sensor measurements, the corresponding sensor measurements should be grouped together and merged to segments which will be later classified. All preprocessing steps and the segmentation process are described in more detail in section \todo{ref} \ref{sec:data_processing}.
+%
+%\item[Classification using basic machine learning techniques] Features on the created segments are calculated (for instance length, average distance and variation of the distances) and are being used to train and evaluate several machine learning algorithms which will be compared on their performance. Furthermore, some deep learning models will also be evaluated on the raw sensor data of the segments and will be compared to common machine learning results. The results of all experiments can be found in section \todo{ref} \ref{sec:ml_results}.
+%
+%\item[Further improvements] \todo{todo}
+%
+%\end{description}
 
 
 
 
 
 
-\subsection{Test bed description}
+
+
+
+\section{Used hardware and sensor parts}
 \label{sec:test_bed}
 
 - Testbed description (concrete HW and technical capabilities)
 
-Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. The system consists of a Raspberry Pi as processing device for collecting and saving the sensed data, 
+Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For collecting, processing and saving the sensed data a Raspberry Pi 2 Model B\footnote{\url{https://www.raspberrypi.org/products/raspberry-pi-2-model-b/}} is being used. A Raspberry Pi was chosen because of its simplicity to connect and access sensors and moreover because it is really easy to program with it as it is just a regular linux-based computer. Furthermore, the price of a Raspberry Pi is also quite low (about \euro{35}), therefore the overall cost of the system will remain low.
+
+To determine the location of the sensing vehicles while driving through the city, a Navilock USB GPS receiver\footnote{\url{http://www.navilock.de/produkte/G_61840/merkmale.html?setLanguage=en}} is being used. 
+
+
+
 
 \begin{figure}
 	\centering
@@ -71,6 +86,16 @@ Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. The 
 \end{table}
 
 
+
+
+
+
+
+
+
+
+\chapter{Data Processing and Machine Learning Approaches}
+
 \section{Experiment description and data collection}
 \label{sec:experiment_description_data_collection}
 - Description of experiments (scenarios we are interested in: parking car, etc.)
@@ -89,7 +114,3 @@ Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. The 
 - Preprocessing, feature definition ...
 - Traditional ML Algorithms (incl. a short description of each algorithm and configuration options)
 - Deep Learning
-
-\section{Experimental results}
-- Results of the different ML approaches, important features, difficult cases, etc.
-- Comparison of traditional ML and Deep Learning (cf. our demo)
