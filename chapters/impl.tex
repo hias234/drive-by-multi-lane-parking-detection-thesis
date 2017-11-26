@@ -54,7 +54,7 @@ To determine the location of the sensing vehicles while driving through the city
 
 For the use of a distance sensor there were two options. Either a ultrasonic range sensor could be used or an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance system, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for using drive-by sensing on multi-lane roads or with high speeds.   Due to these limitations the optical distance sensor "Lidar Lite v3 \footnote{\url{https://www.sparkfun.com/products/14032}}" is being used. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters at a distance greater than one meter. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While ultrasonic sensors can be bought under \euro{10}, the Lidar Lite v3 and other comparable sensors are about \euro{150}. The distance sensor is mounted on the co-driver's door using a sucker handle, so that it faces to the right side of the road and so that it measures about \todo{40cm} above the ground. Moreover, it is connected to the Raspberry Pi via an $I^2C$ interface, according to the manufacturer's specifications.
 
-Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of ultrasonic sensors and our used Lidar Lite v3 sensor. The most significant limitation is the sampling frequency. While optical laser sensors are based on the speed of light, ultrasonic sensors are based on the speed of sound, which is much slower. Therefore, also the distances between consecutive measurements varies highly from an ultrasonic to an optical laser sensor. At a speed of 50km/h and when sensing an object which is 10 meters away, a sensing vehicle would drive about 80 cm between two consecutive measurements with an ultrasonic sensor while only driving 1 cm with an optical distance sensor.
+Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of ultrasonic sensors and our used Lidar Lite v3 sensor. The most significant limitation is the sampling frequency. While optical laser sensors are based on the speed of light, ultrasonic sensors are based on the speed of sound, which is much slower. Therefore, also the distances between consecutive measurements varies highly from an ultrasonic to an optical laser sensor. At a speed of 50 km/h a sensing vehicle would drive about 70 cm between two consecutive measurements with an ultrasonic sensor while only driving about 3 cm when using an optical distance sensor.
 
 
 
@@ -83,9 +83,9 @@ Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of 
    30 cm - 40 m \\
 \hline
   \textbf{Distance between Measurements} & 
-   about 80 cm &
-   about 1 cm \\
-  \textbf{at 50 km/h and a distance of 10 m} & & \\
+   about 70 cm &
+   about 3 cm \\
+  \textbf{at 50 km/h} & & \\
 \hline
 
 \end{tabular}
@@ -95,7 +95,7 @@ Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of 
 \label{table:comparison_us_lidar}
 \end{table}
 
-
+A camera is used to record images of the ground truth. In our prototype a Logitech C922 Pro Stream\footnote{\url{https://www.logitech.com/en-us/product/c922-pro-stream-webcam}} is being used to capture images of the right side of the road periodically. At a frequency of about 30 Hz images with a resolution of 352 x 288 pixels are captured while the car is sensing parking spaces. The camera is mounted on the co-driver's door on the same horizontal position as the sensor. This way the center of the image will be the position where the distance sensor is measuring its distances. The Logitech camera is connected to the Raspberry Pi using an USB Port and costs about \euro{90}.
 
 
 
