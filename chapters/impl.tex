@@ -132,7 +132,7 @@ For the camera which is necessary to capture images of the ground truth a Logite
 %\end{table}
 
 
-\section{Collecting Sensor Measurements}
+\section{Collecting sensor measurements}
 
 To collect the sensor readings while the sensing vehicle is driving a python script was developed which saves all sensor readings in a text file and the images captured by the camera into a specific folder on the Raspberry Pi. The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) runs asynchronously in separate threads so that none of them influence the other sensor's readings. For accessing the GPS receiver the python gps library was used whereas for measuring the distance using our Lidar Lite v3 sensor, an open source library available on github.com was used (\url{https://github.com/Sanderi44/Lidar-Lite}). A library called "pygame.camera" was used to capture the images of the webcam. 
 
@@ -148,7 +148,7 @@ Figure \ref{fig:sample_sensor_trace} shows a part of a sensor trace which was ac
 
 
 
-\section{Raw Dataset}
+\section{Raw dataset}
 
 To obtain a dataset, in total 32 test drives were completed in the city of Linz, Austria. Figure \ref{fig:gps_locations_dataset} shows an aggregated GPS trace of all test drives on a map of Linz. Red dots represent parking cars while black dots represent other objects. In total 444.427 distance measurements and 14.997 GPS measurements were taken, which makes up about 15,9 megabytes of distance and GPS data. 
 Additionally, 266.309 images were captured to record the ground truth of the sensed scenes. All of these images which make up about 5.072 megabytes are used to determine the ground truth of the recorded scenes to be later able to apply supervised machine learning. How ground truth tagging was done is described in the following section.
@@ -167,9 +167,27 @@ Additionally, 266.309 images were captured to record the ground truth of the sen
 
 \section{Ground truth tagging}
 
+The recorded raw dataset contains distance and position measurements and images showing the ground truth at a specific time stamp. To be able to process the ground truth information included in the image, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface which was implemented to manually tag an image with one of nine pre selected class labels. The user first has to select the directory with the captured images. The file name of each image is the time stamp when it was recorded, therefore this information is known. When the images are loaded, the user has to tag the situation which is present at the red line, which demonstrates the center of the picture. 
+The class labels of which the user can choose are the following:
 
+\begin{description}
 
+\item[Parking car] A non-moving vehicle which is parking at the right side of the road. There are three kinds of parking vehicles from which one can choose: Parallel parking cars, perpendicular parking cars and angular parking cars. Figure \ref{fig:types_of_parking_cars} shows the different types of parking spaces.
 
+\item[Overtaking Situation] This class label means that the sensing vehicle is overtaking another traffic participant. The user can choose between overtaken cars, overtaken motorcycles and overtaken bicycles.
+
+\item[Other parking vehicle] The user can tag parking motorcycles and parking bicycles which also should be detected later on. This class represents obstacles which can be located on parking spaces.
+
+\item[Free space] This class label should be used, when none of the above listed class labels are applicable. It represents a free space where it is maybe possible to park a vehicle. Yet only with the help of parking space maps, a free space can be marked as vacant parking space as a random free space may be an illegal parking space.
+
+\end{description}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/ground_truth_tagging_ui.PNG}
+	\caption{User Interface to manually tag what kind of situation is faced during the specific time the image shown is taken}
+	\label{fig:ground_truth_tagging_ui}
+\end{figure}
 
 
 
