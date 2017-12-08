@@ -44,7 +44,7 @@ Figure \ref{fig:driveby_standard_parking_situation} shows a standard drive-by sc
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\textwidth]{img/drive-by-parking-situation-pictogram.eps}
+	\includegraphics[width=0.8\textwidth]{img/drive-by-parking-situation-pictogram.eps}
 	\caption{The sensing vehicle passes two parked cars and should identify a vacant spot in between using distance and location measurements.}
 	\label{fig:driveby_standard_parking_situation}
 \end{figure}
@@ -54,23 +54,29 @@ However, the situation shown in Figure \ref{fig:driveby_standard_parking_situati
 
 The high complexity of urban traffic and the many distractions during sensing make it nearly impossible to create a rule set based on the sensor measurements which would be able to detect parking situations at a sufficient accuracy. Therefore, simple thresholding will not work in real life traffic scenarios. Furthermore, such rule sets would have to be created for each city individually because of the different nature of the roads and the parking spaces. For instance, the distance between lanes and parking spaces can vary highly in two different cities. Thus, to be able to detect parking situations, new methods have to be found, that are more flexible to distractions and changes in the environment.
 
+
+
 \section{Research Goals}
 
-The overall goal of this thesis is to determine which accuracy can be achieved for detecting the parking space situation in urban real world traffic scenarios using drive-by park sensing on multi lane streets. More specific goals are described below:
+The overall goal of this thesis is to study and increase the accuracy of detecting the parking space situation in urban real world traffic scenarios using drive-by park sensing on multi lane roads. Vacant parking spaces and parking cars are detected and distinguished from other common objects beside the road like trees, houses and other objects. To counteract false detections of parking cars while sensing in real world traffic, several distractions are being identified, detected and filtered out. Common distractions include overtaken cars, bicycles and motorcycles as well as passed cars waiting at traffic lights.
 
-\begin{description}
+To support parking detection accuracy a parking space map using the sensor measurements are being derived. Parking space maps are necessary for the overall system to determine if it is legal to park at a certain location, i.e., if any space is a parking space. As for our test use case there is no parking space map with sufficient quality available at city authorities, a basic parking space map is derived using the acquired dataset.
 
-\item[Obtaining an own dataset of different drive-by scenarios.] A testbed should be built which can be mounted on a standard car. This testbed should collect sensor values of a distance sensor as well as a GPS receiver during test drives in the city of Linz, Austria. Furthermore, the test bed should also capture images to record the ground truth of the sensed scenes.
-
-\item[Estimating parking availability using machine learning.] Using the acquired dataset, objects, like parking cars, should be detected and classified. The use of machine learning and deep learning approaches to do so should be evaluated and with the
-help of parking space maps the count of vacant parking spaces and their location should be derived.
-
-\item[Identifying sensing distractions.] There are many scenarios in which the drive-by park sensing will not work as expected. For example, when the sensing vehicle overtakes another driving car, it cannot detect the parking cars behind. Such situations
-should be detected and classified as distractions.
-
-\item[Deriving basic parking space maps.] Parking space maps are necessary for the overall system to work as only using the sensor data it is not possible to determine if it is legal to park at a certain location. As there are no parking space maps with sufficient quality available at city authorities, a basic parking space map should be derived using the acquired dataset.
-
-\end{description}
+% More specific goals are described below:
+%
+%\begin{description}
+%
+%\item[Obtaining an own dataset of different drive-by scenarios.] A testbed should be built which can be mounted on a standard car. This testbed should collect sensor values of a distance sensor as well as a GPS receiver during test drives in the city of Linz, Austria. Furthermore, the test bed should also capture images to record the ground truth of the sensed scenes.
+%
+%\item[Estimating parking availability using machine learning.] Using the acquired dataset, objects, like parking cars, should be detected and classified. The use of machine learning and deep learning approaches to do so should be evaluated and with the
+%help of parking space maps the count of vacant parking spaces and their location should be derived.
+%
+%\item[Identifying sensing distractions.] There are many scenarios in which the drive-by park sensing will not work as expected. For example, when the sensing vehicle overtakes another driving car, it cannot detect the parking cars behind. Such situations
+%should be detected and classified as distractions.
+%
+%\item[Deriving basic parking space maps.] Parking space maps are necessary for the overall system to work as only using the sensor data it is not possible to determine if it is legal to park at a certain location. As there are no parking space maps with sufficient quality available at city authorities, a basic parking space map should be derived using the acquired dataset.
+%
+%\end{description}
 
 
 
