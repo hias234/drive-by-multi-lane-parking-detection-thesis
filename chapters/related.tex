@@ -30,15 +30,12 @@ A top priority goal of the SFpark project is to increase the availability of par
 \subsection{Stationary park sensing using cameras}
 \label{sec:stationary_park_sensing_cameras}
 
-Another approach while using stationary sensors is to use fixed deployed cameras which continuously record images of parking areas and analyze them for vacant parking spaces. Cameras can monitor up to one hundred parking spaces simultaneously with an accuracy
-up to 96\%. Challenges of image detection are of course different lightning and weather conditions as well as occlusions depending on the angle which the camera records the parking scene. Detection algorithms using standard digital image processing will be discussed in this section as well as approaches using deep learning and convolutional neural networks (CNNs).
+Another approach while using stationary sensors is to use fixed deployed cameras which continuously record images of parking areas and analyze them for vacant parking spaces. Cameras can monitor up to one hundred parking spaces simultaneously with an accuracy of up to 96\%. Challenges of image detection are of course different lightning and weather conditions as well as occlusions depending on the angle which the camera records the parking scene. Detection algorithms using standard digital image processing will be discussed in this section as well as approaches using deep learning and convolutional neural networks (CNNs).
 
 
 \paragraph{Parking detection using digital image processing}
 
-There exist a few common approaches using digital image processing to detect the state of parking spaces using a captured image of a parking area. First of all, edge detection is often used for parking space classification. Common edge detectors such as Canny
-Edge Detector or Sobel can be used to derive the edge pixels of an image. As next step the edges or edge pixels are counted and if they are above a certain threshold, the space will be detected as occupied. The assumption behind this approach is, that usually a vacant parking space has a plain surface and therefore a low amount of edges whereas an image of a parking car should have a lot of edges. Blumer et al. \cite{Blumer2012} and Liu et al.
-\cite{stationary_camera_sensing} both used this technique as part of their algorithms.
+There exist a few common approaches using digital image processing to detect the state of parking spaces using a captured image of a parking area. First of all, edge detection is often used for parking space classification. Common edge detectors such as the Canny Edge Detector \cite{Canny1986} or the Sobel Operator \cite{Sobel} can be used to derive the edge pixels of an image. The edges or edge pixels are counted and if they are above a certain threshold, the space will be detected as occupied. The assumption behind this approach is, that usually a vacant parking space has a plain surface and therefore a low amount of edges whereas an image of a parking car should have a lot of edges. Blumer et al. \cite{Blumer2012} and Liu et al. \cite{stationary_camera_sensing} both used this technique as part of their algorithms.
 
 Often a slightly different yet related approach is also used, namely object counting \cite{stationary_camera_sensing}. The edges of the image segment of a parking space are analyzed and closed contours (treated as objects) are detected and counted. Then depending on a threshold which has to be set first, a parking space will be classified as either vacant or occupied depending on the object count.
 
