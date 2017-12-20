@@ -1,10 +1,10 @@
 \chapter{Testbed - Prototype Implementation}
 \label{chap:referenceimplementation}
 
-As already discussed in chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. In this thesis a prototype of drive-by sensing using an optical distance sensor was designed, implemented and evaluated. This chapter will discuss the test bed which was developed to acquire the necessary dataset to run the machine learning experiments.
+As already discussed in chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. In this thesis a prototype of drive-by sensing using an optical distance sensor has been designed, implemented and evaluated. This chapter will discuss the test bed which was developed to acquire the necessary dataset to run the machine learning experiments as well as the process to obtain ground truth information.
 
 %This chapter will describe the setup and implementation of the prototype. In particular, section \ref{sec:system_design} will discuss the overall envisioned system, the prototype car and the required sensors with their capabilities. In section \ref{sec:experiment_description_data_collection} the experimental setup will be discussed as well as the acquiring of the test dataset through test drives in the city of Linz, Austria. Finally, section \ref{sec:data_processing} will describe the preprocessing of the data, definition of the features and a short description of all used machine learning algorithms with their configurations. 
-\todo{update :)}
+%\todo{update :)}
 
 
 
@@ -52,18 +52,20 @@ Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For 
 
 To determine the location of the sensing vehicles while driving through the city, a Navilock USB GPS receiver\footnote{\url{http://www.navilock.de/produkte/G_61840/merkmale.html?setLanguage=en}} is being used. It can be connected to the Raspberry Pi using a USB Port and can measure the GPS location (latitude and longitude) at a rate of about 1 Hz. According to the manufacturer the acquired positions are correct in the range of 2.5 meters. The GPS receiver is mounted on the top of the sensing car using a magnet which should help to receive more accurate sensor readings. The Navilock USB GPS sensor starts at a price of about \euro{50}.
 
-For the use of a distance sensor there are two options. Either a ultrasonic range sensor can be used or an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance systems, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for using drive-by sensing on multi-lane roads or with high speeds. Due to these limitations the optical distance sensor "Lidar Lite v3 \footnote{\url{https://www.sparkfun.com/products/14032}}" is being used. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While ultrasonic sensors can be bought under \euro{10}, the Lidar Lite v3 and other comparable sensors are about \euro{150}.
+For the use of a distance sensor there are two options. Either a ultrasonic range sensor can be used or an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance systems, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for using drive-by sensing on multi-lane roads or with high speeds. Due to these limitations the optical distance sensor "Lidar Lite v3\footnote{\url{https://www.sparkfun.com/products/14032}}" is being used. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While ultrasonic sensors can be bought under \euro{10}, the Lidar Lite v3 and other comparable sensors are about \euro{150}.
 
 The distance sensor is mounted on the co-driver's door using a sucker handle, so that it faces to the right side of the road and so that it measures about \todo{40cm} above the ground. Moreover, it is connected to the Raspberry Pi via GPIO (General Purpose Input Output) pins while communicating using an I2C (Inter Integrated Circuit) interface, according to the manufacturer's specifications.
 
-Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of ultrasonic sensors and our used Lidar Lite v3 sensor. The most significant limitation is the sampling frequency. While optical laser sensors are based on the speed of light, ultrasonic sensors are based on the speed of sound, which is much slower. Therefore, also the distances between consecutive measurements varies highly from an ultrasonic to an optical laser sensor. At a speed of 50 km/h a sensing vehicle would drive about 70 cm between two consecutive measurements with an ultrasonic sensor while only driving about 3 cm when using an optical distance sensor.
+Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of ultrasonic sensors and our used Lidar Lite v3 sensor. The most significant limitation is the sampling frequency. While optical laser sensors are based on the speed of light, ultrasonic sensors are based on the speed of sound, which is much slower. Therefore, also the distances between consecutive measurements varies highly from an ultrasonic to an optical laser sensor. At a speed of 50 km/h, a sensing vehicle would drive up to 70 cm between two consecutive measurements with an ultrasonic sensor while only driving about 3 cm when using an optical distance sensor.
 
 
 
 \begin{table}
 
+
+\resizebox{\textwidth}{!}{%
 \bgroup
-\def\arraystretch{1.5}
+\def\arraystretch{1.4}
 \begin{tabular}{| r || c | c |}
 \hline
    & 
@@ -92,6 +94,7 @@ Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of 
 
 \end{tabular}
 \egroup
+}
 
 \caption{Comparison of ultrasonic sensors and the used Lidar Lite v3 optical distance sensor}
 \label{table:comparison_us_lidar}
@@ -135,7 +138,9 @@ For the camera which is necessary to capture images of the ground truth a Logite
 \section{Collecting sensor measurements}
 \label{sec:sensor_measurement_collection}
 
-To collect the sensor readings while the sensing vehicle is driving a python script was developed which saves all sensor readings in a text file and the images captured by the camera into a specific folder on the Raspberry Pi. The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) runs asynchronously in separate threads so that none of them influence the other sensor's readings. For accessing the GPS receiver the python gps library was used whereas for measuring the distance using our Lidar Lite v3 sensor, an open source library available on github.com was used (\url{https://github.com/Sanderi44/Lidar-Lite}). 
+A python script has been developed which saves all sensor readings during the test runs into a text file for later analysis and evaluation. Furthermore, all images captured by the camera are saved into a specific folder on the Raspberry Pi to be able to derive the ground truth information later on.
+%To collect the sensor readings while the sensing vehicle is driving a python script was developed which saves all sensor readings to a text file and the images captured by the camera into a specific folder on the Raspberry Pi.
+The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) runs asynchronously in separate threads so that none of them influence the other sensor's readings. For accessing the GPS receiver the python gps library was used whereas for measuring the distance using the Lidar Lite v3 sensor, an open source library available on github.com was used (\url{https://github.com/Sanderi44/Lidar-Lite}). 
 %A library called "pygame.camera" was used to capture the images of the webcam. 
 
 Figure \ref{fig:sample_sensor_trace} shows a part of a sensor trace which was acquired during a test drive. It contains GPS and distance measurements. The first column determines which sensor was used for the specific measurement and the second one is the time stamp of the Raspberry Pi's system time in seconds. GPS measurements also show latitude, longitude and speed measurements while the Lidar Lite measurements only show the measured distance in centimeters.
@@ -174,8 +179,15 @@ Additionally, 266.309 images were captured to record the ground truth of the sen
 \section{Ground truth tagging}
 \label{sec:ground_truth_tagging}
 
-The recorded raw dataset contains distance and position measurements and images showing the ground truth at a specific time stamp. To be able to process the ground truth information included in the image, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface which was implemented to manually tag an image with one of nine pre selected class labels. The user first has to select the directory with the captured images. The file name of each image is the time stamp when it was recorded, therefore this information is known. When the images are loaded, the user has to tag the situation which is present at the red line, which demonstrates the center of the picture. For instance, figure \ref{fig:ground_truth_tagging_ui} shows a parking car and on the right of the image a car which has been overtaken by the sensing vehicle is also visible.
+The recorded raw dataset contains distance and position measurements as well as images showing the ground truth at a specific time stamp. To be able to process the ground truth information included in the images, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface of the program which was implemented to manually tag an image with one of nine pre selected class labels. The user first has to select the directory with the captured images. The file name of each image is the time stamp when it was recorded, therefore this information is known. When the images are loaded, the user has to tag the situation which is present at the red line, which demonstrates the center of the picture. For instance, figure \ref{fig:ground_truth_tagging_ui} shows a parking car at the center of the image. Moreover, on the right of the image a car which has been overtaken by the sensing vehicle is also visible.
 The class labels of which the user can choose are the following:
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/types-of-parking-cars.eps}
+	\caption{Different types of parking cars}
+	\label{fig:types_of_parking_cars}
+\end{figure}
 
 \begin{description}
 
@@ -183,15 +195,15 @@ The class labels of which the user can choose are the following:
 
 \item[Overtaking Situation] This class label means that the sensing vehicle is overtaking another traffic participant. The user can choose between overtaken cars, overtaken motorcycles and overtaken bicycles.
 
-\item[Other parking vehicle] The user can tag parking motorcycles and parking bicycles which also should be detected later on. This class represents obstacles which can be located on parking spaces.
+\item[Other parking vehicle] The user can tag parking motorcycles and parking bicycles which also should be detected later on. This class represents obstacles which can be located on parking spaces and therefore make it unavailable for parking.
 
-\item[Free space] This class label should be used, when none of the above listed class labels are applicable. It represents a free space where it is maybe possible to park a vehicle. Yet only with the help of parking space maps, a free space can be marked as vacant parking space as a random free space may be an illegal parking space.
+\item[Free space] This class label should be used, when none of the above listed class labels are applicable. It represents a free space where it is maybe possible to park a vehicle. Yet only with the help of a parking space map, a free space can be marked as vacant parking space as a random free space may be an illegal parking space.
 
 \end{description}
 
 
 
-The output of the ground truth tagging process is written into a text file where each line represents an entry of a pair of time stamp and its corresponding tagged ground truth class label. This ground truth file will later on be processed which will be discussed in the following chapter.
+The output of the ground truth tagging process is written into a text file where each line represents an entry of a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed in the next steps which will be discussed in the following chapter.
 
 
 

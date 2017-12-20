@@ -186,71 +186,73 @@ Another limitation of drive-by sensing are multi-lane roads. Most of the discuss
 \subsection{Comparison of the existing park sensing approaches}
 \label{sec:comparison_park_sensing_approaches}
 
-Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the park sensing approaches which were discussed in this section. All of the above discussed approaches show high accuracy (> 90\%) but not all of them are suited for all kinds of park sensing. For instance, the drive-by approaches are not able to detect parking availabilities in dedicated parking lots or parking garages whereas vehicle counting cannot detect the parking situation of road side parking spaces and thus a city's overall parking situation.
+Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the park sensing approaches which were discussed in this section. All of the above discussed approaches show high accuracy (>= 90\%) but not all of them are suited for all kinds of park sensing. For instance, the drive-by approaches are not able to detect parking availabilities in dedicated parking lots or parking garages whereas vehicle counting cannot detect the parking situation of road side parking spaces and thus a city's overall parking situation.
 
 \begin{table}
+\resizebox{\textwidth}{!}{%
 
 \bgroup
-\def\arraystretch{1.4}
-\begin{tabular}{| r || c | c | c | c |}
+\def\arraystretch{1.2}
+\begin{tabular}{| r || c | c | l |}
 \hline
-   & \textbf{Accuracy} & \textbf{Costs} & \textbf{Applied on} & \textbf{Applied on} \\
-   & & \textbf{per} & \textbf{parking lots or} & \textbf{road side} \\
-   & & \textbf{sensor} & \textbf{parking garages} & \textbf{parking} \\
+   & \textbf{Accuracy} & \textbf{Costs per} & \textbf{Limitations / Drawbacks} \\
+   & & \textbf{sensor} &  \\
+   & & \textbf{setup} &  \\
 %\hline
 \hline
   \textbf{Stationary Sensors} & 
   \cite{SFPark} 100\% &
   \$250 - \$800 & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex); & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex); \\
+  - High amount of sensors needed \\
+  & & & - Therefore high overall costs \\
 \hline
   \textbf{Stationary Cameras} & 
   \cite{Blumer2012} 88.8\% & 
   about \$85 & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex); & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex); \\
-  & \cite{Amato2016} 91\% & & & \\
-  & \cite{DiMauro2016} 96\% & & & \\
+  - Cameras can only cover limited area \\
+  & \cite{Amato2016} 91\% & & - A lot of cameras needed for \\
+  & \cite{DiMauro2016} 96\% & & city-wide deployments \\
+  & & & - affected by lightning and occlusions \\
 \hline
   \textbf{Counting Vehicles} &
   \cite{smarturbanparkingdetection} 100\% & 
   about \$45 & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex); & 
-  no \tikz\draw[red,fill=red] (0,0) circle (.5ex); \\
+  - hardly applicable in open street scenarios \\
+  & & & - gates needed for in- and outgoing vehicles \\
 \hline
   \textbf{Event-based Sensing} & 
   \cite{Nawaz:2013:PSB:2500423.2500438} 85\% & 
   \$0 & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex); & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex); \\
-  & \cite{Ma:2014:USP:2674918.2674929} 89\% & & & \\
-  & \cite{Nandugudi:2014:PPP:2632048.2632098} 94\% & & & \\
+  - high user base required (crowd sensing) \\
+  & \cite{Ma:2014:USP:2674918.2674929} 89\% & & - battery usage of user's smartphones \\
+  & \cite{Nandugudi:2014:PPP:2632048.2632098} 94\% & & \\
 \hline
   \textbf{Drive-by Sensing} & 
   \cite{Grassi:2017:PIE:3132211.3134452} 90\% & 
   \$0 & 
-  no \tikz\draw[red,fill=red] (0,0) circle (.5ex); & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex);\\
-  \textbf{(Camera)} & & & & \\
+  - high user base required (crowd sensing) \\
+  \textbf{(Camera)} & & & - detection of different types of parking cars  \\
+  & & & - multi lane and overtaking situations \\
+  & & & - traffic lights and traffic jams \\
+  & & & - avoiding multiple detections of the same car \\
 \hline
   \textbf{Drive-by Sensing} & 
   \cite{Mathur:2010:PDS:1814433.1814448} 93\% & 
   about \$400 & 
-  no \tikz\draw[red,fill=red] (0,0) circle (.5ex); & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex);\\
-  \textbf{(1D-Distance sensor)} & & & & \\
+  - detection of different types of parking cars \\
+  \textbf{(1D-Distance sensor)} & & & - multi lane and overtaking situations \\
+  & & & - traffic lights and traffic jams \\
 \hline
 \textbf{Drive-by Sensing} & 
   \cite{Bock2015} 96\% & 
   \$1000 - \$5000 & 
-  no \tikz\draw[red,fill=red] (0,0) circle (.5ex); & 
-  yes \tikz\draw[green,fill=green] (0,0) circle (.5ex);\\
-  \textbf{(2D-Distance sensor)} & & & & \\
+   - detection of different types of parking cars \\
+  \textbf{(2D-Distance sensor)} & & & - multi lane and overtaking situations \\
+  & & & - traffic lights and traffic jams \\
 \hline
 
 \end{tabular}
-\egroup
+\egroup}
 
 \caption{Comparison of all park sensing approaches}
 \label{table:comparison_park_sensing_approaches}
@@ -260,10 +262,39 @@ Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the p
 
 The costs of the different approaches also vary highly. Approaches with stationary sensors usually have the highest accuracy, but also bring the highest costs. Event-based sensing operates on very low costs because it usually uses smartphones as sensing and processing devices. However, to reach a high accuracy a lot of people have to sense parking events. Furthermore, such apps will also drain the user's battery faster than usual.
 
-Drive-by park sensing approaches are in the medium cost range because the vehicles which are sensing have to be equipped with the required sensors, but in contrast to stationary sensing, much fewer sensors can reach a suffcient degree of accuracy. However, there are certain limitations of the current approaches as described in the previous section. In this thesis, a prototype using distance sensor based drive-by park sensing will be developed and evaluated, as the ratio from cost to accuracy seems to be the best of the investigated approaches. To improve accuracy in real life scenarios, machine learning will be used to identify all types of parking cars (seen in figure \ref{fig:types_of_parking_cars}) as well as different distractions such as overtaking while driving on multi lane roads.
+Drive-by park sensing approaches are in the medium cost range because the vehicles which are sensing have to be equipped with the required sensors, but in contrast to stationary sensing, much fewer sensors can reach a suffcient degree of accuracy. However, there are certain limitations of the current approaches as described in the previous section. In this thesis, a prototype using distance sensor based drive-by park sensing will be developed and evaluated, as the ratio from cost to accuracy seems to be the best of the investigated approaches. To improve accuracy in real life scenarios, machine learning will be used to identify all types of parking cars as well as different distractions such as overtaking while driving on multi lane roads.
 
 
+\paragraph{Comparison of Machine Learning approaches}
 
+Table \ref{table:comparison_ml_approaches} shows an overview of all machine learning algorithms which were used for the classification of parking situations in cities. 
+
+\begin{table}
+%\resizebox{\textwidth}{!}{%
+
+\bgroup
+\def\arraystretch{1.2}
+\begin{tabular}{| r || c | c |}
+\hline
+   & \textbf{Accuracy} & \textbf{Dataset}  \\
+%\hline
+\hline
+  \textbf{Convolutional Neural Networks} & 
+  \cite{Amato2016} 91\% & \\
+  (Stationary cameras) & \cite{DiMauro2016} 96\% & \\
+\hline
+  \textbf{Viola-Jones feature-based cascade classifier} & 
+  \cite{Grassi:2017:PIE:3132211.3134452} 90\% & \\
+  (camera-based drive-by sensing) &  & \\
+\hline
+
+\end{tabular}
+\egroup
+%}
+
+\caption{Comparison of machine learning approaches to detect a city's parking space availability}
+\label{table:comparison_ml_approaches}
+\end{table}
 
 
 
