@@ -224,31 +224,30 @@ Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the p
   \cite{Nawaz:2013:PSB:2500423.2500438} 85\% & 
   \$0 & 
   - high user base required (crowd sensing) \\
-  & \cite{Ma:2014:USP:2674918.2674929} 89\% & & - battery usage of user's smartphones \\
+  & \cite{Ma:2014:USP:2674918.2674929} 89\% & & - drains battery of the user's smartphones \\
   & \cite{Nandugudi:2014:PPP:2632048.2632098} 94\% & & \\
 \hline
   \textbf{Drive-by Sensing} & 
   \cite{Grassi:2017:PIE:3132211.3134452} 90\% & 
   \$0 & 
   - high user base required (crowd sensing) \\
-  \textbf{(Camera)} & & & - detection of different types of parking cars  \\
+  (Camera) & & & - detection of different types of parking cars  \\
   & & & - multi lane and overtaking situations \\
-  & & & - traffic lights and traffic jams \\
+  & & & - detecting standing cars (e.g. at traffic light) \\
   & & & - avoiding multiple detections of the same car \\
 \hline
   \textbf{Drive-by Sensing} & 
   \cite{Mathur:2010:PDS:1814433.1814448} 93\% & 
   about \$400 & 
   - detection of different types of parking cars \\
-  \textbf{(1D-Distance sensor)} & & & - multi lane and overtaking situations \\
-  & & & - traffic lights and traffic jams \\
+  (1D-Distance sensor) & & & - multi lane and overtaking situations \\
+  & & & - detecting standing cars (e.g. at traffic light) \\
 \hline
 \textbf{Drive-by Sensing} & 
   \cite{Bock2015} 96\% & 
   \$1000 - \$5000 & 
-   - detection of different types of parking cars \\
-  \textbf{(2D-Distance sensor)} & & & - multi lane and overtaking situations \\
-  & & & - traffic lights and traffic jams \\
+   - high costs per sensor setup \\
+  (2D-Distance sensor) & & & - detecting standing cars (e.g. at traffic light) \\
 \hline
 
 \end{tabular}
@@ -283,9 +282,12 @@ Table \ref{table:comparison_ml_approaches} shows an overview of all machine lear
   \cite{Amato2016} 91\% & \\
   (Stationary cameras) & \cite{DiMauro2016} 96\% & \\
 \hline
-  \textbf{Viola-Jones feature-based cascade classifier} & 
-  \cite{Grassi:2017:PIE:3132211.3134452} 90\% & \\
+  \textbf{Viola-Jones feature-based} & \cite{Grassi:2017:PIE:3132211.3134452} 90\% & \\
+  \textbf{ cascade classifier} & & \\
   (camera-based drive-by sensing) &  & \\
+\hline
+  \textbf{Random Forest Classifier} & \cite{Bock2015} 96\% & 1.313 parking cars and 1.306 other objects \\
+  (2D distance sensor based drive-by sensing) &  & \\
 \hline
 
 \end{tabular}

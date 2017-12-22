@@ -145,13 +145,19 @@ The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) runs asyn
 
 Figure \ref{fig:sample_sensor_trace} shows a part of a sensor trace which was acquired during a test drive. It contains GPS and distance measurements. The first column determines which sensor was used for the specific measurement and the second one is the time stamp of the Raspberry Pi's system time in seconds. GPS measurements also show latitude, longitude and speed measurements while the Lidar Lite measurements only show the measured distance in centimeters.
 
+%\begin{figure}
+%	\centering
+%	\includegraphics{img/sample-sensor-trace.PNG}
+%	\caption{Sample of the collected sensor trace}
+%	\label{fig:sample_sensor_trace}
+%\end{figure}
+
 \begin{figure}
 	\centering
-	\includegraphics{img/sample-sensor-trace.PNG}
+	\includegraphics{img/obtaining-raw-dataset.eps}
 	\caption{Sample of the collected sensor trace}
 	\label{fig:sample_sensor_trace}
 \end{figure}
-
 
 
 
@@ -218,6 +224,31 @@ The output of the ground truth tagging process is written into a text file where
 
 
 
+\section{Data Preprocessing}
+
+Before the raw dataset can be further processed, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are thrown away. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both situations it will give an output of less than 10 centimeters. All of the detected error/overflow measures will be simply deleted from the raw dataset before further processing to ensure the quality of the data.
+
+Due to the fact that all sensors measure at a different frequency, the sensor data of all sensors has to be unified before the next steps can be taken. The distance sensor measures at a much higher frequency than both the GPS sensor and the camera. Therefore, the GPS location as well as the ground truth at each distance measurement have to be approximated. Linear interpolation using the timestamp of the measurements is being used to calculate the approximate location and ground truth at the times of all distance measurements. 
+
+
+
+
+
+\section{Data Segmentation}
+
+As the used distance sensor measures at a high frequency, it usually collects several distance measurements belonging to the same object. For example, if the sensing vehicle passes a parallel parked car (having a length of 4 meters) at a speed of 30km/h it will collect approximately 24 measurements belonging to the passed car. To be able to automatically evaluate the performance of different approaches to sense parking cars and other objects the sensor measurements belonging to the same objects have to be grouped together. After the raw dataset has been collected and the ground truth has been tagged, this operation, called segmentation, is being performed.
+
+
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/obtaining-dataset-architecture.eps}
+	\caption{Steps to obtain the dataset from the raw sensor measurements and ground truth recordings}
+	\label{fig:dataset_architecture}
+\end{figure}
+
+
 
 
 
@@ -231,12 +262,7 @@ The output of the ground truth tagging process is written into a text file where
 - Data set derived (raw data, size, etc.)
 - Map data and camera ground truth data
 
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{img/obtaining-dataset-architecture.eps}
-	\caption{Steps to obtain the dataset from the raw sensor measurements and ground truth recordings}
-	\label{fig:dataset_architecture}
-\end{figure}
+
 
 \section{Data processing}
 \label{sec:data_processing}
