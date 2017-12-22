@@ -36,7 +36,7 @@ As already discussed in chapter \ref{chap:introduction}, sensing a city's parkin
 
 
 
-\section{Used hardware and sensor parts}
+\section{Used Hardware and Sensor Parts}
 \label{sec:test_bed}
 
 Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For collecting, processing and saving the sensed data a Raspberry Pi 2 Model B\footnote{\url{https://www.raspberrypi.org/products/raspberry-pi-2-model-b/}} is being used. A Raspberry Pi was chosen because of its simplicity to connect and access sensors and moreover because it is really easy to program with it as it is just a regular linux-based computer. Furthermore, the price of a Raspberry Pi is also quite low (about \euro{35}), therefore the overall cost of the system will remain low.
@@ -135,7 +135,7 @@ For the camera which is necessary to capture images of the ground truth a Logite
 %\end{table}
 
 
-\section{Collecting sensor measurements}
+\section{Collecting Sensor Measurements}
 \label{sec:sensor_measurement_collection}
 
 A python script has been developed which saves all sensor readings during the test runs into a text file for later analysis and evaluation. Furthermore, all images captured by the camera are saved into a specific folder on the Raspberry Pi to be able to derive the ground truth information later on.
@@ -161,7 +161,7 @@ Figure \ref{fig:sample_sensor_trace} shows a part of a sensor trace which was ac
 
 
 
-\section{Raw dataset}
+\section{Raw Dataset}
 \label{sec:raw_dataset}
 
 %As soon as the test bed is ready, the sensors should be mounted on the prototype car to be able to start recording the dataset. Test drives should be done in some selected streets in Linz, Austria with the focus of variety of the recorded situations. The test scenes should include single lane as well as multi lane streets and measurements in all streets should be done several times. Furthermore, the car should be driving as it would in regular traffic (not only in the right most lane, etc...) and the scenes should also include high and low traffic scenarios to have a high amount of diverse data. All measured distances, GPS locations and ground truth images have to be saved to files with the according timestamps to be able to evaluate the results of different approaches later on. Furthermore, using the images taken by the camera, ground truth values will be manually labelled in different classes (Parked car, free space, overtaken car, ...). A detailed description about the dataset and the ground truth tagging can be found in section \todo{ref} \ref{sec:dataset}.
@@ -182,7 +182,7 @@ Additionally, 266.309 images were captured to record the ground truth of the sen
 
 
 
-\section{Ground truth tagging}
+\section{Ground Truth Tagging}
 \label{sec:ground_truth_tagging}
 
 The recorded raw dataset contains distance and position measurements as well as images showing the ground truth at a specific time stamp. To be able to process the ground truth information included in the images, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface of the program which was implemented to manually tag an image with one of nine pre selected class labels. The user first has to select the directory with the captured images. The file name of each image is the time stamp when it was recorded, therefore this information is known. When the images are loaded, the user has to tag the situation which is present at the red line, which demonstrates the center of the picture. For instance, figure \ref{fig:ground_truth_tagging_ui} shows a parking car at the center of the image. Moreover, on the right of the image a car which has been overtaken by the sensing vehicle is also visible.
@@ -209,7 +209,7 @@ The class labels of which the user can choose are the following:
 
 
 
-The output of the ground truth tagging process is written into a text file where each line represents an entry of a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed in the next steps which will be discussed in the following chapter.
+The output of the ground truth tagging process is written into a text file where each line represents an entry of a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed in the next steps which will be discussed in the following sections.
 
 
 
@@ -217,7 +217,7 @@ The output of the ground truth tagging process is written into a text file where
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{img/ground_truth_tagging_ui.PNG}
+	\includegraphics[width=0.8\textwidth]{img/ground_truth_tagging_ui.PNG}
 	\caption{User Interface to manually tag what kind of situation is faced during the specific time the image shown is taken}
 	\label{fig:ground_truth_tagging_ui}
 \end{figure}
@@ -226,9 +226,16 @@ The output of the ground truth tagging process is written into a text file where
 
 \section{Data Preprocessing}
 
-Before the raw dataset can be further processed, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are thrown away. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both situations it will give an output of less than 10 centimeters. All of the detected error/overflow measures will be simply deleted from the raw dataset before further processing to ensure the quality of the data.
+Before the raw dataset can be used for the input of machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are thrown away. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. All of the detected error/overflow measures will be simply deleted from the raw dataset before further processing to ensure the quality of the data.
 
-Due to the fact that all sensors measure at a different frequency, the sensor data of all sensors has to be unified before the next steps can be taken. The distance sensor measures at a much higher frequency than both the GPS sensor and the camera. Therefore, the GPS location as well as the ground truth at each distance measurement have to be approximated. Linear interpolation using the timestamp of the measurements is being used to calculate the approximate location and ground truth at the times of all distance measurements. 
+Due to the fact that all sensors measure at different frequencies, the sensor data of all sensors has to be unified before the next steps can be taken. The distance sensor measures at a much higher frequency than both the GPS sensor and the camera. Therefore, the GPS location as well as the ground truth at each distance measurement have to be approximated. Linear interpolation using the timestamp of the measurements is being used to calculate the approximate location and ground truth at the times of all distance measurements. Figure \ref{fig:preprocessing_dataset} shows how the raw sensor data and the ground truth data get unified so that a list of data points containing distance, GPS position and ground truth can be derived.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/dataset-preprocessing.eps}
+	\caption{All sensor measurements are being merged to obtain samples with time, distance, location and ground truth information}
+	\label{fig:preprocessing_dataset}
+\end{figure}
 
 
 
