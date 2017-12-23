@@ -52,7 +52,7 @@ Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For 
 
 To determine the location of the sensing vehicles while driving through the city, a Navilock USB GPS receiver\footnote{\url{http://www.navilock.de/produkte/G_61840/merkmale.html?setLanguage=en}} is being used. It can be connected to the Raspberry Pi using a USB Port and can measure the GPS location (latitude and longitude) at a rate of about 1 Hz. According to the manufacturer the acquired positions are correct in the range of 2.5 meters. The GPS receiver is mounted on the top of the sensing car using a magnet which should help to receive more accurate sensor readings. The Navilock USB GPS sensor starts at a price of about \euro{50}.
 
-For the use of a distance sensor there are two options. Either a ultrasonic range sensor can be used or an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance systems, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for using drive-by sensing on multi-lane roads or with high speeds. Due to these limitations the optical distance sensor "Lidar Lite v3\footnote{\url{https://www.sparkfun.com/products/14032}}" is being used. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While ultrasonic sensors can be bought under \euro{10}, the Lidar Lite v3 and other comparable sensors are about \euro{150}.
+For the use of a distance sensor there are two options. Either a ultrasonic range sensor can be used or an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance systems, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for using drive-by sensing on multi-lane roads or with high speeds. Due to these limitations the optical distance sensor "Lidar Lite v3\footnote{\url{https://www.sparkfun.com/products/14032}}" is used. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While ultrasonic sensors can be bought under \euro{10}, the Lidar Lite v3 and other comparable sensors are about \euro{150}.
 
 The distance sensor is mounted on the co-driver's door using a sucker handle, so that it faces to the right side of the road and so that it measures about \todo{40cm} above the ground. Moreover, it is connected to the Raspberry Pi via GPIO (General Purpose Input Output) pins while communicating using an I2C (Inter Integrated Circuit) interface, according to the manufacturer's specifications.
 
@@ -100,7 +100,7 @@ Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of 
 \label{table:comparison_us_lidar}
 \end{table}
 
-For the camera which is necessary to capture images of the ground truth a Logitech C922 Pro Stream\footnote{\url{https://www.logitech.com/en-us/product/c922-pro-stream-webcam}} is being used. At a frequency of about 30 Hz images with a resolution of 352 x 288 pixels are captured while the car is sensing parking spaces. The camera is mounted on the co-driver's door on the same horizontal position as the sensor. This way the center of the image will be the position where the distance sensor is measuring its distances. The Logitech camera is connected to the Raspberry Pi using an USB Port and is available at about \euro{90}.
+For the camera, which is necessary to capture images of the ground truth, a Logitech C922 Pro Stream\footnote{\url{https://www.logitech.com/en-us/product/c922-pro-stream-webcam}} is used. At a frequency of about 30 Hz images with a resolution of 352 x 288 pixels are captured while the car is sensing parking spaces. The camera is mounted on the co-driver's door on the same horizontal position as the sensor. This way the center of the image will be the position where the distance sensor is measuring its distances. The Logitech camera is connected to the Raspberry Pi using an USB Port and is available at about \euro{90}.
 
 
 
@@ -138,12 +138,11 @@ For the camera which is necessary to capture images of the ground truth a Logite
 \section{Collecting Sensor Measurements}
 \label{sec:sensor_measurement_collection}
 
-A python script has been developed which saves all sensor readings during the test runs into a text file for later analysis and evaluation. Furthermore, all images captured by the camera are saved into a specific folder on the Raspberry Pi to be able to derive the ground truth information later on.
-%To collect the sensor readings while the sensing vehicle is driving a python script was developed which saves all sensor readings to a text file and the images captured by the camera into a specific folder on the Raspberry Pi.
-The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) runs asynchronously in separate threads so that none of them influence the other sensor's readings. For accessing the GPS receiver the python gps library was used whereas for measuring the distance using the Lidar Lite v3 sensor, an open source library available on github.com was used (\url{https://github.com/Sanderi44/Lidar-Lite}). 
+A python script has been developed which saves all sensor readings during the test runs into a text file for later analysis and evaluation. Furthermore, all images captured by the camera are saved into a specific folder on the Raspberry Pi to be able to derive the ground truth information later on (see Section \ref{sec:ground_truth_tagging}).
+The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) runs asynchronously in separate threads so that none of them influence the other sensor's readings. For accessing the GPS receiver the python gps library is used whereas for measuring the distance using the Lidar Lite v3 sensor, an open source library available on github.com is used (\url{https://github.com/Sanderi44/Lidar-Lite}). 
 %A library called "pygame.camera" was used to capture the images of the webcam. 
 
-Figure \ref{fig:sample_sensor_trace} shows a part of a sensor trace which was acquired during a test drive. It contains GPS and distance measurements. The first column determines which sensor was used for the specific measurement and the second one is the time stamp of the Raspberry Pi's system time in seconds. GPS measurements also show latitude, longitude and speed measurements while the Lidar Lite measurements only show the measured distance in centimeters.
+Figure \ref{fig:sample_sensor_trace} shows how the sensor data gets collected and furthermore presents a sample of raw sensor data derived during a test drive. The sensor data text file contains GPS and distance measurements. The first column determines which sensor was used for the specific measurement and the second one is the time stamp of the Raspberry Pi's system time in seconds. GPS measurements also show latitude, longitude and speed measurements while the Lidar Lite measurements only show the measured distance in centimeters.
 
 %\begin{figure}
 %	\centering
@@ -155,7 +154,7 @@ Figure \ref{fig:sample_sensor_trace} shows a part of a sensor trace which was ac
 \begin{figure}
 	\centering
 	\includegraphics{img/obtaining-raw-dataset.eps}
-	\caption{Sample of the collected sensor trace}
+	\caption{Acquiring raw sensor data}
 	\label{fig:sample_sensor_trace}
 \end{figure}
 
@@ -164,11 +163,9 @@ Figure \ref{fig:sample_sensor_trace} shows a part of a sensor trace which was ac
 \section{Raw Dataset}
 \label{sec:raw_dataset}
 
-%As soon as the test bed is ready, the sensors should be mounted on the prototype car to be able to start recording the dataset. Test drives should be done in some selected streets in Linz, Austria with the focus of variety of the recorded situations. The test scenes should include single lane as well as multi lane streets and measurements in all streets should be done several times. Furthermore, the car should be driving as it would in regular traffic (not only in the right most lane, etc...) and the scenes should also include high and low traffic scenarios to have a high amount of diverse data. All measured distances, GPS locations and ground truth images have to be saved to files with the according timestamps to be able to evaluate the results of different approaches later on. Furthermore, using the images taken by the camera, ground truth values will be manually labelled in different classes (Parked car, free space, overtaken car, ...). A detailed description about the dataset and the ground truth tagging can be found in section \todo{ref} \ref{sec:dataset}.
-
 To obtain a dataset, in total 32 test drives were completed in the city of Linz, Austria. The sensed street scenarios have been selected with the focus of variety of the recorded situations. The test scenes include single lane as well as multi lane streets and measurements in all streets have been done several times. Furthermore, while collecting the test measurements the sensing car was driving as it would in regular traffic (not only in the right most lane, etc.) and the scenes also include high and low traffic scenarios to have a high amount of diverse data. 
 Figure \ref{fig:gps_locations_dataset} shows an aggregated GPS trace of all test drives on a map of Linz. Red dots represent parking cars while black dots represent other objects. In total 444.427 distance measurements and 14.997 GPS measurements were taken, which makes up about 15,9 megabytes of distance and GPS data. 
-Additionally, 266.309 images were captured to record the ground truth of the sensed scenes. All of these images which make up about 5.072 megabytes are used to determine the ground truth of the recorded scenes to be later able to apply supervised machine learning. How ground truth tagging was done is described in the following section.
+Additionally, 266.309 images were captured to record the ground truth of the sensed scenes. All of these images which make up about 5.072 megabytes are used to determine the ground truth of the recorded scenes to be later able to apply supervised machine learning. How the ground truth is tagged is described in the following section.
 
 
 
@@ -185,14 +182,13 @@ Additionally, 266.309 images were captured to record the ground truth of the sen
 \section{Ground Truth Tagging}
 \label{sec:ground_truth_tagging}
 
-The recorded raw dataset contains distance and position measurements as well as images showing the ground truth at a specific time stamp. To be able to process the ground truth information included in the images, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface of the program which was implemented to manually tag an image with one of nine pre selected class labels. The user first has to select the directory with the captured images. The file name of each image is the time stamp when it was recorded, therefore this information is known. When the images are loaded, the user has to tag the situation which is present at the red line, which demonstrates the center of the picture. For instance, figure \ref{fig:ground_truth_tagging_ui} shows a parking car at the center of the image. Moreover, on the right of the image a car which has been overtaken by the sensing vehicle is also visible.
+The recorded raw dataset contains distance and position measurements as well as images showing the ground truth at a specific time stamp. To be able to process the ground truth information included in the images, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface of the program which was implemented to manually tag an image with one of nine pre selected class labels. The user first has to select the directory with the captured images. The file name of each image is the time stamp when it was recorded, therefore this information is known. After the images are loaded, the user has to tag the situation which is present at the red line, which demonstrates the center of the picture. For instance, figure \ref{fig:ground_truth_tagging_ui} shows a parking car at the center of the image. Moreover, on the right of the image a car which has been overtaken by the sensing vehicle is also visible.
 The class labels of which the user can choose are the following:
-
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{img/types-of-parking-cars.eps}
-	\caption{Different types of parking cars}
-	\label{fig:types_of_parking_cars}
+	\includegraphics[width=0.8\textwidth]{img/ground_truth_tagging_ui.PNG}
+	\caption{User interface to manually tag what kind of situation is faced during the specific time the image has been taken}
+	\label{fig:ground_truth_tagging_ui}
 \end{figure}
 
 \begin{description}
@@ -212,28 +208,29 @@ The class labels of which the user can choose are the following:
 The output of the ground truth tagging process is written into a text file where each line represents an entry of a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed in the next steps which will be discussed in the following sections.
 
 
-
-
-
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/ground_truth_tagging_ui.PNG}
-	\caption{User Interface to manually tag what kind of situation is faced during the specific time the image shown is taken}
-	\label{fig:ground_truth_tagging_ui}
+	\includegraphics[width=\textwidth]{img/types-of-parking-cars.eps}
+	\caption{Different types of parking cars}
+	\label{fig:types_of_parking_cars}
 \end{figure}
+
+
+
+
 
 
 
 \section{Data Preprocessing}
 
-Before the raw dataset can be used for the input of machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are thrown away. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. All of the detected error/overflow measures will be simply deleted from the raw dataset before further processing to ensure the quality of the data.
+Before the raw dataset can be used for the input of machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are thrown away. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. Furthermore, outliers where a single measurement differs greatly (more than 1 meter) from the enclosing measurements are also detected so that they won't cause over-segmentation in the data segmentation process (discussed in the following section). All of the detected error/overflow/outlier measures will be simply deleted from the raw dataset before further processing to ensure the quality of the dataset.
 
 Due to the fact that all sensors measure at different frequencies, the sensor data of all sensors has to be unified before the next steps can be taken. The distance sensor measures at a much higher frequency than both the GPS sensor and the camera. Therefore, the GPS location as well as the ground truth at each distance measurement have to be approximated. Linear interpolation using the timestamp of the measurements is being used to calculate the approximate location and ground truth at the times of all distance measurements. Figure \ref{fig:preprocessing_dataset} shows how the raw sensor data and the ground truth data get unified so that a list of data points containing distance, GPS position and ground truth can be derived.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{img/dataset-preprocessing.eps}
-	\caption{All sensor measurements are being merged to obtain samples with time, distance, location and ground truth information}
+	\caption{All sensor measurements are being merged to obtain samples containing time, distance, location and ground truth information}
 	\label{fig:preprocessing_dataset}
 \end{figure}
 
