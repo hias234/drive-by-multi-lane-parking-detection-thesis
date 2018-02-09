@@ -50,13 +50,13 @@ Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For 
 \end{figure}
 
 
-To determine the location of the sensing vehicles while driving through the city, a Navilock USB GPS receiver\footnote{\url{http://www.navilock.de/produkte/G_61840/merkmale.html?setLanguage=en}} is used. It is connected to the Raspberry Pi using a USB port and measures the GPS location (latitude and longitude) at a rate of about 1 Hz. According to the manufacturer the acquired positions are correct in the range of 2.5 meters. The GPS receiver is mounted on the top of the sensing car using a magnet in order to receive more accurate sensor readings. The Navilock USB GPS sensor costs about \euro{50}.
+To determine the location of the sensing vehicles while driving through the city, a Navilock USB GPS receiver\footnote{\url{http://www.navilock.de/produkte/G_61840/merkmale.html?setLanguage=en}} is used. The receiver is connected to the Raspberry Pi using a USB port and measures the GPS location (latitude and longitude) at a rate of about 1 Hz. According to the manufacturer the acquired positions are correct in the range of 2.5 meters. The GPS receiver is mounted on the top of the sensing car using a magnet in order to receive more accurate sensor readings. The Navilock USB GPS sensor costs about \euro{50}.
 
-For the use of a distance sensor there are two options. Either a ultrasonic range sensor can be used or an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance systems, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for using drive-by sensing on multi-lane roads or with high speeds. Due to these limitations the optical distance sensor "Lidar Lite v3\footnote{\url{https://www.sparkfun.com/products/14032}}" is used. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While ultrasonic sensors can be bought under \euro{10}, the Lidar Lite v3 and other comparable sensors are about \euro{150}.
+Two major distance sensor technologies can be differentiated: an ultrasonic range sensor and an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance systems, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for drive-by sensing on multi-lane roads or high speed. Due to these limitations an optical distance sensor, the "Lidar Lite v3\footnote{\url{https://www.sparkfun.com/products/14032}}" is used in our testbed. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While the costs of ultrasonic sensors are often below \euro{10}, the Lidar Lite v3 and other comparable sensors cost about \euro{150}.
 
-The distance sensor is mounted on the co-driver's door using a sucker handle, so that it faces to the right side of the road and so that it measures about \todo{40cm} above the ground. Moreover, it is connected to the Raspberry Pi via GPIO (General Purpose Input Output) pins while communicating using an I2C (Inter Integrated Circuit) interface, according to the manufacturer's specifications.
+The distance sensor is mounted on the co-driver's door using a sucker handle in order to face the right side of the road and to take measures at about \todo{40cm} above the ground. It is connected to the Raspberry Pi via GPIO (General Purpose Input Output) pins, communicating using an I2C (Inter Integrated Circuit) interface, according to the manufacturer's specifications.
 
-Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of ultrasonic sensors and our used Lidar Lite v3 sensor. The most significant limitation is the sampling frequency. While optical laser sensors are based on the speed of light, ultrasonic sensors are based on the speed of sound, which is much slower. Therefore, also the distances between consecutive measurements varies highly from an ultrasonic to an optical laser sensor. At a speed of 50 km/h, a sensing vehicle would drive up to 70 cm between two consecutive measurements with an ultrasonic sensor while only driving about 3 cm when using an optical distance sensor.
+Table \ref{table:comparison_us_lidar} shows a comparison of the characteristics of ultrasonic sensors and the Lidar Lite v3 sensor. The most significant limitation is the sampling frequency. While optical laser sensors are based on the speed of light, ultrasonic sensors are based on the speed of sound, which is much lower. Therefore, also the distance between consecutive measurements varies highly from an ultrasonic to an optical laser sensor. At a speed of 50 km/h, the distance between two consecutive measurements is up to 70 cm using an ultrasonic sensor while it is only about 3 cm when using an optical distance sensor.
 
 
 
@@ -100,7 +100,7 @@ Table \ref{table:comparison_us_lidar} shows a comparison of the capabilities of 
 \label{table:comparison_us_lidar}
 \end{table}
 
-For the camera, which is necessary to capture images of the ground truth, a Logitech C922 Pro Stream\footnote{\url{https://www.logitech.com/en-us/product/c922-pro-stream-webcam}} is used. At a frequency of about 30 Hz images with a resolution of 352 x 288 pixels are captured while the car is sensing parking spaces. The camera is mounted on the co-driver's door on the same horizontal position as the sensor. This way the center of the image will be the position where the distance sensor is measuring its distances. The Logitech camera is connected to the Raspberry Pi using an USB Port and is available at about \euro{90}.
+A camera is leveraged to capture images of the ground truth, here, a Logitech C922 Pro Stream\footnote{\url{https://www.logitech.com/en-us/product/c922-pro-stream-webcam}} is used. Images with a resolution of 352 x 288 pixels are captured at a frequency of about 30 Hz while the car is sensing parking spaces. The camera is mounted on the co-driver's door on the same horizontal position as the sensor. This way the center of the image will be the position where the distance measurement is taken. The Logitech camera is connected to the Raspberry Pi using an USB port and is available at about \euro{90}.
 
 
 
@@ -135,14 +135,14 @@ For the camera, which is necessary to capture images of the ground truth, a Logi
 %\end{table}
 
 
-\section{Collecting Sensor Measurements}
+\section{Collecting Sensor Measurement Data}
 \label{sec:sensor_measurement_collection}
 
-A python script has been developed which saves all sensor readings during the test runs into a text file for later analysis and evaluation. Furthermore, all images captured by the camera are saved into a specific folder on the Raspberry Pi to be able to derive the ground truth information later on (see Section \ref{sec:ground_truth_tagging}).
-The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) runs asynchronously in separate threads so that none of them influence the other sensor's readings. For accessing the GPS receiver the python gps library is used whereas for measuring the distance using the Lidar Lite v3 sensor, an open source library available on github.com is used (\url{https://github.com/Sanderi44/Lidar-Lite}). 
+A Python script has been developed which saves all sensor readings during the test runs into a text file for later analysis and evaluation. Furthermore, all images captured by the camera are saved into a specific folder on the Raspberry Pi to be able to derive the ground truth information later on (see Section \ref{sec:ground_truth_tagging}).
+The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) is performed asynchronously in separate threads so that none of them influence the other sensor's readings. For accessing the GPS receiver the Python GPS library is used whereas for measuring the distance using the Lidar Lite v3 sensor, an open source library available on github.com is used \footnote{\url{https://github.com/Sanderi44/Lidar-Lite}}. 
 %A library called "pygame.camera" was used to capture the images of the webcam. 
 
-Figure \ref{fig:sample_sensor_trace} shows how the sensor data gets collected and furthermore presents a sample of raw sensor data derived during a test drive. The sensor data text file contains GPS and distance measurements. The first column determines which sensor was used for the specific measurement and the second one is the time stamp of the Raspberry Pi's system time in seconds. GPS measurements also show latitude, longitude and speed measurements while the Lidar Lite measurements only show the measured distance in centimeters.
+Figure \ref{fig:sample_sensor_trace} shows how the sensor data gets collected and furthermore presents a sample of raw sensor data derived during a test drive. The sensor data text file contains GPS and distance measurements. The first column contains the sensor type. The second column gives the time stamp of the Raspberry Pi's system time in seconds. GPS measurements also result in latitude, longitude and speed values while the Lidar Lite measurements result in the measured distance in centimeters.
 
 %\begin{figure}
 %	\centering
@@ -160,19 +160,19 @@ Figure \ref{fig:sample_sensor_trace} shows how the sensor data gets collected an
 
 
 
-\section{Raw Dataset}
+\section{Raw Data Set}
 \label{sec:raw_dataset}
 
-To obtain a dataset, in total 32 test drives were completed in the city of Linz, Austria. The sensed street scenarios have been selected with the focus of variety of the recorded situations. The test scenes include single lane as well as multi lane streets and measurements in all streets have been done several times. Furthermore, while collecting the test measurements the sensing car was driving as it would in regular traffic (not only in the right most lane, etc.) and the scenes also include high and low traffic scenarios to have a high amount of diverse data. 
+To obtain a dataset, in total 32 test drives were completed in the city of Linz, Austria. The street scenarios have been selected aiming at a high variability of road scenarios. The test scenes include single lane as well as multi lane streets. While collecting the test measurements the sensing car was driving as it would in regular traffic (not only in the right most lane, etc.) and the scenes also include high and low traffic scenarios. For all street scenarios, measurements have been repeated multiple times.
 Figure \ref{fig:gps_locations_dataset} shows an aggregated GPS trace of all test drives on a map of Linz. Red dots represent parking cars while black dots represent other objects. In total 444.427 distance measurements and 14.997 GPS measurements were taken, which makes up about 15,9 megabytes of distance and GPS data. 
-Additionally, 266.309 images were captured to record the ground truth of the sensed scenes. All of these images which make up about 5.072 megabytes are used to determine the ground truth of the recorded scenes to be later able to apply supervised machine learning. How the ground truth is tagged is described in the following section.
+Additionally, 266.309 images were captured to record the ground truth of the sensed scenes. The images, which make up about 5.072 megabytes, are used to determine the ground truth of the recorded scenes. Sensed data and ground truth data are applied to supervised machine learning algorithms later on. Ground truth tagging is described in the following section.
 
 
 
 \begin{figure}
 	\centering
 	\includegraphics{img/gps_data_recorded_data_parking_spaces.PNG}
-	\caption{GPS Trace of all recorded samples in the acquired dataset, while 32 test drives in Linz, Austria. Red dots represent parking cars.}
+	\caption{GPS trace of all recorded samples in the acquired dataset, while 32 test drives in Linz, Austria. Red dots represent parking cars.}
 	\label{fig:gps_locations_dataset}
 \end{figure}
 
