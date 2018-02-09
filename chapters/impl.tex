@@ -182,36 +182,37 @@ Additionally, 266.309 images were captured to record the ground truth of the sen
 \section{Ground Truth Tagging}
 \label{sec:ground_truth_tagging}
 
-The recorded raw dataset contains distance and position measurements as well as images showing the ground truth at a specific time stamp. To be able to process the ground truth information included in the images, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface of the program which was implemented to manually tag an image with one of nine pre selected class labels. The user first has to select the directory with the captured images. The file name of each image is the time stamp when it was recorded, therefore this information is known. After the images are loaded, the user has to tag the situation which is present at the red line, which demonstrates the center of the picture. For instance, figure \ref{fig:ground_truth_tagging_ui} shows a parking car at the center of the image. Moreover, on the right of the image a car which has been overtaken by the sensing vehicle is also visible.
-The class labels of which the user can choose are the following:
+The recorded raw dataset contains distance and position measurements as well as images showing the ground truth at a specific point in time. To be able to process the ground truth information included in the images, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface of the program which was implemented to manually tag an image with one of nine pre selected class labels. The file name of each image is the time stamp of the recording. After the images are loaded, the user has to tag the situation which is present at the center of the image (red line). For instance, Figure \ref{fig:ground_truth_tagging_ui} shows a parking car at the center of the image. In addition, on the right side of the image a car which has been overtaken by the sensing vehicle is also visible, but as it is not in the center, the image is labelled as "parking car".
+Possible class labels are: 
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/ground_truth_tagging_ui.PNG}
-	\caption{User interface to manually tag what kind of situation is faced during the specific time the image has been taken}
+	\caption{User interface for manual tagging of parking situations. \todo{crop}}
 	\label{fig:ground_truth_tagging_ui}
 \end{figure}
 
 \begin{description}
 
-\item[Parking car] A non-moving vehicle which is parking at the right side of the road. There are three kinds of parking vehicles from which one can choose: Parallel parking cars, perpendicular parking cars and angular parking cars. Figure \ref{fig:types_of_parking_cars} shows the different types of parking spaces.
+\item[Parking car:] A parking car is a non-moving vehicle which is parking at the right side of the road. There are three kinds of parking vehicles: \textbf{\textit{Parallel parking cars}}, \textbf{\textit{perpendicular parking cars}}, and \textbf{\textit{angular parking cars}}. Figure \ref{fig:types_of_parking_cars} shows the different types of parking spaces.
 
-\item[Overtaking Situation] This class label means that the sensing vehicle is overtaking another traffic participant. The user can choose between overtaken cars, overtaken motorcycles and overtaken bicycles.
+\item[Overtaking situation:] This class label means that the sensing vehicle is overtaking another road vehicle. The user can choose between \textbf{\textit{overtaken cars}}, \textbf{\textit{overtaken motorcycles}} and \textbf{\textit{overtaken bicycles}}.
 
-\item[Other parking vehicle] The user can tag parking motorcycles and parking bicycles which also should be detected later on. This class represents obstacles which can be located on parking spaces and therefore make it unavailable for parking.
+\item[Other parking vehicle:] The user can also tag \textbf{\textit{parking motorcycles}} and \textbf{\textit{parking bicycles}}. This class represents obstacles which can be located on parking spaces and therefore make it unavailable for parking.
 
-\item[Free space] This class label should be used, when none of the above listed class labels are applicable. It represents a free space where it is maybe possible to park a vehicle. Yet only with the help of a parking space map, a free space can be marked as vacant parking space as a random free space may be an illegal parking space.
+\item[Free space:] This class label should be used, when none of the above listed class labels are applicable. It represents a free space where it is maybe possible to park a vehicle. Yet only with the help of a parking space map, a free space can be marked as vacant parking space as a random free space may be an illegal parking space.
 
 \end{description}
 
 
 
-The output of the ground truth tagging process is written into a text file where each line represents an entry of a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed in the next steps which will be discussed in the following sections.
+The output of the ground truth tagging process is persistently saved as a text file where each line contains an entry with a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed during the machine learning process as described in Chapter \ref{chap:data_processing_and_ml}.
 
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{img/types-of-parking-cars.eps}
-	\caption{Different types of parking cars}
+	\caption{Different types of parking cars.}
 	\label{fig:types_of_parking_cars}
 \end{figure}
 
@@ -269,6 +270,7 @@ Figure \ref{fig:segmentation} shows an example of the segmentation process. All 
 
 
 \chapter{Data Processing and Machine Learning Approaches}
+\label{chap:data_processing_and_ml}
 
 \section{Experiment description and data collection}
 \label{sec:experiment_description_data_collection}
