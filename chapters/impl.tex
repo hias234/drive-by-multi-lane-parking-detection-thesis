@@ -269,14 +269,16 @@ Due to the fact that all sensors measure at different frequencies, the sensor da
 
 As the used distance sensor measures at a high frequency, it usually collects several distance measurements belonging to the same object. For example, if the sensing vehicle passes a parallel parked car (having a length of 4 meters) at a speed of 30 km/h it will collect approximately 24 measurements belonging to the passed car. To be able to automatically evaluate the performance of different approaches to sense parking cars and other objects the sensor measurements belonging to the same objects have to be grouped together. After the raw data points containing all information are being derived by the preprocessing step, the segmentation process has to be performed, which groups similar consecutive data points together.
 
-There are several strategies how sensor data can be segmented, for example using sliding windows. However, such approaches will not work accurate enough in the case of street side parking detection, as the objects which should be segmented range from a few centimeters to a length of tens of meters. Therefore, a new strategy to segment the sensor data points is proposed. The segmentation algorithm searches for high frequent changes in the distance signal and starts a new segment everywhere where the distance difference between two consecutive measurements is above a certain threshold. Furthermore, if the time stamp of two measurements differs more than one second the start of a new segment will also be detected. 
+There are several strategies how sensor data can be segmented, for example using sliding windows. However, such approaches will not work accurate enough in the case of street side parking detection, as the objects which should be segmented range from a few centimeters to a length of tens of meters. Therefore, a new strategy to segment the sensor data points is proposed. The segmentation algorithm searches for high frequent changes in the distance signal and starts a new segment everywhere where the distance difference between two consecutive measurements is above a certain threshold. Furthermore, if the time stamp of two measurements differs more than one second the start of a new segment will also be detected (this can be the case if the sensing vehicle was standing or driving at a very low speed and many measurements have been deleted in the preprocessing steps). 
 
 Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in figure \ref{fig:segmentation} has successfully detected 3 parking car- and two free space segments. 
+
+Also visible in Figure \ref{fig:segmentation} is that the ground truth tagging is not fully accurate. Some measurements belonging to a free space class are tagged as "parked car" and vice versa. However, the segments are tagged with the label which is tagged in a majority of the sensor readings and therefore this problem of inconsistent tagged measurements in segments can be avoided.
 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\textwidth]{img/segmentation_example.PNG}
+	\includegraphics[width=0.95\textwidth]{img/segmentation_example.PNG}
 	\caption{Example of the segmentation process}
 	\label{fig:segmentation}
 \end{figure}
