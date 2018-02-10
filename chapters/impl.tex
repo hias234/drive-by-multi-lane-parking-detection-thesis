@@ -46,7 +46,7 @@ Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/car.jpg}
-	\caption{Prototype of the sensing car, which is composed of a LIDAR Lite v3 optical distance sensor, a GPS receiver, a camera for ground truth collection and a Raspberry Pi as processing device}
+	\caption{Prototype of the sensing car, which is composed of a LIDAR Lite v3 optical distance sensor, a GPS receiver, a camera for ground truth collection and a Raspberry Pi as processing device.}
 	\label{fig:sensing_car}
 \end{figure}
 
@@ -55,7 +55,7 @@ To determine the location of the sensing vehicles while driving through the city
 
 Two major distance sensor technologies can be differentiated: an ultrasonic range sensor and an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance systems, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for drive-by sensing on multi-lane roads or high speed. Due to these limitations an optical distance sensor, the "Lidar Lite v3\footnote{\url{https://www.sparkfun.com/products/14032}}" is used in our testbed. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While the costs of ultrasonic sensors are often below \euro{10}, the Lidar Lite v3 and other comparable sensors cost about \euro{150}.
 
-The distance sensor is mounted on the co-driver's door using a sucker handle in order to face the right side of the road and to take measures at about \todo{40cm} above the ground. It is connected to the Raspberry Pi via GPIO (General Purpose Input Output) pins, communicating using an I2C (Inter Integrated Circuit) interface, according to the manufacturer's specifications.
+The distance sensor is mounted on the co-driver's door using a sucker handle in order to face the right side of the road and to take measures at about 62 cm above the ground. It is connected to the Raspberry Pi via GPIO (General Purpose Input Output) pins, communicating using an I2C (Inter Integrated Circuit) interface, according to the manufacturer's specifications.
 
 Table \ref{table:comparison_us_lidar} shows a comparison of the characteristics of ultrasonic sensors and the Lidar Lite v3 sensor. The most significant limitation is the sampling frequency. While optical laser sensors are based on the speed of light, ultrasonic sensors are based on the speed of sound, which is much lower. Therefore, also the distance between consecutive measurements varies highly from an ultrasonic to an optical laser sensor. At a speed of 50 km/h, the distance between two consecutive measurements is up to 70 cm using an ultrasonic sensor while it is only about 3 cm when using an optical distance sensor.
 
@@ -97,7 +97,7 @@ Table \ref{table:comparison_us_lidar} shows a comparison of the characteristics 
 \egroup
 }
 
-\caption{Comparison of ultrasonic sensors and the used Lidar Lite v3 optical distance sensor}
+\caption{Comparison of ultrasonic sensors and the used Lidar Lite v3 optical distance sensor.}
 \label{table:comparison_us_lidar}
 \end{table}
 
@@ -197,7 +197,7 @@ Additionally, 266.309 images were captured to record the ground truth of the sen
 \chapter{Data Processing and Machine Learning Approaches}
 \label{chap:data_processing_and_ml}
 
-This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), and data segmentation (Section \ref{sec:data_segmentation}). 
+This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), and data segmentation (Section \ref{sec:data_segmentation}). \todo{describe rest :)}
 
 
 
@@ -206,7 +206,7 @@ This chapter describes all the steps which are necessary to prepare the raw data
 \section{Ground Truth Tagging}
 \label{sec:ground_truth_tagging}
 
-The recorded raw dataset contains distance and position measurements as well as images showing the ground truth at a specific point in time. To be able to process the ground truth information included in the images, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface of the program which was implemented to manually tag an image with one of nine pre selected class labels. The file name of each image is the time stamp of the recording. After the images are loaded, the user has to tag the situation which is present at the center of the image (red line). For instance, Figure \ref{fig:ground_truth_tagging_ui} shows a parking car at the center of the image. In addition, on the right side of the image a car which has been overtaken by the sensing vehicle is also visible, but as it is not in the center, the image is labelled as "parking car".
+The recorded raw dataset contains distance and position measurements as well as images showing the ground truth at a specific point in time. To be able to process the ground truth information included in the images, a manual ground truth tagging task has to be performed. Figure \ref{fig:ground_truth_tagging_ui} shows the user interface of the program which has been implemented to manually tag an image with one of nine pre selected class labels. The file name of each image is the time stamp of the recording. After the images are loaded, the user has to tag the situation which is present at the center of the image (red line). For instance, Figure \ref{fig:ground_truth_tagging_ui} shows a parking car at the center of the image. In addition, on the right side of the image, a car which has been overtaken by the sensing vehicle is also visible, but as it is not in the center, the image is labelled as "parking car".
 Possible class labels are: 
 
 \begin{figure}
@@ -224,7 +224,7 @@ Possible class labels are:
 
 \item[Other parking vehicle:] The user can also tag \textbf{\textit{parking motorcycles}} and \textbf{\textit{parking bicycles}}. This class represents obstacles which can be located on parking spaces and therefore make it unavailable for parking.
 
-\item[Free space:] This class label should be used, when none of the above listed class labels are applicable. It represents a free space where it is maybe possible to park a vehicle. Yet only with the help of a parking space map, a free space can be marked as vacant parking space as a random free space may be an illegal parking space.
+\item[Free space:] This class label should be used, when none of the above listed class labels are applicable. It represents a free space where it is maybe possible to park a vehicle. Yet only with the help of a parking space map, a free space can be marked as vacant parking space as a random free space may be an illegal parking space (e.g. a driveway).
 
 \end{description}
 
@@ -244,14 +244,19 @@ The output of the ground truth tagging process is persistently saved as a text f
 \section{Data Preprocessing}
 \label{sec:data_preprocessing}
 
-Before the raw dataset can be used for the input of machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are thrown away. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. Furthermore, outliers where a single measurement differs greatly (more than 1 meter) from the enclosing measurements are also detected so that they won't cause over-segmentation in the data segmentation process (discussed in the following section). All of the detected error/overflow/outlier measures will be simply deleted from the raw dataset before further processing to ensure the quality of the dataset.
+Before the raw dataset can be used for the input of machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are deleted. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. Furthermore, outliers where a single measurement differs greatly (more than 1 meter) from the enclosing measurements are also detected so that they won't cause over-segmentation in the data segmentation process (discussed in the following section). All of the detected error/overflow/outlier measures will be simply deleted from the raw dataset before further processing to ensure the quality of the sensor measurements.
 
-Due to the fact that all sensors measure at different frequencies, the sensor data of all sensors has to be unified before the next steps can be taken. The distance sensor measures at a much higher frequency than both the GPS sensor and the camera. Therefore, the GPS location as well as the ground truth at each distance measurement have to be approximated. Linear interpolation using the timestamp of the measurements is being used to calculate the approximate location and ground truth at the times of all distance measurements. Figure \ref{fig:preprocessing_dataset} shows how the raw sensor data and the ground truth data get unified so that a list of data points containing distance, GPS position and ground truth can be derived.
+Another preprocessing step is the filtering of standing situations of the car. For instance, when the sensing vehicle is waiting at a traffic light or in a traffic jam, such situations would not lead to meaningful samples for the machine learning process.  As the sensing vehicle stands still it measures the distance always to the same object on the right side and this way the features which are calculated as input for the machine learning process (described in section \todo{ref}) would may be misleading. Therefore, all situations where the car is driving at a speed lower than 1 m/s are deleted from the dataset.
+
+
+\subsection{Sensor Measurement Interpolation}
+
+Due to the fact that all sensors measure at different frequencies, the sensor data of all sensors has to be unified before the next steps can be taken. The distance sensor measures at a much higher frequency (about 100 Hz) than both the GPS sensor (about 1 Hz) and the camera (about 30 Hz). Therefore, the GPS location as well as the ground truth at each distance measurement have to be approximated. Linear interpolation using the time stamp of the measurements is being used to calculate the approximate location and ground truth at the times of all distance measurements. Figure \ref{fig:preprocessing_dataset} shows how the raw sensor data and the ground truth data get unified so that a list of data points containing distance, GPS position and ground truth can be derived.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{img/dataset-preprocessing.eps}
-	\caption{All sensor measurements are being merged to obtain samples containing time, distance, location and ground truth information}
+	\caption{All sensor measurements are being merged to obtain a dataset where all samples are containing time, distance, location and ground truth information.}
 	\label{fig:preprocessing_dataset}
 \end{figure}
 
@@ -264,7 +269,7 @@ Due to the fact that all sensors measure at different frequencies, the sensor da
 
 As the used distance sensor measures at a high frequency, it usually collects several distance measurements belonging to the same object. For example, if the sensing vehicle passes a parallel parked car (having a length of 4 meters) at a speed of 30 km/h it will collect approximately 24 measurements belonging to the passed car. To be able to automatically evaluate the performance of different approaches to sense parking cars and other objects the sensor measurements belonging to the same objects have to be grouped together. After the raw data points containing all information are being derived by the preprocessing step, the segmentation process has to be performed, which groups similar consecutive data points together.
 
-There are several strategies how sensor data can be segmented, for example using sliding windows. However, such approaches will not work accurate enough in the case of street side parking detection, as the objects which should be segmented can be from a few centimeters to tens of meters long. Therefore, a new strategy to segment the sensor data points is proposed. The segmentation algorithm searches for high frequent changes in the distance signal and starts a new segment everywhere where the distance difference between two consecutive measurements is above a certain threshold. Furthermore, if the timestamp of two measurements differs more than one second the start of a new segment will also be detected. 
+There are several strategies how sensor data can be segmented, for example using sliding windows. However, such approaches will not work accurate enough in the case of street side parking detection, as the objects which should be segmented range from a few centimeters to a length of tens of meters. Therefore, a new strategy to segment the sensor data points is proposed. The segmentation algorithm searches for high frequent changes in the distance signal and starts a new segment everywhere where the distance difference between two consecutive measurements is above a certain threshold. Furthermore, if the time stamp of two measurements differs more than one second the start of a new segment will also be detected. 
 
 Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in figure \ref{fig:segmentation} has successfully detected 3 parking car- and two free space segments. 
 
