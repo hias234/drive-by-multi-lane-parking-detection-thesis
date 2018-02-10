@@ -1,7 +1,8 @@
 \chapter{Testbed - Prototype Implementation}
 \label{chap:referenceimplementation}
 
-As already discussed in Chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. To support this goal, a prototype of drive-by sensing using an optical distance sensor has been designed, implemented, and evaluated. This chapter introduces the prototype and testbed which have been developed to acquire the necessary dataset to run the machine learning experiments. Furthermore, the process to obtain ground truth information is described.
+As already discussed in Chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. To support this goal, a prototype of drive-by sensing using an optical distance sensor has been designed, implemented, and evaluated. This chapter introduces the prototype and testbed which have been developed to acquire the necessary dataset to run the machine learning experiments. 
+%Furthermore, the process to obtain ground truth information is described.
 
 %This chapter will describe the setup and implementation of the prototype. In particular, section \ref{sec:system_design} will discuss the overall envisioned system, the prototype car and the required sensors with their capabilities. In section \ref{sec:experiment_description_data_collection} the experimental setup will be discussed as well as the acquiring of the test dataset through test drives in the city of Linz, Austria. Finally, section \ref{sec:data_processing} will describe the preprocessing of the data, definition of the features and a short description of all used machine learning algorithms with their configurations. 
 %\todo{update :)}
@@ -154,7 +155,7 @@ Figure \ref{fig:sample_sensor_trace} shows how the sensor data gets collected an
 \begin{figure}
 	\centering
 	\includegraphics{img/obtaining-raw-dataset.eps}
-	\caption{Acquiring raw sensor data}
+	\caption{Acquiring raw sensor data.}
 	\label{fig:sample_sensor_trace}
 \end{figure}
 
@@ -179,6 +180,29 @@ Additionally, 266.309 images were captured to record the ground truth of the sen
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Data Processing and Machine Learning Approaches}
+\label{chap:data_processing_and_ml}
+
+This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), and data segmentation (Section \ref{sec:data_segmentation}). 
+
+
+
+
+
 \section{Ground Truth Tagging}
 \label{sec:ground_truth_tagging}
 
@@ -187,7 +211,7 @@ Possible class labels are:
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/ground_truth_tagging_ui.PNG}
+	\includegraphics[width=0.85\textwidth]{img/ground_truth_tagging_ui.PNG}
 	\caption{User interface for manual tagging of parking situations. \todo{crop}}
 	\label{fig:ground_truth_tagging_ui}
 \end{figure}
@@ -206,7 +230,7 @@ Possible class labels are:
 
 
 
-The output of the ground truth tagging process is persistently saved as a text file where each line contains an entry with a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed during the machine learning process as described in Chapter \ref{chap:data_processing_and_ml}.
+The output of the ground truth tagging process is persistently saved as a text file where each line contains an entry with a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed during the machine learning process as described in \todo{ref}.
 
 
 \begin{figure}
@@ -217,12 +241,8 @@ The output of the ground truth tagging process is persistently saved as a text f
 \end{figure}
 
 
-
-
-
-
-
 \section{Data Preprocessing}
+\label{sec:data_preprocessing}
 
 Before the raw dataset can be used for the input of machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are thrown away. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. Furthermore, outliers where a single measurement differs greatly (more than 1 meter) from the enclosing measurements are also detected so that they won't cause over-segmentation in the data segmentation process (discussed in the following section). All of the detected error/overflow/outlier measures will be simply deleted from the raw dataset before further processing to ensure the quality of the dataset.
 
@@ -240,6 +260,7 @@ Due to the fact that all sensors measure at different frequencies, the sensor da
 
 
 \section{Data Segmentation}
+\label{sec:data_segmentation}
 
 As the used distance sensor measures at a high frequency, it usually collects several distance measurements belonging to the same object. For example, if the sensing vehicle passes a parallel parked car (having a length of 4 meters) at a speed of 30 km/h it will collect approximately 24 measurements belonging to the passed car. To be able to automatically evaluate the performance of different approaches to sense parking cars and other objects the sensor measurements belonging to the same objects have to be grouped together. After the raw data points containing all information are being derived by the preprocessing step, the segmentation process has to be performed, which groups similar consecutive data points together.
 
@@ -264,13 +285,6 @@ Figure \ref{fig:segmentation} shows an example of the segmentation process. All 
 %\end{figure}
 
 
-
-
-
-
-
-\chapter{Data Processing and Machine Learning Approaches}
-\label{chap:data_processing_and_ml}
 
 \section{Experiment description and data collection}
 \label{sec:experiment_description_data_collection}
