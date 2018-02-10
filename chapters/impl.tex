@@ -273,15 +273,16 @@ There are several strategies how sensor data can be segmented, for example using
 
 Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in figure \ref{fig:segmentation} has successfully detected 3 parking car- and two free space segments. 
 
-Also visible in Figure \ref{fig:segmentation} is that the ground truth tagging is not fully accurate. Some measurements belonging to a free space class are tagged as "parked car" and vice versa. However, the segments are tagged with the label which is tagged in a majority of the sensor readings and therefore this problem of inconsistent tagged measurements in segments can be avoided.
-
-
 \begin{figure}
 	\centering
 	\includegraphics[width=0.95\textwidth]{img/segmentation_example.PNG}
 	\caption{Example of the segmentation process}
 	\label{fig:segmentation}
 \end{figure}
+
+Also visible in Figure \ref{fig:segmentation} is that the ground truth tagging is not fully accurate. Some measurements belonging to a free space class are tagged as "parked car" and vice versa. However, the segments are tagged with the label which is tagged in a majority of the sensor readings and therefore this problem of inconsistent tagged measurements in segments can be avoided.
+
+
 
 
 %\begin{figure}
@@ -290,6 +291,8 @@ Also visible in Figure \ref{fig:segmentation} is that the ground truth tagging i
 %	\caption{Steps to obtain the dataset from the raw sensor measurements and ground truth recordings}
 %	\label{fig:dataset_architecture}
 %\end{figure}
+
+
 
 
 
