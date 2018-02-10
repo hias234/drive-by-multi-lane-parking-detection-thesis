@@ -271,7 +271,7 @@ As the used distance sensor measures at a high frequency, it usually collects se
 
 There are several strategies how sensor data can be segmented, for example using sliding windows. However, such approaches will not work accurate enough in the case of street side parking detection, as the objects which should be segmented range from a few centimeters to a length of tens of meters. Therefore, a new strategy to segment the sensor data points is proposed. The segmentation algorithm searches for high frequent changes in the distance signal and starts a new segment everywhere where the distance difference between two consecutive measurements is above a certain threshold. Furthermore, if the time stamp of two measurements differs more than one second the start of a new segment will also be detected (this can be the case if the sensing vehicle was standing or driving at a very low speed and many measurements have been deleted in the preprocessing steps). 
 
-Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in figure \ref{fig:segmentation} has successfully detected 3 parking car- and two free space segments. 
+Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in figure \ref{fig:segmentation} has successfully detected three parking car- and two free space segments. 
 
 \begin{figure}
 	\centering
@@ -280,10 +280,8 @@ Figure \ref{fig:segmentation} shows an example of the segmentation process. All 
 	\label{fig:segmentation}
 \end{figure}
 
+\todo{maybe describe it other than that -> estimating ground truth for segment}
 Also visible in Figure \ref{fig:segmentation} is that the ground truth tagging is not fully accurate. Some measurements belonging to a free space class are tagged as "parked car" and vice versa. However, the segments are tagged with the label which is tagged in a majority of the sensor readings and therefore this problem of inconsistent tagged measurements in segments can be avoided.
-
-
-
 
 %\begin{figure}
 %	\centering
@@ -296,11 +294,29 @@ Also visible in Figure \ref{fig:segmentation} is that the ground truth tagging i
 
 
 
-\section{Experiment description and data collection}
-\label{sec:experiment_description_data_collection}
-- Description of experiments (scenarios we are interested in: parking car, etc.)
-- Data set derived (raw data, size, etc.)
-- Map data and camera ground truth data
+\section{Feature Calculation}
+
+To conduct machine learning experiments with usual machine learning models, feature values for each segment have to be computed. These feature values serve as input values for each segment of the machine learning model to help the model classify the corresponding segment to one of the available class labels. All computed features which were used as input are:
+
+\begin{description}
+
+\item[Average distance to the sensing vehicle:] The average value of all distance sensor measurements of the segment.
+\item[Length:] The distance in meters the sensing vehicle drove during sensing the segment (the distance between the first and last GPS location).
+\item[Duration:] The duration the sensing vehicle needed to sense the segment (the last time stamp - the first time stamp).
+\item[Number of distance measurements:] The number of distance measurements assigned to the segment.
+\item[Variance of the distance measurements:] The variance of all distance measurements belonging to the segment.
+\item[Speed:] The speed of the sensing vehicle while sensing the segment.
+\item[Acceleration:] The acceleration of the sensing vehicle while sensing the segment.
+\item[Distance difference to the next/previous segment:] Difference of the average distance measurements to the next/previous segment.
+
+\end{description}
+
+
+
+
+
+
+
 
 
 
