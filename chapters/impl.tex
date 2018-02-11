@@ -292,8 +292,6 @@ Also visible in Figure \ref{fig:segmentation} is that the ground truth tagging i
 
 
 
-
-
 \section{Feature Calculation}
 
 To conduct machine learning experiments with usual machine learning models, feature values for each segment have to be computed. These feature values serve as input values for each segment of the machine learning model to help the model classify the corresponding segment to one of the available class labels. All computed features which were used as input are:
@@ -312,21 +310,39 @@ To conduct machine learning experiments with usual machine learning models, feat
 \end{description}
 
 
+\subsection{Derived Dataset}
+
+After the data segmentation and the feature calculation, the final dataset which is being used for the further machine learning is available. 
+
+
+
+
+
+
+
+
 \section{Machine Learning Experiments}
 
 
+\subsection{Optimization Goal}
+
+The overall goal of machine learning experiments 
+in this case 
+is to find the feature subset and the machine learning model which produce in combination the highest accuracy in classifying each segment. 
+
+
+\subsection{Evaluation Method}
 
 
 
 
+\subsection{Tested Machine Learning Models}
+
+\subsection{Deep Learning}
 
 
 
-\section{Data processing}
-\label{sec:data_processing}
-- Preprocessing, feature definition ...
-- Traditional ML Algorithms (incl. a short description of each algorithm and configuration options)
-- Deep Learning
+
 
 
 
