@@ -264,37 +264,38 @@ The costs of the different approaches also vary highly. Approaches with stationa
 Drive-by park sensing approaches are in the medium cost range because the vehicles which are sensing have to be equipped with the required sensors, but in contrast to stationary sensing, much fewer sensors can reach a suffcient degree of accuracy. However, there are certain limitations of the current approaches as described in the previous section. In this thesis, a prototype using distance sensor based drive-by park sensing will be developed and evaluated, as the ratio from cost to accuracy seems to be the best of the investigated approaches. To improve accuracy in real life scenarios, machine learning will be used to identify all types of parking cars as well as different distractions such as overtaking while driving on multi lane roads.
 
 
-\paragraph{Comparison of Machine Learning approaches}
+\paragraph{Used Machine Learning Approaches}
 
-Table \ref{table:comparison_ml_approaches} shows an overview of all machine learning algorithms which were used for the classification of parking situations in cities. 
+Table \ref{table:comparison_ml_approaches} shows an overview of all machine learning algorithms which were used for the classification of parking situations in cities in the related work. Convolutional neural networks are used to classify images of parking lots obtained by stationary cameras (Section \ref{sec:stationary_park_sensing_cameras}), whereas a Viola-Jones feature-based classifier is used in camera-based drive-by sensing (Section \ref{sec:related_driveby_park_sensing_cameras}) and a random forest classifier is used in the 2-dimensional distance-sensor based drive-by sensing (Section \ref{sec:stationary_park_sensing}). \todo{passt diese Tabelle bzw Absatz wirklich so???}
 
 \begin{table}
-%\resizebox{\textwidth}{!}{%
+\resizebox{\textwidth}{!}{%
 
 \bgroup
 \def\arraystretch{1.2}
-\begin{tabular}{| r || c | c |}
+\begin{tabular}{| r || c | l |}
 \hline
    & \textbf{Accuracy} & \textbf{Dataset}  \\
 %\hline
 \hline
   \textbf{Convolutional Neural Networks} & 
-  \cite{Amato2016} 91\% & \\
-  (Stationary cameras) & \cite{DiMauro2016} 96\% & \\
+  \cite{Amato2016} 91\% & \cite{Amato2016} about 700.000 images \\
+  (Stationary cameras) & \cite{DiMauro2016} 96\% & \cite{DiMauro2016} about 970.000 images \\
 \hline
-  \textbf{Viola-Jones feature-based} & \cite{Grassi:2017:PIE:3132211.3134452} 90\% & \\
-  \textbf{ cascade classifier} & & \\
+  \textbf{Viola-Jones feature-based} & \cite{Grassi:2017:PIE:3132211.3134452} 90\% & 5.896 parked cars and \\
+  \textbf{ cascade classifier} & & 2.280 available
+parking spaces \\
   (camera-based drive-by sensing) &  & \\
 \hline
-  \textbf{Random Forest Classifier} & \cite{Bock2015} 96\% & 1.313 parking cars and 1.306 other objects \\
-  (2D distance sensor based drive-by sensing) &  & \\
+  \textbf{Random Forest Classifier} & \cite{Bock2015} 96\% & 1.313 parking cars and  \\
+  (2D distance sensor based drive-by sensing) &  & 1.306 other objects \\
 \hline
 
 \end{tabular}
 \egroup
-%}
+}
 
-\caption{Comparison of machine learning approaches to detect a city's parking space availability}
+\caption{All used machine learning models to detect a city's parking space availability.}
 \label{table:comparison_ml_approaches}
 \end{table}
 
