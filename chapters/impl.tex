@@ -320,13 +320,13 @@ The goal of each feature is to help identify the true class of a sample which sh
 
 \begin{description}
 
-\item[Information Gain Analysis:] Weka provides a tool called "InfoGainAttributeEval" which calculates the information gain (or entropy) of all the features for the classification task. The features which will contribute more to a positive classification result will have a higher information gain than others. The resulting values are in the range of 0 to 1.
+\item[Information Gain Analysis:] Weka provides a tool called "InfoGainAttributeEval" which calculates the information gain (also known as entropy) of all the features for the classification task. The features which will contribute more to an accurate classification result will have a higher information gain than others. The resulting values are in the range of 0 to 1.
 
-\item[Learner based Feature Analysis:] 
+\item[Learner based Feature Analysis:] This approach tests several feature subsets on a real machine learning algorithm (a J48 decision tree is used) and identifies the best feature subset. The process is repeated with different training sets and counts how often the features are used in the different runs. If a feature is used in all runs it gets a value of 1 whereas if it is never used its value will be 0. So the higher the value is, the more the feature helps in the classification task.
 
 \end{description}
 
-Table \ref{table:feature_analysis} shows the results of the feature analysis process. ...
+Table \ref{table:feature_analysis} shows the results of the feature analysis process. Both results are showing that there are five important features, which provide the most value to classification (average distance, distance difference to next and previous segment, length and number of measurements). All of them have a high information gain and are used in all feature subsets which lead to the best results in the learning based analysis. The other four features (duration, distance variance, average speed and average acceleration) are only used in a minority of the feature subsets and also have lower information gain. This means that they won't contribute so much to a good classification result. However, these findings have to be confirmed by machine learning experiments later on.
 
 
 
@@ -342,7 +342,7 @@ Table \ref{table:feature_analysis} shows the results of the feature analysis pro
    \textbf{Information Gain} & 
    \textbf{Learning based Ranker Score} \\
 \hline
-  \textbf{Average Distance} & 
+  \textbf{Average distance} & 
    0.361 &
    1.0 \\
 \hline
@@ -370,11 +370,11 @@ Table \ref{table:feature_analysis} shows the results of the feature analysis pro
    0.055 &
    0.0 \\
 \hline
-\textbf{Avg Speed} & 
+\textbf{Avg speed} & 
    0.019 &
    0.3 \\
 \hline
-\textbf{Avg Acceleration} & 
+\textbf{Avg acceleration} & 
    0.011 &
    0.1 \\
 \hline
@@ -384,17 +384,16 @@ Table \ref{table:feature_analysis} shows the results of the feature analysis pro
 \egroup
 }
 
-\caption{Information gain and learner based feature analysis results.}
+\caption{Feature analysis showing the information gain and learner based ranker score of all calculated features.}
 \label{table:feature_analysis}
 \end{table}
 
 
 
-\todo{genauere analyse zu den features?? Noch zu überlegen was genau...}
 
-Analysis of Information Gain and other comparable measures to identify usefulness of features.
 
-Maybe 2-3 Graphics of the most important features (from Weka)
+
+%Maybe 2-3 Graphics of the most important features (from Weka)
 
 
 
