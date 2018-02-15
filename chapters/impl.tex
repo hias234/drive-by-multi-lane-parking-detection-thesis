@@ -250,6 +250,7 @@ Another preprocessing step is the filtering of standing situations of the car. F
 
 
 \subsection{Sensor Measurement Interpolation}
+\label{sec:sensor_measurement_interpolation}
 
 Due to the fact that all sensors measure at different frequencies, the sensor data of all sensors has to be unified before the next steps can be taken. The distance sensor measures at a much higher frequency (about 100 Hz) than both the GPS sensor (about 1 Hz) and the camera (about 30 Hz). Therefore, the GPS location as well as the ground truth at each distance measurement have to be approximated. Linear interpolation using the time stamp of the measurements is being used to calculate the approximate location and ground truth at the times of all distance measurements. Figure \ref{fig:preprocessing_dataset} shows how the raw sensor data and the ground truth data get unified so that a list of data points containing distance, GPS position and ground truth can be derived.
 
@@ -269,19 +270,20 @@ Due to the fact that all sensors measure at different frequencies, the sensor da
 
 As the used distance sensor measures at a high frequency, it usually collects several distance measurements belonging to the same object. For example, if the sensing vehicle passes a parallel parked car (having a length of 4 meters) at a speed of 30 km/h it will collect approximately 24 measurements belonging to the passed car. To be able to automatically evaluate the performance of different approaches to sense parking cars and other objects the sensor measurements belonging to the same objects have to be grouped together. After the raw data points containing all information are being derived by the preprocessing step, the segmentation process has to be performed, which groups similar consecutive data points together.
 
-There are several strategies how sensor data can be segmented, for example using sliding windows. However, such approaches will not work accurate enough in the case of street side parking detection, as the objects which should be segmented range from a few centimeters to a length of tens of meters. Therefore, a new strategy to segment the sensor data points is proposed. The segmentation algorithm searches for high frequent changes in the distance signal and starts a new segment everywhere where the distance difference between two consecutive measurements is above a certain threshold. Furthermore, if the time stamp of two measurements differs more than one second the start of a new segment will also be detected (this can be the case if the sensing vehicle was standing or driving at a very low speed and many measurements have been deleted in the preprocessing steps). 
+There are several strategies how sensor data can be segmented, for example using sliding windows. However, such approaches will not work accurate enough in the case of street side parking detection, as the objects which should be segmented range from a few centimeters to a length of tens of meters. Therefore, a new strategy to segment the sensor data points is proposed. The used segmentation algorithm searches for high frequent changes in the distance signal and starts a new segment everywhere where the distance difference between two consecutive measurements is above a certain segmentation threshold. Furthermore, if the timestamp of two measurements differ more than one second the start of a new segment will also be detected (this can be the case if the sensing vehicle was standing or driving at a very low speed and many measurements have been deleted in the preprocessing steps). 
 
-Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in figure \ref{fig:segmentation} has successfully detected three parking car- and two free space segments. 
+The best threshold to detect the segmentation points in the distance sensor signal has been identified by running several experiments with different thresholds and by manually reviewing the resulting segments for under- and over-segmentation. The resulting segmentation threshold turned out to be $1,05$ meters. This means that if two consecutive measures differ more than $1,05$ meters, the algorithm will assume that the last sensor measurement belongs to a new object (e.g. a parking car or an overtaken car) and will detect a new segment.
+
+Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in Figure \ref{fig:segmentation} has successfully detected three parking car- and two free space segments. 
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.95\textwidth]{img/segmentation_example.PNG}
-	\caption{Example of the segmentation process}
+	\caption{Result of the segmentation algorithm. Three parking cars (green dots and orange lines) and two free space segments (yellow dots and black lines) have been detected.}
 	\label{fig:segmentation}
 \end{figure}
 
-\todo{maybe describe it other than that -> estimating ground truth for segment}
-Also visible in Figure \ref{fig:segmentation} is that the ground truth tagging is not fully accurate. Some measurements belonging to a free space class are tagged as "parked car" and vice versa. However, the segments are tagged with the label which is tagged in a majority of the sensor readings and therefore this problem of inconsistent tagged measurements in segments can be avoided.
+Another challenge of the segmentation task is to estimate the ground truth classes of the segments. So far, only each sensor reading got a ground truth class assigned. However, as described earlier, each segments consists of multiple sensor measurements and therefore it is possible that it also consists of multiple different ground truth classes. You can see this phenomenon in Figure \ref{fig:segmentation} where both "Free space"-segments also have some measurements assigned which are marked as "Parking Car". To overcome this problem, the segments are tagged with the label which is tagged in a majority of the sensor readings. 
 
 %\begin{figure}
 %	\centering
@@ -313,7 +315,7 @@ To conduct machine learning experiments with usual machine learning models, feat
 \subsection{Derived Dataset}
 \label{sec:derived_dataset}
 
-After data preprocessing, data segmentation and feature calculation have been performed, the final dataset which is being used for the further machine learning is available. The dataset is made up of samples with all feature values described in the previous section and the corresponding class label. The dataset consists of 11.811 free spaces, 2.216 parking cars, 207 overtaking situations and 69 other parking vehicles. 
+After data preprocessing, data segmentation and feature calculation have been performed, the final dataset which is being used for the further machine learning is available. The dataset is made up of samples with all feature values described in the previous section and the corresponding class label. The dataset consists of 14.303 samples in total which are composed of 11.811 free spaces, 2.216 parking cars, 207 overtaking situations and 69 other parking vehicles. 
 
 
 
@@ -329,7 +331,7 @@ After data preprocessing, data segmentation and feature calculation have been pe
 
 The overall goal of machine learning experiments 
 in this case 
-is to find the feature subset and the machine learning model which produce in combination the highest accuracy in classifying each segment. 
+is to find the feature subset and the machine learning model which in combination produce the highest accuracy in classifying all segments. 
 
 
 \subsection{Evaluation Method}
