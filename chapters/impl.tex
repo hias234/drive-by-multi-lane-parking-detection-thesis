@@ -165,8 +165,8 @@ Figure \ref{fig:sample_sensor_trace} shows how the sensor data gets collected an
 \label{sec:raw_dataset}
 
 To obtain a dataset, in total 32 test drives were completed in the city of Linz, Austria. The street scenarios have been selected aiming at a high variability of road scenarios. The test scenes include single lane as well as multi lane streets. While collecting the test measurements the sensing car was driving as it would in regular traffic (not only in the right most lane, etc.) and the scenes also include high and low traffic scenarios. For all street scenarios, measurements have been repeated multiple times.
-Figure \ref{fig:gps_locations_dataset} shows an aggregated GPS trace of all test drives on a map of Linz. Red dots represent parking cars while black dots represent other objects. In total 444.427 distance measurements and 14.997 GPS measurements were taken, which makes up about 15,9 megabytes of distance and GPS data. 
-Additionally, 266.309 images were captured to record the ground truth of the sensed scenes. The images, which make up about 5.072 megabytes, are used to determine the ground truth of the recorded scenes. Sensed data and ground truth data are applied to supervised machine learning algorithms later on. Ground truth tagging is described in the following section.
+Figure \ref{fig:gps_locations_dataset} shows an aggregated GPS trace of all test drives on a map of Linz. Red dots represent parking cars while black dots represent other objects. In total \textbf{444.427 distance measurements} and \textbf{14.997 GPS measurements} were taken, which makes up about 15,9 megabytes of distance and GPS data. 
+Additionally, \textbf{266.309 images} were captured to record the ground truth of the sensed scenes. The images, which make up about \textbf{5.072 megabytes}, are used to determine the ground truth of the recorded scenes. Sensed data and ground truth data are applied to supervised machine learning algorithms later on. Ground truth tagging is described in the following section.
 
 
 
@@ -244,9 +244,9 @@ The output of the ground truth tagging process is persistently saved as a text f
 \section{Data Preprocessing}
 \label{sec:data_preprocessing}
 
-Before the raw dataset can be used for the input of machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are deleted. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. Furthermore, outliers where a single measurement differs greatly (more than 1 meter) from the enclosing measurements are also detected so that they won't cause over-segmentation in the data segmentation process (discussed in the following section). All of the detected error/overflow/outlier measures will be simply deleted from the raw dataset before further processing to ensure the quality of the sensor measurements.
+Before the raw dataset can be used for the input of machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are deleted. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. Furthermore, outliers where a single measurement differs greatly (more than 1 meter) from the enclosing measurements are also detected so that they won't cause over-segmentation in the data segmentation process (discussed in Section \ref{sec:data_segmentation}). All of the detected error/overflow/outlier measures will be simply deleted from the raw dataset before further processing to ensure the quality of the sensor measurements.
 
-Another preprocessing step is the filtering of standing situations of the car. For instance, when the sensing vehicle is waiting at a traffic light or in a traffic jam, such situations would not lead to meaningful samples for the machine learning process.  As the sensing vehicle stands still it measures the distance always to the same object on the right side and this way the features which are calculated as input for the machine learning process (described in section \todo{ref}) would may be misleading. Therefore, all situations where the car is driving at a speed lower than 1 m/s are deleted from the dataset.
+Another preprocessing step is the filtering of standing situations of the car. For instance, when the sensing vehicle is waiting at a traffic light or in a traffic jam, such situations would not lead to meaningful samples for the machine learning process and would decrease the accuracy of the classification results. As the sensing vehicle stands still it measures the distance always to the same object on the right side and this way the features which are calculated as input for the machine learning process (described in Section \ref{sec:feature_calculation}) would may be misleading. Therefore, all situations where the car is driving at a speed lower than 1 m/s are deleted from the dataset.
 
 
 \subsection{Sensor Measurement Interpolation}
@@ -274,8 +274,6 @@ There are several strategies how sensor data can be segmented, for example using
 
 The best threshold to detect the segmentation points in the distance sensor signal has been identified by running several experiments with different thresholds and by manually reviewing the resulting segments for under- and over-segmentation. The resulting segmentation threshold turned out to be $1,05$ meters. This means that if two consecutive measures differ more than $1,05$ meters, the algorithm will assume that the last sensor measurement belongs to a new object (e.g. a parking car or an overtaken car) and will detect a new segment.
 
-Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in Figure \ref{fig:segmentation} has successfully detected three parking car- and two free space segments. 
-
 \begin{figure}
 	\centering
 	\includegraphics[width=0.95\textwidth]{img/segmentation_example.PNG}
@@ -283,39 +281,133 @@ Figure \ref{fig:segmentation} shows an example of the segmentation process. All 
 	\label{fig:segmentation}
 \end{figure}
 
+Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in Figure \ref{fig:segmentation} has successfully detected three parking car- and two free space segments. 
+
 Another challenge of the segmentation task is to estimate the ground truth classes of the segments. So far, only each sensor reading got a ground truth class assigned. However, as described earlier, each segments consists of multiple sensor measurements and therefore it is possible that it also consists of multiple different ground truth classes. You can see this phenomenon in Figure \ref{fig:segmentation} where both "Free space"-segments also have some measurements assigned which are marked as "Parking Car". To overcome this problem, the segments are tagged with the label which is tagged in a majority of the sensor readings. 
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=\textwidth]{img/obtaining-dataset-architecture.eps}
-%	\caption{Steps to obtain the dataset from the raw sensor measurements and ground truth recordings}
-%	\label{fig:dataset_architecture}
-%\end{figure}
 
 
 
 \section{Feature Calculation}
+\label{sec:feature_calculation}
 
-To conduct machine learning experiments with usual machine learning models, feature values for each segment have to be computed. These feature values serve as input values for each segment of the machine learning model to help the model classify the corresponding segment to one of the available class labels. All computed features which were used as input are:
+To conduct machine learning experiments with common machine learning models, feature values for each segment have to be computed using the sensor measurements. These feature values serve as input values for each segment of the machine learning model to help the model classify the corresponding segment to one of the available class labels. All computed features which were used as input are:
 
 \begin{description}
 
 \item[Average distance to the sensing vehicle:] The average value of all distance sensor measurements of the segment.
+
 \item[Length:] The distance in meters the sensing vehicle drove during sensing the segment (the distance between the first and last GPS location).
+
 \item[Duration:] The duration the sensing vehicle needed to sense the segment (the last time stamp - the first time stamp).
+
 \item[Number of distance measurements:] The number of distance measurements assigned to the segment.
+
 \item[Variance of the distance measurements:] The variance of all distance measurements belonging to the segment.
+
 \item[Speed:] The speed of the sensing vehicle while sensing the segment.
+
 \item[Acceleration:] The acceleration of the sensing vehicle while sensing the segment.
+
 \item[Distance difference to the next/previous segment:] Difference of the average distance measurements to the next/previous segment.
 
 \end{description}
 
 
-\subsection{Derived Dataset}
+\subsection{Feature Analysis}
+
+The goal of each feature is to help identify the true class of a sample which should be classified. The feature analysis presented in this section should determine if all features are necessary and beneficial to this goal. Too many features may produce worse results and also increase the learning time of all models. Using the tool Weka\footnote{\url{https://www.cs.waikato.ac.nz/ml/weka/}} two analytic approaches have been used, which show for each feature how useful it is for the classification tasks:
+
+\begin{description}
+
+\item[Information Gain Analysis:] Weka provides a tool called "InfoGainAttributeEval" which calculates the information gain (or entropy) of all the features for the classification task. The features which will contribute more to a positive classification result will have a higher information gain than others. The resulting values are in the range of 0 to 1.
+
+\item[Learner based Feature Analysis:] 
+
+\end{description}
+
+Table \ref{table:feature_analysis} shows the results of the feature analysis process. ...
+
+
+
+\begin{table}
+
+
+\resizebox{\textwidth}{!}{%
+\bgroup
+\def\arraystretch{1.3}
+\begin{tabular}{| r || c | c |}
+\hline
+   & 
+   \textbf{Information Gain} & 
+   \textbf{Learning based Ranker Score} \\
+\hline
+  \textbf{Average Distance} & 
+   0.361 &
+   1.0 \\
+\hline
+\textbf{Diff to next} & 
+   0.232 &
+   1.0 \\
+\hline
+\textbf{Diff to prev.} & 
+   0.233 &
+   1.0 \\
+\hline
+\textbf{Length} & 
+   0.223 &
+   1.0 \\
+\hline
+\textbf{Nr of measures} & 
+   0.178 &
+   1.0 \\
+\hline
+\textbf{Duration} & 
+   0.175 &
+   0.2 \\
+\hline
+\textbf{Distance variance} & 
+   0.055 &
+   0.0 \\
+\hline
+\textbf{Avg Speed} & 
+   0.019 &
+   0.3 \\
+\hline
+\textbf{Avg Acceleration} & 
+   0.011 &
+   0.1 \\
+\hline
+
+
+\end{tabular}
+\egroup
+}
+
+\caption{Information gain and learner based feature analysis results.}
+\label{table:feature_analysis}
+\end{table}
+
+
+
+\todo{genauere analyse zu den features?? Noch zu überlegen was genau...}
+
+Analysis of Information Gain and other comparable measures to identify usefulness of features.
+
+Maybe 2-3 Graphics of the most important features (from Weka)
+
+
+
+
+
+
+
+
+
+\section{Derived Dataset}
 \label{sec:derived_dataset}
 
-After data preprocessing, data segmentation and feature calculation have been performed, the final dataset which is being used for the further machine learning is available. The dataset is made up of samples with all feature values described in the previous section and the corresponding class label. The dataset consists of 14.303 samples in total which are composed of 11.811 free spaces, 2.216 parking cars, 207 overtaking situations and 69 other parking vehicles. 
+After data preprocessing, data segmentation and feature calculation have been performed, the final dataset which is being used for the further machine learning is available. The dataset is made up of samples with all feature values described in the previous section and the corresponding class label. The dataset consists in total of \textbf{14.303 samples} which are composed of \textbf{11.811 free spaces}, \textbf{2.216 parking cars}, \textbf{207 overtaking situations} and \textbf{69 other parking vehicles}. 
 
 
 
@@ -326,20 +418,33 @@ After data preprocessing, data segmentation and feature calculation have been pe
 
 \section{Machine Learning Experiments}
 
+There are a lot of different machine learning approaches, which can be chosen from. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best, experiments are being performed and the results are compared so that the overall best model can be identified. 
+The overall goal of the experiments is to find the feature subset and the machine learning model which in combination produce the highest accuracy in classifying all segments. 
 
-\subsection{Optimization Goal}
-
-The overall goal of machine learning experiments 
-in this case 
-is to find the feature subset and the machine learning model which in combination produce the highest accuracy in classifying all segments. 
-
-
-\subsection{Evaluation Method}
 
 
 
 
 \subsection{Tested Machine Learning Models}
+
+This section will discuss all machine learning models which were investigated on their performance. Furthermore, also all parameters which could be set for the different machine learning models will be presented. The tested machine learning models are:
+
+\todo{passt hier eine kurze Beschreibung von den jeweiligen getesteten Algorithmen? Soll ich da auch immer grundlegende Papers dazu zitieren?}
+
+\paragraph{Naive Bayes Classifier}
+\paragraph{Decision Trees}
+\paragraph{Random Forest Classifier}
+\paragraph{Neural Networks}
+\paragraph{kNN Classifier}
+\paragraph{Support Vector Machines}
+\paragraph{Ensemble Methods}
+
+
+
+\subsection{Evaluation Method}
+
+Cross-Validation...
+
 
 \subsection{Deep Learning}
 
@@ -347,6 +452,12 @@ is to find the feature subset and the machine learning model which in combinatio
 
 
 
+
+\section{Deriving Parking Space Maps from the Dataset}
+
+\subsection{Necessity of Parking Space Maps}
+
+\subsection{Approximate Parking Space Maps}
 
 
 
