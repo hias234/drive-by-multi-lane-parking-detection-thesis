@@ -244,15 +244,15 @@ The output of the ground truth tagging process is persistently saved as a text f
 \section{Data Preprocessing}
 \label{sec:data_preprocessing}
 
-Before the raw dataset can be used for the input of machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are deleted. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. Furthermore, outliers where a single measurement differs greatly (more than 1 meter) from the enclosing measurements are also detected so that they won't cause over-segmentation in the data segmentation process (discussed in Section \ref{sec:data_segmentation}). All of the detected error/overflow/outlier measures will be simply deleted from the raw dataset before further processing to ensure the quality of the sensor measurements.
+Before the raw dataset can be used to create the input features for machine learning models, a few preprocessing steps have to be taken. First of all, error values of the GPS sensor and the LiDAR Lite v3 sensor are deleted. The GPS sensor usually shows erroneous output (NaN values) when it starts sensing due to the fact that it is not yet connected to enough satellites. The distance sensor can provide overflow measurements when the target object is too far away or too close to the sensor. In both cases it will give an output of less than 10 centimeters. Furthermore, outliers where a single measurement differs greatly (more than 1 meter) from the enclosing measurements are also detected so that they won't cause over-segmentation in the data segmentation process (discussed in Section \ref{sec:data_segmentation}). All of the detected error/overflow/outlier measures will be simply deleted from the raw dataset before further processing to ensure the quality of the sensor measurements.
 
-Another preprocessing step is the filtering of standing situations of the car. For instance, when the sensing vehicle is waiting at a traffic light or in a traffic jam, such situations would not lead to meaningful samples for the machine learning process and would decrease the accuracy of the classification results. As the sensing vehicle stands still it measures the distance always to the same object on the right side and this way the features which are calculated as input for the machine learning process (described in Section \ref{sec:feature_calculation}) would may be misleading. Therefore, all situations where the car is driving at a speed lower than 1 m/s are deleted from the dataset.
+Another necessary preprocessing step is the filtering of standing situations of the car. For instance, when the sensing vehicle is waiting at a traffic light or in a traffic jam, such situations would not lead to meaningful samples for the machine learning process and would decrease the accuracy of the classification results. As the sensing vehicle stands still it measures the distance always to the same object on the right side for a long time and this way the features which are calculated as input for the machine learning process (described in Section \ref{sec:feature_calculation}) would may be misleading. Therefore, all situations where the car is driving at a speed lower than 1 m/s are deleted from the dataset.
 
 
 \subsection{Sensor Measurement Interpolation}
 \label{sec:sensor_measurement_interpolation}
 
-Due to the fact that all sensors measure at different frequencies, the sensor data of all sensors has to be unified before the next steps can be taken. The distance sensor measures at a much higher frequency (about 100 Hz) than both the GPS sensor (about 1 Hz) and the camera (about 30 Hz). Therefore, the GPS location as well as the ground truth at each distance measurement have to be approximated. Linear interpolation using the time stamp of the measurements is being used to calculate the approximate location and ground truth at the times of all distance measurements. Figure \ref{fig:preprocessing_dataset} shows how the raw sensor data and the ground truth data get unified so that a list of data points containing distance, GPS position and ground truth can be derived.
+Due to the fact that all used sensors measure at different frequencies, the sensor data of all sensors has to be unified before the next steps can be taken. The distance sensor measures at a much higher frequency (about 100 Hz) than both the GPS sensor (about 1 Hz) and the camera (about 30 Hz). Therefore, the GPS location as well as the ground truth at each distance measurement have to be approximated. Linear interpolation using the timestamp of the measurements is being used to calculate the approximate location and ground truth at the times of all distance measurements. Figure \ref{fig:preprocessing_dataset} shows how the raw sensor data and the ground truth data get unified so that a list of data points containing distance, GPS position and ground truth can be derived.
 
 \begin{figure}
 	\centering
@@ -268,11 +268,11 @@ Due to the fact that all sensors measure at different frequencies, the sensor da
 \section{Data Segmentation}
 \label{sec:data_segmentation}
 
-As the used distance sensor measures at a high frequency, it usually collects several distance measurements belonging to the same object. For example, if the sensing vehicle passes a parallel parked car (having a length of 4 meters) at a speed of 30 km/h it will collect approximately 24 measurements belonging to the passed car. To be able to automatically evaluate the performance of different approaches to sense parking cars and other objects the sensor measurements belonging to the same objects have to be grouped together. After the raw data points containing all information are being derived by the preprocessing step, the segmentation process has to be performed, which groups similar consecutive data points together.
+As the used distance sensor measures at a high frequency, it usually collects several distance measurements belonging to the same object. For example, if the sensing vehicle passes a parallel parked car (having a length of 4 meters) at a speed of 30 km/h it will collect approximately 24 measurements belonging to the passed car. To be able to automatically evaluate the performance of different approaches to sense parking cars and other objects the sensor measurements belonging to the same objects have to be grouped together. After the raw data points, which contain all information, are being derived by the preprocessing step, the segmentation process has to be performed, which groups similar consecutive data points together.
 
 There are several strategies how sensor data can be segmented, for example using sliding windows. However, such approaches will not work accurate enough in the case of street side parking detection, as the objects which should be segmented range from a few centimeters to a length of tens of meters. Therefore, a new strategy to segment the sensor data points is proposed. The used segmentation algorithm searches for high frequent changes in the distance signal and starts a new segment everywhere where the distance difference between two consecutive measurements is above a certain segmentation threshold. Furthermore, if the timestamp of two measurements differ more than one second the start of a new segment will also be detected (this can be the case if the sensing vehicle was standing or driving at a very low speed and many measurements have been deleted in the preprocessing steps). 
 
-The best threshold to detect the segmentation points in the distance sensor signal has been identified by running several experiments with different thresholds and by manually reviewing the resulting segments for under- and over-segmentation. The resulting segmentation threshold turned out to be $1,05$ meters. This means that if two consecutive measures differ more than $1,05$ meters, the algorithm will assume that the last sensor measurement belongs to a new object (e.g. a parking car or an overtaken car) and will detect a new segment.
+The best threshold to detect the segmentation points in the distance sensor signal has been identified by running several experiments with different thresholds and by manually reviewing the resulting segments for under- and over-segmentation. The resulting segmentation threshold turned out to be $1,05$ meters. This means that if two consecutive measures differ more than $1,05$ meters, the algorithm will assume that the sensor measurement belongs to a new object (e.g. a parking car or an overtaken car) and will detect a new segment.
 
 \begin{figure}
 	\centering
@@ -283,7 +283,7 @@ The best threshold to detect the segmentation points in the distance sensor sign
 
 Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments which belong to the same object classes. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in Figure \ref{fig:segmentation} has successfully detected three parking car- and two free space segments. 
 
-Another challenge of the segmentation task is to estimate the ground truth classes of the segments. So far, only each sensor reading got a ground truth class assigned. However, as described earlier, each segments consists of multiple sensor measurements and therefore it is possible that it also consists of multiple different ground truth classes. You can see this phenomenon in Figure \ref{fig:segmentation} where both "Free space"-segments also have some measurements assigned which are marked as "Parking Car". To overcome this problem, the segments are tagged with the label which is tagged in a majority of the sensor readings. 
+Another challenge of the segmentation task is to estimate the ground truth classes of the segments. So far, only each sensor reading got a ground truth class assigned. However, as described earlier, each segments consists of multiple sensor measurements and therefore it is possible that it also consists of multiple different ground truth classes. You can see this phenomenon in Figure \ref{fig:segmentation} where both "Free space"-segments also have some measurements assigned which are marked as "Parking Car". To overcome this problem, the segments are tagged with the label which is tagged in a majority of the sensor readings. This approach turned out to work well as in most cases only the first and last ground truth values are assigned wrong. 
 
 
 
@@ -291,32 +291,32 @@ Another challenge of the segmentation task is to estimate the ground truth class
 \section{Feature Calculation}
 \label{sec:feature_calculation}
 
-To conduct machine learning experiments with common machine learning models, feature values for each segment have to be computed using the sensor measurements. These feature values serve as input values for each segment of the machine learning model to help the model classify the corresponding segment to one of the available class labels. All computed features which were used as input are:
+To conduct machine learning experiments with common machine learning models, feature values for each segment have to be computed using the sensor measurements. These feature values serve as input values of the machine learning model to help classifying the corresponding segment to one of the available class labels. All computed features which were used as input are:
 
 \begin{description}
 
-\item[Average distance to the sensing vehicle:] The average value of all distance sensor measurements of the segment.
+\item[Average distance to the sensing vehicle:] The average of the segment's distance sensor measurements to the closest object on the right side of the road in meters.
 
-\item[Length:] The distance in meters the sensing vehicle drove during sensing the segment (the distance between the first and last GPS location).
+\item[Length:] The distance the sensing vehicle drove during sensing the segment in meters (the distance between the first and last GPS location).
 
-\item[Duration:] The duration the sensing vehicle needed to sense the segment (the last time stamp - the first time stamp).
+\item[Duration:] The duration in seconds the sensing vehicle needed to sense the segment (the last time stamp - the first time stamp).
 
 \item[Number of distance measurements:] The number of distance measurements assigned to the segment.
 
 \item[Variance of the distance measurements:] The variance of all distance measurements belonging to the segment.
 
-\item[Speed:] The speed of the sensing vehicle while sensing the segment.
+\item[Speed:] The speed of the sensing vehicle while sensing the segment in m/s.
 
-\item[Acceleration:] The acceleration of the sensing vehicle while sensing the segment.
+\item[Acceleration:] The acceleration of the sensing vehicle while sensing the segment in $m/s^2$.
 
-\item[Distance difference to the next/previous segment:] Difference of the average distance measurements to the next/previous segment.
+\item[Distance difference to the next/previous segment:] Difference of the average distance measurements to the next/previous segment in meters.
 
 \end{description}
 
 
 \subsection{Feature Analysis}
 
-The goal of each feature is to help identify the true class of a sample which should be classified. The feature analysis presented in this section should determine if all features are necessary and beneficial to this goal. Too many features may produce worse results and also increase the learning time of all models. Using the tool Weka\footnote{\url{https://www.cs.waikato.ac.nz/ml/weka/}} two analytic approaches have been used, which show for each feature how useful it is for the classification tasks:
+The goal of each feature is to help identify the true class of a sample which should be classified. The feature analysis presented in this section should determine if all features are necessary and beneficial to this goal. Too many features maybe do not produce better results and also increase the learning time of all models. Using the tool Weka\footnote{\url{https://www.cs.waikato.ac.nz/ml/weka/}} two analytic approaches have been used, which show for each feature how useful it is for the classification tasks:
 
 \begin{description}
 
@@ -333,14 +333,14 @@ Table \ref{table:feature_analysis} shows the results of the feature analysis pro
 \begin{table}
 
 
-\resizebox{\textwidth}{!}{%
+%\resizebox{\textwidth}{!}{%
 \bgroup
-\def\arraystretch{1.3}
+\def\arraystretch{1.4}
 \begin{tabular}{| r || c | c |}
 \hline
    & 
    \textbf{Information Gain} & 
-   \textbf{Learning based Ranker Score} \\
+   \textbf{Learning based Score} \\
 \hline
   \textbf{Average distance} & 
    0.361 &
@@ -382,9 +382,9 @@ Table \ref{table:feature_analysis} shows the results of the feature analysis pro
 
 \end{tabular}
 \egroup
-}
+%}
 
-\caption{Feature analysis showing the information gain and learner based ranker score of all calculated features.}
+\caption{Feature analysis showing the information gain and learning based score of all calculated features.}
 \label{table:feature_analysis}
 \end{table}
 
@@ -417,7 +417,7 @@ After data preprocessing, data segmentation and feature calculation have been pe
 
 \section{Machine Learning Experiments}
 
-There are a lot of different machine learning approaches, which can be chosen from. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best, experiments are being performed and the results are compared so that the overall best model can be identified. 
+There are a lot of different machine learning approaches, which can be chosen from. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best, experiments are being performed and the results are compared so that the best model can be identified. 
 The overall goal of the experiments is to find the feature subset and the machine learning model which in combination produce the highest accuracy in classifying all segments. 
 
 
@@ -452,11 +452,27 @@ Cross-Validation...
 
 
 
-\section{Deriving Parking Space Maps from the Dataset}
+\section{Parking Space Maps}
 
-\subsection{Necessity of Parking Space Maps}
+When sensing a city's parking availability situation parking space maps are of great importance. As already discussed the machine learning models only classify road segments to "free spaces" (rather than "vacant parking spaces") which means that there are no parking cars and a car can possibly park there. However, parking space maps are necessary as it cannot be sensed if it is legal to park at a certain free space. For example, a free space might just be a driveway or a bus station. Vacant parking spaces can be identified when their location is compared to a parking space map matching parking spaces there. 
 
-\subsection{Approximate Parking Space Maps}
+Furthermore, the use or parking space maps will also possibly improve the performance of the classification task. If only segments in areas where parking spaces are located are used as training set, the overall data will be much more balanced (there will be less "free space" segments, but still the same amount of parking cars) and moreover the machine learning model will only be trained with relevant samples as all samples which are not close to parking spaces won't be classified later on anyway.
+
+\subsection{Parking Space Maps of Linz, Austria}
+
+As it is crucial to have accurate parking space maps, the goal was to obtain such maps for the area of the experiment. As a first try, the APIs of OpenStreetMap\footnote{\url{https://www.openstreetmap.org}} have been used to obtain map data of the city of Linz, Austria. The maps of OpenStreetMap are created and maintained by independent communities which operate in their free time. Parking spaces are available in the downloaded map data but unfortunately, only parking spaces of big parking lots (of shopping malls, etc.) are available but most of the city's road side parking spaces, which are being sensed in this work are not present. Therefore, the parking space maps of OpenStreetMap cannot be used due to insufficient data.
+
+Another possibility to obtain a parking space map is to use data from city authorities in Linz. City authorities keep detailed digital maps of the streets as well as the road side parking spaces. However, the only format available are several DXF-files, created using the program AutoCAD, which is commonly used for designing and drawing as well as for geographical applications. There exist libraries which can read all components of DXF-files and their attributes but unfortunately there are no geographical position data attached to the components and therefore the GPS location of all parking spaces is unknown. Only an absolute coordinate from the drawing is available, but cannot be converted to a GPS location. This fact makes it impossible to use the parking space map in the park sensing prototype as the parking spaces of the map cannot be matched with the sensing during the experiments.
+
+
+
+\subsection{Approximating Parking Space Maps}
+
+
+
+\subsection{Including Parking Space Maps in the Classification}
+
+
 
 
 
