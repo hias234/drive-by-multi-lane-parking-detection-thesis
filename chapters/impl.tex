@@ -514,12 +514,17 @@ As similarity measure for the clustering algorithm a custom function has been im
 \end{figure}
 
 Figure \ref{fig:parking_space_map} shows two images of the same test region in Linz, Austria. In (a) there are shown the GPS positions of all sensed segments which are part of the dataset, while in (b) only the GPS positions of segments which are in parking zones are shown. In both pictures green dots represent parking cars, while black dots show other segments. The semitransparent boxes which are shown in (b) show the clusters (parking zones) which were derived by the proposed algorithm. 
-Only areas where there are lots of parking cars are extracted to be parking zones. In total 131 parking zones are derived from the whole dataset containing 97.2\% of all parking cars in the dataset. The remaining 62 parking cars are classified as noise by the clustering algorithm because there are no other parking cars in the dataset nearby. 
+Only areas where there are lots of parking cars are extracted to be parking zones. In total 131 parking zones are derived from the whole dataset containing 97.2\% of all parking cars in the dataset. The remaining 62 parking cars are classified as noise by the clustering algorithm because there are no other parking cars in the dataset nearby. A bigger dataset with more test drives during different times would be needed to get a more accurate parking space map and to reduce the parking cars which are classified as noise.
 
 
 
 
-\subsection{Including Parking Space Maps in the Classification}
+\subsection{Using Parking Space Maps to improve Classification}
+
+As already mentioned, it does not make sense to classify segments which are not close to parking zones. Such segments will not make a difference to the end result as it is known that at these positions parking is not possible (or legal) and thus the classification result will not make any difference. 
+To improve the classification results, only segments which are close to parking zones will used for training and for evaluating the machine learning models. The dataset, which is described in Section \ref{sec:derived_dataset}, is filtered by matching the GPS positions of the segments with the bounding boxes of the parking zones. All segments which are contained in at least one bounding box of a parking zone will remain in the dataset while all the others are deleted.
+
+The remaining filtered dataset is much smaller than the original one. In total it consists of 8.591 segments, which are composed of 6.345 free spaces, 2.131 parking cars, 55 overtaking situations and 60 other parking vehicles. This filtered dataset is much more balanced than the original one, because almost all of the parking cars are still included while approximately half of the free spaces, which has been the dominating class, is deleted. 
 
 
 
