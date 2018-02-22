@@ -197,7 +197,9 @@ Additionally, \textbf{266.309 images} were captured to record the ground truth o
 \chapter{Data Processing and Machine Learning Approaches}
 \label{chap:data_processing_and_ml}
 
-This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), and data segmentation (Section \ref{sec:data_segmentation}). \todo{describe rest :)}
+This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), and data segmentation (Section \ref{sec:data_segmentation}). 
+Furthermore, the creation of the features for the dataset used in the machine learning experiments is described (Section \ref{sec:feature_calculation}) as well as the machine learning experiments including the experiment methods (Section \ref{sec:machine_learning_experiments}).
+Finally, the use of parking space maps to improve classification results and acquiring these parking space maps is described in Section \ref{sec:parking_space_maps}.
 
 
 
@@ -416,6 +418,7 @@ Obviously, the dataset is highly imbalanced. About 82.6\% of all samples are tag
 
 
 \section{Machine Learning Experiments}
+\label{sec:machine_learning_experiments}
 
 There are a lot of different machine learning approaches, which can be chosen from. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best, experiments are being performed and the results are compared so that the best model can be identified. 
 The overall goal of the experiments is to find the feature subset and the machine learning model which in combination produce the highest accuracy in classifying all segments. 
@@ -457,6 +460,7 @@ Cross-Validation...
 
 
 \section{Parking Space Maps}
+\label{sec:parking_space_maps}
 
 When sensing a city's parking availability situation parking space maps are of great importance. As already discussed the machine learning models only classify road segments to "free spaces" (rather than "vacant parking spaces") which means that there are no parking cars and a car can possibly park there. However, parking space maps are necessary as it cannot be sensed if it is legal to park at a certain free space. For example, a free space might just be a driveway or a bus station. Vacant parking spaces can be identified when their location is compared to a parking space map matching parking spaces there. 
 
@@ -518,7 +522,7 @@ Only areas where there are lots of parking cars are extracted to be parking zone
 
 
 
-\subsection{Using Parking Space Maps to improve Classification}
+\subsection{Using Parking Space Maps to improve Classification Results}
 
 As already mentioned, it does not make sense to classify segments which are not close to parking zones. Such segments will not make a difference to the end result as it is known that at these positions parking is not possible (or legal) and thus the classification result will not make any difference. 
 To improve the classification results, only segments which are close to parking zones will used for training and for evaluating the machine learning models. The dataset, which is described in Section \ref{sec:derived_dataset}, is filtered by matching the GPS positions of the segments with the bounding boxes of the parking zones. All segments which are contained in at least one bounding box of a parking zone will remain in the dataset while all others are deleted.
