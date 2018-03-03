@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="659px" height="348px" viewBox="0 0 659 348" enable-background="new 0 0 659 348" xml:space="preserve">
+<g transform="translate(0.5,0.5)">
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="126" cy="61" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="126" cy="98" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="126" cy="136" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="126" cy="202" rx="15" ry="15"/>
+	<g transform="translate(77.5,247.5)">
+		<text transform="matrix(1 0 0 1 20.8174 0.9998)" enable-background="new    "><tspan x="0" y="0" font-family="'ArialMT'" font-size="12">input layer</tspan><tspan x="-19.002" y="14.4" font-family="'ArialMT'" font-size="12">(raw sensor data)</tspan></text>
+	</g>
+	<g transform="translate(121.5,159.5)">
+		<text transform="matrix(1 0 0 1 -9.765625e-004 11.9998)" font-family="'ArialMT'" font-size="12">...</text>
+	</g>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="226" cy="15" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="226" cy="52" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="226" cy="90" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="226" cy="127" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="226" cy="258" rx="15" ry="15"/>
+	<g transform="translate(220.5,217.5)">
+		<text transform="matrix(1 0 0 1 -9.765625e-004 11.9998)" font-family="'ArialMT'" font-size="12">...</text>
+	</g>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="226" cy="164" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="226" cy="200" rx="15" ry="15"/>
+	<g transform="translate(248.5,311.5)">
+		<text transform="matrix(1 0 0 1 27.8105 6.9998)" enable-background="new    "><tspan x="0" y="0" font-family="'ArialMT'" font-size="12">hidden layers</tspan><tspan x="-26.004" y="14.4" font-family="'ArialMT'" font-size="12">(64 elements per layer)</tspan></text>
+	</g>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,56l70-41"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,61l70-9"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,61l70,29"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,61l70,66"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,61l70,103"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,61l70,139"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,61l70,197"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,98l70-83"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,136l70-121"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,202l70-187"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,98l70-46"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,96l70-6"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,98l70,29"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,98l70,68"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,136l70,64"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,136l70,120"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,96l70,104"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,98l70,160"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,136l70-84"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,136l70-46"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,136l70-9"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,137l70,27"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,136l70,64"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,202l70,56"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,202l70-2"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,202l70-38"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,206l70-79"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,206l70-116"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M141,202l70-112"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="402" cy="15" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="402" cy="52" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="402" cy="90" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="402" cy="127" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="402" cy="258" rx="15" ry="15"/>
+	<g transform="translate(396.5,217.5)">
+		<text transform="matrix(1 0 0 1 -9.765625e-004 11.9998)" font-family="'ArialMT'" font-size="12">...</text>
+	</g>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="402" cy="164" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="402" cy="200" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="501" cy="75" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="501" cy="112" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="501" cy="150" rx="15" ry="15"/>
+	<ellipse pointer-events="none" fill="#FFFFFF" stroke="#000000" cx="501" cy="186" rx="15" ry="15"/>
+	<g transform="translate(543.5,66.5)">
+		<text transform="matrix(1 0 0 1 -16.5 12.4998)" font-family="'ArialMT'" font-size="12">free space</text>
+	</g>
+	<g transform="translate(541.5,104.5)">
+		<text transform="matrix(1 0 0 1 -14.5 11.4998)" font-family="'ArialMT'" font-size="12">parking car</text>
+	</g>
+	<g transform="translate(540.5,143.5)">
+		<text transform="matrix(1 0 0 1 -13.5 10.4998)" font-family="'ArialMT'" font-size="12">overtaking situation</text>
+	</g>
+	<g transform="translate(540.5,177.5)">
+		<text transform="matrix(1 0 0 1 -13.5 12.4998)" font-family="'ArialMT'" font-size="12">other parking vehicle</text>
+	</g>
+	<g transform="translate(277.5,104.5)">
+		<text transform="matrix(1 0 0 1 20.8301 22.4998)" enable-background="new    "><tspan x="0" y="0" font-family="'ArialMT'" font-size="12">more</tspan><tspan x="-22.02" y="14.4" font-family="'ArialMT'" font-size="12">hidden layers</tspan><tspan x="8.669" y="28.8" font-family="'ArialMT'" font-size="12">...</tspan></text>
+	</g>
+	<g transform="translate(439.5,247.5)">
+		<text transform="matrix(1 0 0 1 30.1465 -4.5002)" enable-background="new    "><tspan x="0" y="0" font-family="'ArialMT'" font-size="12">output layer</tspan><tspan x="-31.342" y="14.4" font-family="'ArialMT'" font-size="12">(one element per class)</tspan></text>
+	</g>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,15l70,61"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,15l69,97"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,15l69,135"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,15l69,171"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,52l69,23"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,52l69,60"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,52l69,98"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,52l69,134"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,90l69-15"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,90l69,22"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,90l69,60"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,90l69,96"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,127l69-52"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,127l69-15"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,127l69,23"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,127l69,59"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,164l69-89"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,164l69-52"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,164l69-14"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,164l69,22"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,200l69-125"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,200l69-88"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,200l69-50"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M421,196l65-10"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,258l69-183"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,258l69-146"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,258l69-108"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M417,258l69-72"/>
+	<path pointer-events="none" fill="none" stroke="#000000" stroke-miterlimit="10" d="M200.5,283.5v5c0,3.334,3.333,5,10,5H302
+		c6.667,0,10,1.667,10,5v2.5c0,1.667,0,0.834,0-2.5V296c0-1.666,3.333-2.5,10-2.5h91.5c6.666,0,10-1.666,10-5v-5"/>
+	<g transform="translate(12.5,54.5)">
+		<text transform="matrix(1 0 0 1 1.9766 11.9998)" font-family="'ArialMT'" font-size="12">sensor value 1</text>
+	</g>
+	<g transform="translate(11.5,89.5)">
+		<text transform="matrix(1 0 0 1 1.9766 11.9998)" font-family="'ArialMT'" font-size="12">sensor value 2</text>
+	</g>
+	<g transform="translate(11.5,126.5)">
+		<text transform="matrix(1 0 0 1 1.9766 11.9998)" font-family="'ArialMT'" font-size="12">sensor value 3</text>
+	</g>
+	<g transform="translate(12.5,196.5)">
+		<text transform="matrix(1 0 0 1 1.9766 11.9998)" font-family="'ArialMT'" font-size="12">sensor value n</text>
+	</g>
+</g>
+</svg>

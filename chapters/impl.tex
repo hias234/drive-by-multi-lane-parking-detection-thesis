@@ -456,7 +456,7 @@ Cross-Validation...
 
 \section{Deep Learning}
 
-Deep learning gained a lot of attention in the last few years because of its rising classification accuracy results. A deep learning network is a special form of a neural network containing a possibly large amount of hidden layers between the input layer and the output layer. Furthermore, in most applications as input raw sensor measurements are used instead of pre-computed feature values (which were derived from the raw sensor values). In theory, a neural network (and thus a deep learning network) can derive its own feature values from the raw sensor data given enough hidden elements and long enough training time.
+Deep learning gained a lot of attention in the last few years because of its rising classification accuracy results. Deep learning models became the first models which created systems which could compete with humans on classification tasks. A deep learning network is a special form of a neural network containing a possibly large amount of hidden layers between the input layer and the output layer. Furthermore, in most applications as input raw sensor measurements are used instead of pre-computed feature values (which were derived from the raw sensor values). In theory, a neural network (and thus a deep learning network) can derive its own feature values from the raw sensor data given enough hidden elements and long enough training time.
 
 In this thesis deep learning should be evaluated for the use of classifying parking situations using distance sensor data. It should be investigated if deep learning can be used to do this kind of classification on raw sensor data and should be compared with classical machine learning algorithms (described in Section \ref{sec:machine_learning_models}) using pre-computed feature values.
 
@@ -472,11 +472,18 @@ As input for the deep learning experiments a dataset containing all sensor measu
 
 \subsection{Tested Deep Learning Models}
 
+As baseline deep learning network a dense neural network with 5 hidden layers and 64 hidden elements per layer is used. This basic deep learning network should show how a densely-connected DL model performs on the given dataset. Figure \ref{fig:densely_dl_network} shows the illustration of the created deep learning network containing of an input layer with 1024 elements (one for each sensor value), 5 hidden layers containing 64 hidden elements each and four output elements which calculate the probability of each class for the given input. 
 
+%There already exist several ways to improve the performance of deep learning methods, such as dropout nodes, convolutional nodes and max pooling nodes. All of these techniques should be tested, so that several deep learning networks can be compared on their performance on the dataset.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/deep_learning_basic_model.eps}
+	\caption{A basic deep learning network having sensor values as input and the probability of all classes as output values. All layers are densely connected with each other.}
+	\label{fig:densely_dl_network}
+\end{figure}
 
-
-
+To implement the deep learning algorithms, the programming language Python\footnote{\url{https://www.python.org/}} (version 3.6.4) is used as well as the TensorFlow framework\footnote{\url{https://www.tensorflow.org/}}. TensorFlow is built for creating neural network models and especially for building deep learning models using a lot of pre-built components and easy readable syntax. 
 
 
 
