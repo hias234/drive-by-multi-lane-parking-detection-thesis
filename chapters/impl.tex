@@ -428,6 +428,7 @@ The overall goal of the experiments is to find the feature subset and the machin
 
 
 \subsection{Tested Machine Learning Models}
+\label{sec:machine_learning_models}
 
 This section will discuss all machine learning models which were investigated on their performance. Furthermore, also all parameters which could be set for the different machine learning models will be presented. The tested machine learning models are:
 
@@ -450,9 +451,21 @@ This section will discuss all machine learning models which were investigated on
 Cross-Validation...
 
 
-\subsection{Deep Learning}
 
 
+
+\section{Deep Learning}
+
+Deep learning gained a lot of attention in the last few years because of its rising classification accuracy results. A deep learning network is a special form of a neural network containing a possibly large amount of hidden layers between the input layer and the output layer. Furthermore, in most applications as input raw sensor measurements are used instead of pre computed feature values (which were derived from the raw sensor values). In theory, a neural network (and thus a deep learning network) can derive its own feature values from the raw sensor data given enough hidden elements and long enough training time.
+
+In this thesis deep learning should be evaluated for the use of classifying parking situations using distance sensor data. It should be investigated if deep learning can be used to do this kind of classification on raw sensor data and should be compared with classical machine learning algorithms (described in Section \ref{sec:machine_learning_models}) using pre-computed feature values.
+
+
+
+
+\subsection{Dataset for Deep Learning Experiments}
+
+As input for the deep learning experiments a dataset containing all sensor measurements for each segment is needed. In a pre-processing step a dataset is created which is made of a vector of sensor measurements for each segment. Each vector has a fixed size of 1024 sensor measurements. In most cases the segments do not have so many measurements, then the measurements will be zero padded to the required size. If a segment has more than 1024 measurements, only the first 1024 will be used. This step is necessary to have a fixed length input for the experiments. The vectors represent the input layer of the neural network.
 
 
 
