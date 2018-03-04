@@ -443,12 +443,17 @@ This section will discuss all machine learning models which were investigated on
 \paragraph{Ensemble Methods}
 
 
-\subsection{Used Tools and Frameworks}
+\subsection{Evaluation and Used Tools and Frameworks}
+
+To be able to get reliable results for the performance of the different classifiers it is important to have a comparable evaluation method. The used method in this thesis is 10-fold cross validation. Using this technique, all samples of the dataset are split into 10 equally sized parts (folds). Then 1 fold is selected as test data while all the other folds are used for training the classifier. This process gets repeated 10 times, so that every fold has been used as test data exactly once. Cross validation ensures, that there is no sample in the test data which has been previously learned by the classifier in the training process. Moreover, it is important that every sample gets predicted once, so that the performance measures are realistic.
+
+Another process which helps to get better performance is to shuffle the dataset, before it is divided into folds for cross validation. The shuffling ensures that it is likely that only one of two consecutive segments is in the test data, while the other one is in the training data. This helps to have more diverse training data as consecutive segments usually are more alike than others. For example, usually perpendicular parking spaces are in the same area. Therefore, if the dataset gets shuffled the ratio between perpendicular parking cars will be approximately the same for the test- and training data.
 
 
-\subsection{Evaluation Method}
+%\subsection{Used Tools and Frameworks}
 
-Cross-Validation...
+To conduct the machine learning experiments the dataset is processed using the Python programming language. Furthermore, the classifiers of the scikit learn machine learning framework are used for the experiments. Scikit learn is a framework for Python which offers all of the above discussed classifiers as well as tools to support the evaluation process. 
+
 
 
 
