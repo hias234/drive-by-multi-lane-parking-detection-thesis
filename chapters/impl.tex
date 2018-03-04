@@ -483,6 +483,8 @@ As baseline deep learning network a dense neural network with 5 hidden layers an
 
 In addition to the basic deep neural network, several known strategies should be tested to improve the performance of the deep learning approach. First of all, dropout between the layers should be tested. Dropout is a technique in deep learning to handle over-fitting of the neural network. If dropout with a prability $p$ is introduced between two layers, a connection between two elements is maintained only at a probability of $1-p$. The result is a more sparsely connected deep neural network which should be less prone to over-fitting. Dropout should be tested between several layers and with different values for the deletion-probability $p$.
 
+Another popular technique to improve deep learning models is the use of convolution. Convolutional neural networks are especially popular for image classification. However, convolution can also be applied on the one-dimensional distance sensor data available in our dataset. Different configurations for the configuration of such a convolutional neural network should be tested and the performance should be compared to the other approaches.
+
 %To further improve the baseline deep learning model, several known strategies should be tested, such as dropout, convolutional nodes and max pooling. 
 
 
