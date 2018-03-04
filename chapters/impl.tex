@@ -479,16 +479,17 @@ As input for the deep learning experiments a dataset containing all sensor measu
 
 \subsection{Tested Deep Learning Models}
 
-As baseline deep learning network a dense neural network with 5 hidden layers and 64 hidden elements per layer is used. This basic deep learning network should show how a densely-connected deep learning model performs on the given dataset. Figure \ref{fig:densely_dl_network} shows the illustration of the created deep learning network containing of an input layer with 1024 elements (one for each sensor value), 5 hidden layers containing 64 hidden elements per layer and four output elements which calculate the probability of each class for the given input. The class which gets predicted is the one with the greatest probability out of the four classes. 
+As baseline deep learning network a dense neural network with 5 hidden layers and 64 hidden elements per layer is used. This basic deep learning network should show how a densely-connected deep learning model performs on the raw sensor dataset. Figure \ref{fig:densely_dl_network} shows the illustration of the created deep learning network containing of an input layer with 1024 elements (one for each sensor value), 5 hidden layers containing 64 hidden elements per layer and four output elements which calculate the probability of each class for the given input. The class which gets predicted is the one with the greatest probability out of the four classes. 
 
-\todo{todo}
+In addition to the basic deep neural network, several known strategies should be tested to improve the performance of the deep learning approach. First of all, dropout between the layers should be tested. Dropout is a technique in deep learning to handle over-fitting of the neural network. If dropout with a prability $p$ is introduced between two layers, a connection between two elements is maintained only at a probability of $1-p$. The result is a more sparsely connected deep neural network which should be less prone to over-fitting. Dropout should be tested between several layers and with different values for the deletion-probability $p$.
 
-To further improve the baseline deep learning model, several known strategies should be tested, such as dropout, convolutional nodes and max pooling. 
+%To further improve the baseline deep learning model, several known strategies should be tested, such as dropout, convolutional nodes and max pooling. 
 
 
 %There already exist several ways to improve the performance of deep learning methods, such as dropout nodes, convolutional nodes and max pooling nodes. All of these techniques should be tested, so that several deep learning networks can be compared on their performance on the dataset.
 
 
+\todo{todo}
 
 
 %\subsection{Tools for DL Development}
