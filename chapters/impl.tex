@@ -547,8 +547,9 @@ The learner based analysis confirms the results of the information gain analysis
 \section{Machine Learning Experiments}
 \label{sec:machine_learning_experiments}
 
-There are a lot of different machine learning approaches, which can be chosen from. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best, experiments are being performed and the results are compared so that the best model can be identified. 
+There are a lot of different machine learning approaches, which can be chosen from. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best for the parking space sensing scenario, experiments are being performed and the results are compared so that the best model can be identified. 
 The overall goal of the experiments is to find the feature subset and the machine learning model which in combination produce the highest accuracy in classifying all segments. 
+Especially the precision and recall values of the "parking car" class are of interest, because detecting parking cars is crucial for creating highly accurate parking space availability maps.
 
 
 
@@ -620,6 +621,9 @@ Another popular technique to improve deep learning models is the use of convolut
 %\subsection{Tools for DL Development}
 
 To implement the deep learning models, the programming language Python\footnote{\url{https://www.python.org/}} (version 3.6.4) is used as well as the TensorFlow framework\footnote{\url{https://www.tensorflow.org/}}. TensorFlow is built for creating neural network models and especially for building deep learning models using a lot of pre-built components with a easy readable syntax. 
+
+
+
 
 
 
