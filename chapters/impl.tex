@@ -199,7 +199,7 @@ Additionally, \textbf{266.309 images} were captured to record the ground truth o
 
 This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), and data segmentation (Section \ref{sec:data_segmentation}). 
 Furthermore, the creation of the features for the dataset used in the machine learning experiments is described (Section \ref{sec:feature_calculation}) as well as the machine learning experiments including the experiment methods (Section \ref{sec:machine_learning_experiments}).
-Finally, the use of parking space maps to improve classification results and acquiring these parking space maps is described in Section \ref{sec:parking_space_maps}.
+Finally, the use of parking space maps to improve classification results and acquiring these parking space maps is described in Section \ref{sec:parking_space_maps}.\todo{rewrite :)}
 
 
 
@@ -346,7 +346,7 @@ As parking space maps are unavailable in a sufficient quality from outside sourc
 The proposed algorithm uses clustering to group parked cars to parking zones. The idea is that if there are several cars parking at the same location in several test drives then it is likely that there are parking spaces at that position. A DBSCAN\footnote{Density-Based Spatial Clustering of Applications with Noise - \url{http://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html}} clustering algorithm (part of the scikit learn\footnote{\url{http://scikit-learn.org/}} python framework for machine learning) is being used to cluster the position of the parked cars. The DBSCAN algorithm searches for high density core samples and expands clusters from them. It takes the a similarity function which compares two data points and a minimum similarity as input parameters.
 
 As similarity measure for the clustering algorithm a custom function has been implemented. Two parked cars are considered to be similar if the sensing car is driving in the same direction while sensing and if both cars are close to each other in terms of their GPS position. The check of the direction the sensing car is going while sensing is performed ensure that both compared parking cars are on the same side of the street. If the sensing vehicle is going in the opposite direction while sensing another parked car both cars will be at the same position but at the opposite side of the street. If the first check is passed, the similarity function will compute the distance in meters between the GPS positions of both parked cars which are compared. The described similarity function is used by the DBSCAN clustering algorithm to identify core samples and to cluster multiple parking cars to parking zones. The maximum distance between two cars to be considered to be similar is set to eight meters. If two parking cars are further apart they are not considered to be able to be in the same parking zone. 
-The result of the algorithm are clusters of parking cars which are considered as "parking zones" or "area where it is likely that cars are parking". To be able to determine if a specific GPS positions is in such a parking zone (needed later on for filtering), a bounding box is created for each cluster. Such a bounding box is created by taking the GPS position of the parking cars which are parking apart from each other the greatest distance. Around these two GPS positions a rectangle (the bounding box) is created by giving a ten meter error distance to all sides.
+The result of the algorithm are clusters of parking cars which are considered as "parking zones" or "area where it is likely that cars are parking". To be able to determine if a specific GPS positions is in such a parking zone (needed later on for filtering), a bounding box is created for each cluster. Such a bounding box is created by taking the GPS position of the parking cars which are parking apart from each other the greatest distance. Around these two GPS positions a rectangle (the bounding box) is created by giving a ten meter error distance to all sides. The end result of the parking space map approximation is therefore a collection of parking zones, which are implemented as bounding boxes.
 
 \begin{figure}
 \centering
@@ -393,6 +393,10 @@ To improve the classification results, only segments which are close to parking 
 
 Two main datasets are being available for the use of machine learning experiments. The first dataset (full dataset) contains all segments which have been sensed during the test drives while the second dataset (filtered dataset) has been filtered to only contain segments which are close to areas where parking spaces are located. Both datasets are made up of samples with all calculated feature values (discussed in Section \ref{sec:feature_calculation}) and the corresponding class label.
 
+Table \ref{table:dataset_comparison} shows a comparison of the number of instances per class for both datasets as well as the percentage of each class. One can clearly see that both datasets are highly imbalanced because in both cases the "free space" class is by far the dominating class with 83.6\% and 73.8\%, respectively. However, the filtered dataset contains only about half of the "free space" instances which are in the full dataset and thus the filtered dataset will probably lead to a better classification result as it is more balanced. Of course, this has to be proven in the machine learning results which are covered in the later sections.
+
+Another fact which can be observed is that the classes "overtaking situation" and "other parking vehicle" only have a really small percentage of the whole dataset size in both cases. For a good classification result it will be probably necessary to gain more data for these classes as with only such few instances the variety of the different instances will not be good enough for good classification results.
+ 
 \begin{table}
 
 %\resizebox{\textwidth}{!}{%
@@ -435,12 +439,6 @@ Two main datasets are being available for the use of machine learning experiment
 \label{table:dataset_comparison}
 \end{table}
 
-Table \ref{table:dataset_comparison} shows a comparison of the number of instances per class for both datasets as well as the percentage of each class. One can clearly see that both datasets are highly imbalanced because in both cases the "free space" class is by far the dominating class with 83.6\% and 73.8\%, respectively. However, the filtered dataset contains only about half of the "free space" instances which are in the full dataset and thus the filtered dataset will probably lead to a better classification result as it is more balanced. Of course, this has to be proven in the machine learning results which are covered in the later sections.
-
-Another fact which can be observed is that the classes "overtaking situation" and "other parking vehicle" only have a really small percentage of the whole dataset size in both cases. For a good classification result it will be probably necessary to gain more data for these classes as with only such few instances the variety of the different instances will not be good enough for good classification results.
-
-%After data preprocessing, data segmentation and feature calculation have been performed, the final dataset which is being used for the further machine learning is available. The dataset is made up of samples with all feature values described in the previous section and the corresponding class label. The dataset consists in total of \textbf{14.303 samples} which are composed of \textbf{11.811 free spaces}, \textbf{2.216 parking cars}, \textbf{207 overtaking situations} and \textbf{69 other parking vehicles}. 
-%Obviously, the dataset is highly imbalanced. About 82.6\% of all samples are tagged as "free spaces" while only about 1.4\% are tagged as "overtaking situations" and 0.5\% as "other parking vehicles". 
 
 
 
@@ -454,11 +452,13 @@ The goal of each feature is to help identify the true class of a sample which sh
 
 \item[Information Gain Analysis:] Weka provides a tool called "InfoGainAttributeEval" which calculates the information gain (also known as entropy) of all the features for the classification task. The features which will contribute more to an accurate classification result will have a higher information gain than others. The resulting values are in the range of 0 to 1.
 
-\item[Learner based Feature Analysis:] This approach tests several feature subsets on a real machine learning algorithm (a J48 decision tree is used) and identifies the best feature subset. The process is repeated with different training sets and counts how often the features are used in the different runs. If a feature is used in all runs it gets a value of 1 whereas if it is never used its value will be 0. So the higher the value is, the more the feature helps in the classification task.
+\item[Learner based Feature Analysis:] This approach tests several feature subsets on a real machine learning algorithm (a J48 decision tree is used) and identifies the best feature subset. Cross-validation is used for the experiment with different feature subsets and the result is a list of features which works best for the classification task using the tested machine learning algorithm. %The process is repeated with different training sets and counts how often the features are used in the different runs. If a feature is used in all runs it gets a value of 1 whereas if it is never used its value will be 0. So the higher the value is, the more the feature helps in the classification task.
 
 \end{description}
 
-Table \ref{table:feature_analysis} shows the results of the feature analysis process. Both results are showing that there are five important features, which provide the most value to classification (average distance, distance difference to next and previous segment, length and number of measurements). All of them have a high information gain and are used in all feature subsets which lead to the best results in the learning based analysis. The other four features (duration, distance variance, average speed and average acceleration) are only used in a minority of the feature subsets and also have lower information gain. This means that they won't contribute so much to a good classification result. However, these findings have to be confirmed by machine learning experiments later on.
+Table \ref{table:feature_analysis} shows the results of the feature analysis process for the full and filtered datasets, respectively. The information gain shows that most features of the filtered dataset have a higher score, therefore probably the classification result will lead to a higher accuracy using the filtered dataset. Looking at the information gain of both dataset, six important features can be identified, having an information gain value over $0.1$ (average distance, different to previous and next segment, length, number of measures and duration). The remaining three features have a much lower information gain and therefore probably will not contribute as much to the classification result.
+
+The learner based analysis confirms the results of the information gain analysis. All of the six most important features have been selected for the best feature subset in both datasets. It is also shown that the distance variance is not used in any case while the average speed and average acceleration are used in one case while being left out in the other.
 
 
 
@@ -472,44 +472,50 @@ Table \ref{table:feature_analysis} shows the results of the feature analysis pro
 \begin{tabular}{| r || c | c |}
 \hline
    & 
+   \textbf{} & 
+   \textbf{Contained in best subset} \\
+   & 
    \textbf{Information Gain} & 
-   \textbf{Learning based Score} \\
+   \textbf{(Learner based Analysis)} \\
+   & 
+   \textbf{Full/Filtered Dataset} & 
+   \textbf{Full/Filtered Dataset} \\
 \hline
   \textbf{Average distance} & 
-   0.361 &
-   1.0 \\
+   0.361 / 0.502 &
+   yes / yes \\
 \hline
 \textbf{Diff to next} & 
-   0.232 &
-   1.0 \\
+   0.232 / 0.338 &
+   yes / yes \\
 \hline
 \textbf{Diff to prev.} & 
-   0.233 &
-   1.0 \\
+   0.233 / 0.337 &
+   yes / yes \\
 \hline
 \textbf{Length} & 
-   0.223 &
-   1.0 \\
+   0.223 / 0.290 &
+   yes / yes \\
 \hline
-\textbf{Nr of measures} & 
-   0.178 &
-   1.0 \\
+\textbf{Nr. of measures} & 
+   0.178 / 0.235 &
+   yes / yes \\
 \hline
 \textbf{Duration} & 
-   0.175 &
-   0.2 \\
+   0.175 / 0.234 &
+   yes / yes \\
 \hline
 \textbf{Distance variance} & 
-   0.055 &
-   0.0 \\
+   0.055 / 0.067 &
+   no / no \\
 \hline
 \textbf{Avg speed} & 
-   0.019 &
-   0.3 \\
+   0.019 / 0.022 &
+   no / yes \\
 \hline
 \textbf{Avg acceleration} & 
-   0.011 &
-   0.1 \\
+   0.011 / 0.008 &
+   yes / no \\
 \hline
 
 
@@ -517,7 +523,7 @@ Table \ref{table:feature_analysis} shows the results of the feature analysis pro
 \egroup
 %}
 
-\caption{Feature analysis showing the information gain and learning based score of all calculated features.}
+\caption{Feature analysis showing the information gain and learning based analysis results of all calculated features on the full and filtered dataset.}
 \label{table:feature_analysis}
 \end{table}
 
