@@ -3,7 +3,7 @@ def simple_dense_model(dataset, x_train, y_train):
 
     model = Sequential()
     model.add(Dense(hidden_dims, activation='relu', 
-	                input_dim=len(dataset.x[0])))
+                    input_dim=len(dataset.x[0])))
     model.add(Dropout(0.2))
     model.add(Dense(hidden_dims, activation='relu'))
     model.add(Dropout(0.2))
@@ -14,7 +14,7 @@ def simple_dense_model(dataset, x_train, y_train):
     model.add(Dense(hidden_dims, activation='relu'))
     model.add(Dropout(0.2))
     model.add(Dense(len(dataset.class_labels), 
-	                activation='softmax'))
+                    activation='softmax'))
 
     model.compile(loss='categorical_crossentropy',
                   optimizer='adam',

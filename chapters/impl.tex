@@ -593,7 +593,9 @@ Another popular technique to improve deep learning models is the use of convolut
 %\subsection{Tools for DL Development}
 
 To implement the deep learning models, the programming language Python\footnote{\url{https://www.python.org/}} (version 3.6.4) is used as well as the Keras\footnote{\url{https://keras.io/}}- and the TensorFlow\footnote{\url{https://www.tensorflow.org/}} frameworks. Keras is used as a wrapper which is using the TensorFlow framework internally and helps to create easy to read representations of deep neural networks. TensorFlow is built for creating neural network models and especially for building deep learning models using a lot of pre-built components. 
-Listing \ref{lst:deep_learning1} shows an example of a deep learning network which has been defined using the Keras framework.
+
+
+Listing \ref{lst:deep_learning1} shows an example of a deep learning network which has been defined using the Keras framework. It defines a neural network with five hidden layers with each having 64 hidden elements using the ReLU activation function. Moreover, between every hidden layer there is a 20\% dropout of the connections between the hidden elements. To get a result, the output layer which consists of four elements is using the softmax activation function which calculates the probabilities for each class, therefore the output of the deep learning network is a vector with 4 numbers in the range of 0 to 1 adding up to 1. The listing furthermore shows the loss function (categorical crossentropy) as well as the optimizer (adam) and the used metric (accuracy).
 
 
 
