@@ -39,14 +39,11 @@ The main goal of this thesis is to develop a drive-by parking detection system, 
 
 ParkNet uses only two features to detect parking spaces in their approach, namely the length of segments and the distance from the sensing vehicle. Mathur et al. derived thresholds for both features with a minimum error to classify the segments in parking cars and other objects. This technique is sufficient for their simple scenario because of their restricted test data. However, on a more complicated dataset which is used in this thesis the results will probably be much worse.
 
+To support that hypothesis, a similar technique as in the ParkNet prototype was used to classify segments of our dataset using only the two features \emph{length} and \emph{distance to the sensing vehicle}. A decision tree with a maximum depth of two has been learned using our dataset and evaluated using 10-fold cross-validation. While the ParkNet prototype reaches about 93\% recall on parking cars on their dataset, our decision tree only gets an recall of about 75\%. Figure \ref{fig:plot_2d_decision_tree} shows a plot of the dataset using both used features and also the learned decision tree boundary. The black dots represent free spaces, while the orange ones represent parking cars. Magenta and cyan dots are overtaking situations and other parking vehicles, respectively. The dashed red line represents the decision boundary which has been learned by our restricted decision tree, which is a similar technique to the ParkNet prototype. All segments in the upper left rectangle are classified as parking cars while all others are classified as free spaces.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{img/2d_length_distance_scatter_full_dataset.png}
-	\caption{A plot of the length and distance of the segments of the full dataset. Orange points show parking cars, while black points show free spaces.}
-	\label{fig:densely_dl_network}
+	\includegraphics[width=\textwidth]{img/2d_length_distance_scatter_full_dataset_decision_tree_boundaries.png}
+	\caption{A plot of the length and distance of the segments of the full dataset. Orange points show parking cars, while black points show free spaces. The red line shows the learned decision tree boundaries.}
+	\label{fig:plot_2d_decision_tree}
 \end{figure}
-
-Using only the two features used in ParkNet - Which accuracy can be reached on our dataset.
-
-ca 75\% recall and precision using ParkNet-approach
