@@ -1,37 +1,7 @@
 \chapter{Testbed - Prototype Implementation}
 \label{chap:referenceimplementation}
 
-As already discussed in Chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. To support this goal, a prototype of drive-by sensing using an optical distance sensor has been designed, implemented, and evaluated. This chapter introduces the prototype and testbed which have been developed to acquire the necessary dataset to run the machine learning experiments. 
-%Furthermore, the process to obtain ground truth information is described.
-
-%This chapter will describe the setup and implementation of the prototype. In particular, section \ref{sec:system_design} will discuss the overall envisioned system, the prototype car and the required sensors with their capabilities. In section \ref{sec:experiment_description_data_collection} the experimental setup will be discussed as well as the acquiring of the test dataset through test drives in the city of Linz, Austria. Finally, section \ref{sec:data_processing} will describe the preprocessing of the data, definition of the features and a short description of all used machine learning algorithms with their configurations. 
-%\todo{update :)}
-
-
-
-
-%\section{System design}
-%\label{sec:system_design}
-
-
-%\begin{description}
-%
-%
-%\item[Building a test bed] As a first step a test bed has to be built which is able to access the required sensors to record all the necessary data. A Raspberry Pi will be used as processing device because of its popularity and the many compatible sensors which work with this platform. It is connected to a LIDAR-Lite v3 sensor which continuously measures the distance to the nearest obstacle on the right side of the road. A GPS receiver will track the location of the sensing vehicle and a camera will be used to record images of the ground truth for evaluation purposes only. In section \ref{sec:system_design} the complete setup of the test bed is described as well as all the specific hard ware parts and their abilities.
-%
-%\item[Acquiring a dataset] As soon as the test bed is ready, the sensors should be mounted on the prototype car to be able to start recording the dataset. Test drives should be done in some selected streets in Linz, Austria with the focus of variety of the recorded situations. The test scenes should include single lane as well as multi lane streets and measurements in all streets should be done several times. Furthermore, the car should be driving as it would in regular traffic (not only in the right most lane, etc...) and the scenes should also include high and low traffic scenarios to have a high amount of diverse data. All measured distances, GPS locations and ground truth images have to be saved to files with the according timestamps to be able to evaluate the results of different approaches later on. Furthermore, using the images taken by the camera, ground truth values will be manually labelled in different classes (Parked car, free space, overtaken car, ...). A detailed description about the dataset and the ground truth tagging can be found in section \todo{ref} \ref{sec:dataset}.
-%
-%\item[Data processing and segmentation] As next step the measured sensor values have to be preprocessed and filtered in order for the following algorithms to work. Sensing and overflow errors as well as outliers in the measurements should be identified and removed before further processing. After the raw data has been filtered, the sensor data has to be segmented. As parking cars and other cases which should be classified consist of several sensor measurements, the corresponding sensor measurements should be grouped together and merged to segments which will be later classified. All preprocessing steps and the segmentation process are described in more detail in section \todo{ref} \ref{sec:data_processing}.
-%
-%\item[Classification using basic machine learning techniques] Features on the created segments are calculated (for instance length, average distance and variation of the distances) and are being used to train and evaluate several machine learning algorithms which will be compared on their performance. Furthermore, some deep learning models will also be evaluated on the raw sensor data of the segments and will be compared to common machine learning results. The results of all experiments can be found in section \todo{ref} \ref{sec:ml_results}.
-%
-%\item[Further improvements] \todo{todo}
-%
-%\end{description}
-
-
-
-
+As already discussed in Chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. To support this goal, a prototype of drive-by sensing using an optical distance sensor has been designed, implemented, and evaluated. This chapter introduces the prototype and testbed which have been developed to acquire the necessary dataset to run the machine learning experiments. First, the used hardware and sensors are described (Section \ref{sec:test_bed}), then the software to collect test data is being discussed (Section \ref{sec:sensor_measurement_collection}) and finally the acquired raw sensor dataset is shown (Section \ref{sec:raw_dataset}).
 
 
 
