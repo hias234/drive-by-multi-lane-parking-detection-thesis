@@ -521,7 +521,7 @@ The learner based analysis confirms the results of the information gain analysis
 
 There are a lot of different machine learning approaches, which can be chosen from. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best for the parking space sensing scenario, experiments are being performed and the results are compared so that the best model can be identified. 
 The overall goal of the experiments is to find the feature subset and the machine learning model which in combination produce the highest accuracy in classifying all segments. 
-Especially the precision and recall values of the "parking car" class are of interest in our scenario, because detecting parking cars is crucial for creating highly accurate parking space availability maps.
+Especially the precision and recall values of the "parking car" class are of interest in our scenario, because detecting parking cars is crucial for creating accurate parking space availability maps.
 
 
 
@@ -547,7 +547,7 @@ This section will discuss all machine learning models which were investigated on
 
 To be able to get reliable results for the performance of the different classifiers it is important to have a comparable evaluation method. The used method in this thesis is 10-fold cross validation. Using this technique, all samples of the dataset are split into 10 equally sized parts (folds). Then one fold is selected as test data while all the other folds are used as training data for the classifier. This process gets repeated 10 times, so that every fold has been used as test data exactly once and has been used for training all the other nine times. Cross validation ensures, that there is no sample in the test data which has been previously learned by the classifier in the training process. Moreover, it is important that every sample gets predicted once, so that the performance measures are realistic.
 
-Another process which helps to get better performance is to shuffle the dataset, before it is divided into folds for cross validation. The shuffling ensures that it is likely that only one of two consecutive segments is in the test data, while the other one is in the training data. This helps to have more diverse training data as consecutive segments usually are more alike than others. For example, usually perpendicular parking spaces are in the same area. Therefore, if the dataset gets shuffled the ratio between perpendicular parking spaces and other parking spaces will be approximately the same in the test- and training data.
+Another technique which helps to get better performance is to shuffle the dataset, before it is divided into folds for cross validation. The shuffling ensures that it is likely that only one of two consecutive segments is in the test data, while the other one is in the training data. This helps to have more diverse training data as consecutive segments usually are more alike than others. For example, usually perpendicular parking spaces are in the same area. Therefore, if the dataset gets shuffled the ratio between perpendicular parking spaces and other parking spaces will be approximately the same in the test- and training data.
 
 
 %\subsection{Used Tools and Frameworks}
