@@ -167,9 +167,8 @@ Additionally, \textbf{266.309 images} were captured to record the ground truth o
 \chapter{Data Processing and Machine Learning Approaches}
 \label{chap:data_processing_and_ml}
 
-This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), and data segmentation (Section \ref{sec:data_segmentation}). 
-Furthermore, the creation of the features for the dataset used in the machine learning experiments is described (Section \ref{sec:feature_calculation}) as well as the machine learning experiments including the experiment methods (Section \ref{sec:machine_learning_experiments}).
-Finally, the use of parking space maps to improve classification results and acquiring these parking space maps is described in Section \ref{sec:parking_space_maps}.\todo{rewrite :)}
+This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), data segmentation (Section \ref{sec:data_segmentation}), and feature calculation (Section \ref{sec:feature_calculation}).
+Furthermore, the use of parking space maps is being discussed to possibly improve the dataset and also the classification results (Section \ref{sec:parking_space_maps}). The derived datasets are described in Section \ref{sec:derived_dataset}, providing an analysis of the datasets and the features. Finally, the machine learning- and deep learning experiments (Sections \ref{sec:machine_learning_experiments} and \ref{sec:deep_learning}) are discussed including the used machine learning models, used tools and the evaluation process.
 
 
 
@@ -288,6 +287,9 @@ To conduct machine learning experiments with common machine learning models, fea
 
 
 
+
+
+
 \section{Parking Space Maps}
 \label{sec:parking_space_maps}
 
@@ -361,9 +363,9 @@ To improve the classification results, only segments which are close to parking 
 \section{Derived Datasets}
 \label{sec:derived_dataset}
 
-Two main datasets are being available for the use of machine learning experiments. The first dataset (full dataset) contains all segments which have been sensed during the test drives while the second dataset (filtered dataset) has been filtered to only contain segments which are close to areas where parking spaces are located. Both datasets are made up of samples with all calculated feature values (discussed in Section \ref{sec:feature_calculation}) and the corresponding class label.
+Two main datasets are being available for the use of machine learning experiments. The first dataset (full dataset) contains all segments which have been sensed during the test drives while the second dataset (filtered dataset) has been filtered to only contain segments which are close to areas where parking spaces are located (described in the previous section). Both datasets are made up of samples with all calculated feature values (discussed in Section \ref{sec:feature_calculation}) and the corresponding class label.
 
-Table \ref{table:dataset_comparison} shows a comparison of the number of instances per class for both datasets as well as the percentage of each class. One can clearly see that both datasets are highly imbalanced because in both cases the "free space" class is by far the dominating class with 83.6\% and 73.8\%, respectively. However, the filtered dataset contains only about half of the "free space" instances which are in the full dataset and thus the filtered dataset will probably lead to a better classification result as it is more balanced. Of course, this has to be proven in the machine learning results which are covered in the later sections.
+Table \ref{table:dataset_comparison} shows a comparison of the number of instances per class for both datasets as well as the percentage of each class. One can clearly see that both datasets are highly imbalanced because in both cases the "free space" class is by far the dominating class with 83.6\% and 73.8\%, respectively. However, the filtered dataset contains only about half of the "free space" instances which are in the full dataset and thus the filtered dataset will probably lead to a better classification result as it is more balanced. Of course, this has to be proven by the machine learning experiments which will be covered in the following sections.
 
 Another fact which can be observed is that the classes "overtaking situation" and "other parking vehicle" only have a really small percentage of the whole dataset size in both cases. For a good classification result it will be probably necessary to gain more data for these classes as with only such few instances the variety of the different instances will not be good enough for good classification results.
  
@@ -519,7 +521,7 @@ The learner based analysis confirms the results of the information gain analysis
 
 There are a lot of different machine learning approaches, which can be chosen from. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best for the parking space sensing scenario, experiments are being performed and the results are compared so that the best model can be identified. 
 The overall goal of the experiments is to find the feature subset and the machine learning model which in combination produce the highest accuracy in classifying all segments. 
-Especially the precision and recall values of the "parking car" class are of interest, because detecting parking cars is crucial for creating highly accurate parking space availability maps.
+Especially the precision and recall values of the "parking car" class are of interest in our scenario, because detecting parking cars is crucial for creating highly accurate parking space availability maps.
 
 
 
@@ -528,7 +530,7 @@ Especially the precision and recall values of the "parking car" class are of int
 \subsection{Tested Machine Learning Models}
 \label{sec:machine_learning_models}
 
-This section will discuss all machine learning models which were investigated on their performance. Furthermore, also all parameters which could be set for the different machine learning models will be presented. The tested machine learning models are:
+This section will discuss all machine learning models which were investigated on their performance on our datasets. Furthermore, also all parameters which could be set for the different machine learning models will be presented. The tested machine learning models are:
 
 \todo{passt hier eine kurze Beschreibung von den jeweiligen getesteten Algorithmen? Soll ich da auch immer grundlegende Papers dazu zitieren?}
 
@@ -543,14 +545,14 @@ This section will discuss all machine learning models which were investigated on
 
 \subsection{Evaluation and Used Tools and Frameworks}
 
-To be able to get reliable results for the performance of the different classifiers it is important to have a comparable evaluation method. The used method in this thesis is 10-fold cross validation. Using this technique, all samples of the dataset are split into 10 equally sized parts (folds). Then one fold is selected as test data while all the other folds are used as training data for the classifier. This process gets repeated 10 times, so that every fold has been used as test data exactly once. Cross validation ensures, that there is no sample in the test data which has been previously learned by the classifier in the training process. Moreover, it is important that every sample gets predicted once, so that the performance measures are realistic.
+To be able to get reliable results for the performance of the different classifiers it is important to have a comparable evaluation method. The used method in this thesis is 10-fold cross validation. Using this technique, all samples of the dataset are split into 10 equally sized parts (folds). Then one fold is selected as test data while all the other folds are used as training data for the classifier. This process gets repeated 10 times, so that every fold has been used as test data exactly once and has been used for training all the other nine times. Cross validation ensures, that there is no sample in the test data which has been previously learned by the classifier in the training process. Moreover, it is important that every sample gets predicted once, so that the performance measures are realistic.
 
 Another process which helps to get better performance is to shuffle the dataset, before it is divided into folds for cross validation. The shuffling ensures that it is likely that only one of two consecutive segments is in the test data, while the other one is in the training data. This helps to have more diverse training data as consecutive segments usually are more alike than others. For example, usually perpendicular parking spaces are in the same area. Therefore, if the dataset gets shuffled the ratio between perpendicular parking spaces and other parking spaces will be approximately the same in the test- and training data.
 
 
 %\subsection{Used Tools and Frameworks}
 
-To conduct the machine learning experiments the dataset is processed using the Python programming language. Furthermore, the classifiers of the "Scikit learn" machine learning framework are used for the experiments. Scikit learn is a framework for Python which offers all of the above discussed classifiers as well as tools to support the evaluation process (cross validation, shuffling, ...).
+To conduct the machine learning experiments the dataset is processed using the Python programming language. Furthermore, the classifiers of the "Scikit learn" machine learning framework are used for the experiments and several different configurations of all of them are tested. Scikit learn is a framework for Python which offers all of the above discussed classifiers as well as tools to support the evaluation process (cross validation, shuffling, ...).
 
 
 
@@ -560,10 +562,10 @@ To conduct the machine learning experiments the dataset is processed using the P
 \section{Deep Learning}
 \label{sec:deep_learning}
 
-Deep learning gained a lot of attention in the last few years because of its raising classification accuracy results. For example, deep learning models became the first classifiers which could compete with humans on simple classification tasks. A deep learning network is a special form of a neural network with a possibly large amount of hidden layers between the input layer and the output layer. Furthermore, in most applications raw sensor measurements are used as input instead of pre-computed feature values (which are derived from the raw sensor values). In theory, a simple neural network containing only one hidden layer can derive any function given enough hidden elements and long enough training time. However, that does not mean that such a simple neural network will find a optimal solution and that it will find it in a finite amount of time. Adding more hidden layers (to get a deep neural network) can help to find a solution more easily and with less training time. 
+Deep learning gained a lot of attention in the last few years because of its raising classification accuracy results. For example, deep learning models became the first classifiers which could compete with humans on simple classification tasks. A deep learning network is a special form of a neural network with a possibly large amount of hidden layers between the input layer and the output layer. Furthermore, in many applications raw sensor measurements are used as input instead of pre-computed feature values, which are derived from the raw sensor values. In theory, a simple neural network containing only one hidden layer can derive any function given enough hidden elements and long enough training time. However, that does not mean that such a simple neural network will find a optimal solution and that it will find it in a finite amount of time. Adding more hidden layers (to get a deep neural network) can help to find a solution more easily and with less training time. 
 Figure \ref{fig:densely_dl_network} shows an example of a deep learning network with several hidden layers which are densely-connected.
 
-Due to the classification power, deep learning should also be tested for the use in classifying parking situations using our dataset. It should be investigated if deep learning can be used to do this kind of classification on raw sensor data and the results should be compared to classical machine learning algorithms (described in Section \ref{sec:machine_learning_models}) using pre-computed feature values.
+Due to the classification power, deep learning should also be tested for the use in classifying parking situations using our datasets. It should be investigated if deep learning can be used to do this kind of classification on raw sensor data and the results should be compared to classical machine learning algorithms (described in Section \ref{sec:machine_learning_models}) using pre-computed feature values.
 
 %\subsection{Dataset for Deep Learning Experiments}
 
@@ -590,11 +592,12 @@ Another popular technique to improve deep learning models is the use of convolut
 
 %\subsection{Tools for DL Development}
 
-To implement the deep learning models, the programming language Python\footnote{\url{https://www.python.org/}} (version 3.6.4) is used as well as the TensorFlow framework\footnote{\url{https://www.tensorflow.org/}}. TensorFlow is built for creating neural network models and especially for building deep learning models using a lot of pre-built components with a easy readable syntax. 
+To implement the deep learning models, the programming language Python\footnote{\url{https://www.python.org/}} (version 3.6.4) is used as well as the Keras\footnote{\url{https://keras.io/}}- and the TensorFlow\footnote{\url{https://www.tensorflow.org/}} frameworks. Keras is used as a wrapper which is using the TensorFlow framework internally and helps to create easy to read representations of deep neural networks. TensorFlow is built for creating neural network models and especially for building deep learning models using a lot of pre-built components. 
+Listing \ref{lst:deep_learning1} shows an example of a deep learning network which has been defined using the Keras framework.
 
 
 
-
+\lstinputlisting[caption={Example of a densly-connected deep learning network containing 5 hidden layers with dropout defined with Keras}, language=Python, label={lst:deep_learning1}]{code/tensorflow_dense_neural_network.py}
 
 
 
