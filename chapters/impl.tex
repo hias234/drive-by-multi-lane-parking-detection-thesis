@@ -538,11 +538,12 @@ Especially the precision and recall values of the "parking car" class are of int
 
 This section will discuss all machine learning models which were investigated on their performance on our datasets. Furthermore, also all parameters which could be set for the different machine learning models will be presented. The tested machine learning models are:
 
-\todo{passt hier eine kurze Beschreibung von den jeweiligen getesteten Algorithmen? Soll ich da auch immer grundlegende Papers dazu zitieren?}
+\paragraph{Naïve Bayes Classifier}
 
-\paragraph{Naive Bayes Classifier}
+The Naïve Bayes classifier is based on the theory of conditional probabilities. Let $P(c|A)$ be the probability of a segment being a parked car $c$ given the attributes $A = {l, d}$ (length and distance). According to Bayes' rule the probability could be calculated as $P(c|A) = \frac{P(A|c) \times P(c)}{P(A)}$, where $P(A|c)$ is the probability of the attributes $A$ if the class is a parked car, $P(c)$ is the overall probability of a segment to be a parked car and $P(A)$ is the probability of the occurrence of the attributes $A$. Using Bayes' rule, probabilities of each class can be calculated using the given attributes. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of attributes). Therefore, Naïve Bayes introduces the assumption that all attributes in $A$ are independent. Using this assumption the probabilities can be calculated with a much easier equation: $P(c|A) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(A)}$. $P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-attributes given the class is a parking car. The independence-assumption greatly simplifies the solution, however, it also introduces error to the result as the attributes in most problems cannot be treated independently. In spite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains \cite{Hall2016_DataMining_ML}.
 
-asdf \cite{Hall2016_DataMining_ML}
+
+
 
 \paragraph{Decision Trees}
 \paragraph{Random Forest Classifier}
