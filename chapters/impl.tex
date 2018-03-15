@@ -565,6 +565,8 @@ A powerful classification approach is a decision tree. Figure \ref{fig:decision_
 
 \paragraph{Random Forest Classifier}
 
+Decision trees can be rather unstable, meaning they can change their output drastically if their input is only altered slightly. To overcome this shortcoming, an ensemble technique, called "random forest" is introduced. A random forest classifier is made up of multiple different trees which have been learned using different (random) subsets of features at each node of every tree. The outcoming N trees are then all classifying using the input features and are then voting to determine the classification result of the random forest classifier. Random forests are usually creating more accurate predictions due to using many different decision trees which in conjunction produce better results as single decision trees. The most important parameters are the number of trees which should be generated, the random seed and the number of features per subset \cite{Hall2016_DataMining_ML}.
+
 
 
 \paragraph{Neural Networks}
