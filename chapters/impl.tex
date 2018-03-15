@@ -540,24 +540,33 @@ This section will discuss all machine learning models which were investigated on
 
 \paragraph{Naïve Bayes Classifier}
 
-The Naïve Bayes classifier is based on the theory of conditional probabilities. Let $P(c|F)$ be the probability of a segment being a parked car $c$ given the features $F = {l, d}$ (length and distance). According to Bayes' rule the probability can be calculated as $P(c|F) = \frac{P(F|c) \times P(c)}{P(F)}$, where $P(F|c)$ is the probability of the features $F$ if the class is a parked car, $P(c)$ is the overall probability of a segment to be a parked car and $P(F)$ is the probability of the occurrence of the features $F$. Using Bayes' rule, probabilities of each class can be calculated given the related attributes. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of features). Therefore, Naïve Bayes introduces the assumption that all features in $F$ are independent. Using this assumption the probabilities can be calculated with a much less complex equation: $P(c|F) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(F)}$. $P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-features given the class is a parking car. Both of these probabilities can be easily computed using the dataset. The independence-assumption greatly simplifies the solution, however, it also introduces error to the result as the features in most problems cannot be treated independently. In spite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains. Its advantages are its fast learning and classification times, while its disadvantage is the over-simplification of the independence assumption which makes it inapplicable for many classification scenarios \cite{Hall2016_DataMining_ML}.
+The Naïve Bayes classifier is based on the theory of conditional probabilities. Let $P(c|F)$ be the probability of a segment being a parked car $c$ given the features $F = {l, d}$ (length and distance). According to Bayes' rule the probability can be calculated as $P(c|F) = \frac{P(F|c) \times P(c)}{P(F)}$, where $P(F|c)$ is the probability of the features $F$ if the class is a parked car, $P(c)$ is the overall probability of a segment to be a parked car and $P(F)$ is the probability of the occurrence of the features $F$. Using Bayes' rule, probabilities of each class can be calculated given the related attributes. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of features). Therefore, Naïve Bayes introduces the assumption that all features in $F$ are independent. Using this assumption the probabilities can be calculated with a much less complex equation: $P(c|F) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(F)}$. $P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-features given the class is a parking car. Both of these probabilities can be easily computed using the dataset. The independence-assumption greatly simplifies the solution, however, it also introduces error to the result as the features in most problems cannot be treated independently. In spite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains
+ \cite{Hall2016_DataMining_ML}. 
+%Its advantages are its fast learning and classification times, while its disadvantage is the over-simplification of the independence assumption which makes it inapplicable for many classification scenarios \cite{Hall2016_DataMining_ML}.
 
 
 
 
 \paragraph{Decision Trees}
 
-A powerful classification approach is a decision tree. 
+A powerful classification approach is a decision tree. Figure \ref{fig:decision_tree} shows an example of a decision tree which has been learned using the full dataset with the features length and distance. Each node divides the dataset into several groups and at the leave nodes, the class with the majority of the samples is the classification result of the respective branch of the tree. The important task to learn a decision tree is to select the feature which should be used and where to split. This is done at each node by trying different features and values and finding the combination which maximizes certain measures, such as information gain or Gini impurity\footnote{Gini impurity represents how often a randomly chosen sample would be assigned into the wrong class if it was randomly labeled}. To overcome the risk of an over-fitting decision tree, the splitting process is stopped if there is a big majority or a single class at a node. This process is called pruning and can be controlled by a parameter called "confidence factor" \cite{Hall2016_DataMining_ML}.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{img/decision_tree2.PNG}
 
-	\caption{Example of a decision tree, which has been trained with the full dataset and with the features length and distance.}
+	\caption{Example of a decision tree with a depth of two, which has been trained with the full dataset and with the features length and distance.}
 	\label{fig:decision_tree}
 \end{figure}
 
+
+
+
+
 \paragraph{Random Forest Classifier}
+
+
+
 \paragraph{Neural Networks}
 \paragraph{kNN Classifier}
 \paragraph{Support Vector Machines}
