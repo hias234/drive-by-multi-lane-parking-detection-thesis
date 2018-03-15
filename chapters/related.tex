@@ -27,7 +27,7 @@ A top priority goal of the SFpark project is to increase the availability of par
 
 
 
-\subsection{Stationary park sensing using cameras}
+\subsection{Stationary Park Sensing using Cameras}
 \label{sec:stationary_park_sensing_cameras}
 
 Another approach while using stationary sensors is to use fixed deployed cameras which continuously record images of parking areas and analyze them for vacant parking spaces. Cameras can monitor up to one hundred parking spaces simultaneously with an accuracy of up to 96\%. Challenges of image detection are of course different lightning and weather conditions as well as occlusions depending on the angle which the camera records the parking scene. Detection algorithms using standard digital image processing will be discussed in this section as well as approaches using deep learning and convolutional neural networks (CNNs).
@@ -165,25 +165,17 @@ For the evaluation of the performance of their prototype, Bock et al. obtained a
 As already discussed the use of 1D distance sensors for a drive-by approach can be much cheaper than stationary sensor deployments while providing a sufficient accuracy with enough sensing vehicles. In contrast to camera based drive-by sensing a higher accuracy can be achieved, due to the fact that detailed distance information is  instantly available and does not have to be derived from camera images. The presented camera based drive-by sensing approach can only detect cars and then estimate the vacant parking spaces using an overall count of parking spaces per road segment. Using distance information distance sensor based drive-by approaches are also able to detect free spaces which improves the overall result. The use of 2D LiDAR distance scanners brings another gain in accuracy, however, such systems are still very expensive and therefore, not suited for the use of a lot of vehicles sensing the parking situation in a city. Further limitations of drive-by park sensing in general will be discussed in the next section.
 
 
-\subsection{Limitations of current drive-by park sensing approaches}
+\subsection{Limitations of current drive-by Park Sensing Approaches}
 \label{sec:limitations_driveby_sensing}
 
 In this section limitations which apply to both camera based- and distance sensor based drive-by park sensing will be discussed. The first limitation is based on the cars which are detectable. Most drive-by sensing approaches currently only try to detect limited types of parking cars. Even if in most cities parallel parking spaces are the most prominent type of parking spaces, obviously there exist a lot of other parking spaces (e.g. perpendicular parking cars and angular parking cars). Camera-based drive-by sensing would have to also learn to detect images of such parking cars and distance sensor based drive-by sensing would have to be much more variable in terms of the length of detected cars as well as the patterns of the detected distance to the obstacle. For instance, in the case of angular parking spaces, the discussed approach of the ParkNet prototype would not work as they only apply thresholding and therefore it is likely that such parking spaces would not be segmented and detected correctly.
-
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=\textwidth]{img/types-of-parking-cars.eps}
-%	\caption{Different types of parking cars}
-%	\label{fig:types_of_parking_cars}
-%\end{figure}
-
 
 Another limitation of drive-by sensing are multi-lane roads. Most of the discussed drive-by sensing approaches only work when the sensing vehicle drives in the right-most lane. In modern cities, there are often multiple lanes and GPS is too inaccurate to estimate the lane, where a vehicle is going. Therefore, to work properly, lane detection would have to performed for the systems to work on multi lane roads. However, it would be preferable to have a algorithm which also works in other lanes than the right most one as then the coverage of detections would be greater. For algorithms to work on non-right lanes, they also have to face several distractions. Of course, the distances to parking cars will be greater if the sensing vehicle is going on a left lane. Additionally, when a sensing vehicle overtakes another car which is going slower, it will record the distances to this vehicle instead of the distance to parked cars. Furthermore, also distractions such as traffic lights or traffic jams have to be taken into account for a real life installation of such prototypes.
 
 
 
 
-\subsection{Comparison of the existing park sensing approaches}
+\subsection{Comparison of the existing Park Sensing Approaches}
 \label{sec:comparison_park_sensing_approaches}
 
 Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the park sensing approaches which were discussed in this section. All of the above discussed approaches show high accuracy (>= 90\%) but not all of them are suited for all kinds of park sensing. For instance, the drive-by approaches are not able to detect parking availabilities in dedicated parking lots or parking garages whereas vehicle counting cannot detect the parking situation of road side parking spaces and thus a city's overall parking situation.
@@ -302,7 +294,7 @@ parking spaces \\
 
 
 
-\section{Acquiring parking space maps}
+\section{Acquiring Parking Space Maps}
 \label{sec:acquiring_parking_space_maps}
 
 Parking space maps are of great importance when sensing a city's parking availability. Knowing where parking is allowed and how parking is possible is crucial information for park sensing approaches. Several of the in section 2.1 discussed approaches use some kind of parking space map. Coarsely grained parking maps in the form of parking space counts for road segments/parking lots are necessary for several approaches, like the counting all in- and outing vehicles approach discussed in section \ref{sec:counting_in_out_park_sensing}. Furthermore, such information is also necessary for event-based park sensing (section \ref{sec:event_detection_park_sensing}) as well as drive-by sensing (\ref{sec:related_driveby_park_sensing_cameras} and \ref{sec:related_driveby_park_sensing_distance}). Of course parking space maps with a higher granularity can be beneficial in most cases and are sometimes even necessary. For instance, the exact position and orientation of parking spaces can increase the performance of drive-by sensing.
