@@ -540,12 +540,23 @@ This section will discuss all machine learning models which were investigated on
 
 \paragraph{Naïve Bayes Classifier}
 
-The Naïve Bayes classifier is based on the theory of conditional probabilities. Let $P(c|A)$ be the probability of a segment being a parked car $c$ given the attributes $A = {l, d}$ (length and distance). According to Bayes' rule the probability could be calculated as $P(c|A) = \frac{P(A|c) \times P(c)}{P(A)}$, where $P(A|c)$ is the probability of the attributes $A$ if the class is a parked car, $P(c)$ is the overall probability of a segment to be a parked car and $P(A)$ is the probability of the occurrence of the attributes $A$. Using Bayes' rule, probabilities of each class can be calculated using the given attributes. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of attributes). Therefore, Naïve Bayes introduces the assumption that all attributes in $A$ are independent. Using this assumption the probabilities can be calculated with a much easier equation: $P(c|A) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(A)}$. $P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-attributes given the class is a parking car. The independence-assumption greatly simplifies the solution, however, it also introduces error to the result as the attributes in most problems cannot be treated independently. In spite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains \cite{Hall2016_DataMining_ML}.
+The Naïve Bayes classifier is based on the theory of conditional probabilities. Let $P(c|F)$ be the probability of a segment being a parked car $c$ given the features $F = {l, d}$ (length and distance). According to Bayes' rule the probability can be calculated as $P(c|F) = \frac{P(F|c) \times P(c)}{P(F)}$, where $P(F|c)$ is the probability of the features $F$ if the class is a parked car, $P(c)$ is the overall probability of a segment to be a parked car and $P(F)$ is the probability of the occurrence of the features $F$. Using Bayes' rule, probabilities of each class can be calculated given the related attributes. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of features). Therefore, Naïve Bayes introduces the assumption that all features in $F$ are independent. Using this assumption the probabilities can be calculated with a much less complex equation: $P(c|F) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(F)}$. $P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-features given the class is a parking car. Both of these probabilities can be easily computed using the dataset. The independence-assumption greatly simplifies the solution, however, it also introduces error to the result as the features in most problems cannot be treated independently. In spite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains. Its advantages are its fast learning and classification times, while its disadvantage is the over-simplification of the independence assumption which makes it inapplicable for many classification scenarios \cite{Hall2016_DataMining_ML}.
 
 
 
 
 \paragraph{Decision Trees}
+
+A powerful classification approach is a decision tree. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/decision_tree2.PNG}
+
+	\caption{Example of a decision tree, which has been trained with the full dataset and with the features length and distance.}
+	\label{fig:decision_tree}
+\end{figure}
+
 \paragraph{Random Forest Classifier}
 \paragraph{Neural Networks}
 \paragraph{kNN Classifier}
