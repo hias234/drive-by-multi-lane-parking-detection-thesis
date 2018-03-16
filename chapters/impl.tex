@@ -553,6 +553,29 @@ A kNN classifier (k nearest neighbours) searches for $k$ samples in the training
 
 
 
+\paragraph{Support Vector Machines (SVMs)}
+
+\begin{figure}
+	\centering
+	\includegraphics{img/max_hyperplane_weka_book.jpg}
+
+	\caption{Maximum margin hyperplane of a support vector machine \cite{Hall2016_DataMining_ML}. \todo{kann ich die grafik aus dem buch verwenden oder soll ich sie nachzeichnen?}}
+	\label{fig:max_hyperplane}
+\end{figure}
+
+Support vector machines try to find a linear separation between the samples of different classes in the training set in order to predict unknown samples. A hyperplane which maximizes the separation of different classes is being computed. In order to do so, the distance of the hyperplane to the closest samples, which are also called support vectors, is maximized. Figure \ref{fig:max_hyperplane} shows so called maximum margin hyperplane as well as the support vectors which are needed to find it. However, in real world problems it is rarely the case that different classes can be separated using a linear hyperplane. To be able to find such an hyperplane, the feature space is transformed into a higher dimensional one using non-linear mappings. This process increases the chance of finding a hyperplane drastically. However, such transformations need a lot of computational performance and therefore usually kernel functions are being used to speed up this process. 
+
+
+
+
+\paragraph{Neural Networks}
+
+
+
+
+
+
+
 \paragraph{Decision Trees}
 
 A powerful classification approach is a decision tree. Figure \ref{fig:decision_tree} shows an example of a decision tree which has been learned using the full dataset acquired in this thesis with the features length and distance. Each node divides the dataset into several sub-groups and at the leave nodes, the class with the majority of the samples is the classification result of the respective branch of the tree. The important task to learn a decision tree is to select the feature which should be used and where to split. This is done at each node by trying different features and values and finding the combination which maximizes certain measures, such as information gain or Gini impurity\footnote{Gini impurity represents how often a randomly chosen sample would be assigned into the wrong class if it was randomly labeled}. To overcome the risk of an over-fitting decision tree, the splitting process is stopped if there is a big majority or a single class at a node. This process is called pruning and can be controlled by a parameter called "confidence factor" \cite{Hall2016_DataMining_ML}.
@@ -575,7 +598,6 @@ Decision trees can be rather unstable, meaning they can change their output dras
 
 
 
-\paragraph{Neural Networks}
 
 
 
@@ -584,9 +606,6 @@ Decision trees can be rather unstable, meaning they can change their output dras
 
 
 
-
-
-\paragraph{Support Vector Machines}
 
 
 \subsection{Evaluation and Used Tools and Frameworks}
