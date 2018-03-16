@@ -538,18 +538,24 @@ Especially the precision and recall values of the "parking car" class are of int
 
 This section will discuss all machine learning models which were investigated on their performance on our datasets. Furthermore, also all parameters which could be set for the different machine learning models will be presented. The tested machine learning models are:
 
+
 \paragraph{Naïve Bayes Classifier}
 
-The Naïve Bayes classifier is based on the theory of conditional probabilities. Let $P(c|F)$ be the probability of a segment being a parked car $c$ given the features $F = {l, d}$ (length and distance). According to Bayes' rule the probability can be calculated as $P(c|F) = \frac{P(F|c) \times P(c)}{P(F)}$, where $P(F|c)$ is the probability of the features $F$ if the class is a parked car, $P(c)$ is the overall probability of a segment to be a parked car and $P(F)$ is the probability of the occurrence of the features $F$. Using Bayes' rule, probabilities of each class can be calculated given the related attributes. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of features). Therefore, Naïve Bayes introduces the assumption that all features in $F$ are independent. Using this assumption the probabilities can be calculated with a much less complex equation: $P(c|F) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(F)}$. $P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-features given the class is a parking car. Both of these probabilities can be easily computed using the dataset. The independence-assumption greatly simplifies the solution, however, it also introduces error to the result as the features in most problems cannot be treated independently. In spite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains
+The Naïve Bayes classifier is based on the theory of conditional probabilities. For each class the probability is calculated, given the calculated features. Let $P(c|F)$ be the probability of a segment being a parked car $c$ given the features $F = {l, d}$ (length and distance). According to Bayes' rule the probability can be calculated as $P(c|F) = \frac{P(F|c) \times P(c)}{P(F)}$, where $P(F|c)$ is the probability of the features $F$ if the class is a parked car, $P(c)$ is the overall probability of a segment to be a parked car and $P(F)$ is the probability of the occurrence of the features $F$. Using Bayes' rule, probabilities of each class can be calculated given the related attributes. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of features). Therefore, Naïve Bayes introduces the assumption that all features in $F$ are independent. Using this assumption the probabilities can be calculated with a much less complex equation: $P(c|F) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(F)}$. $P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-features given the class is a parking car. Both of these probabilities can be easily computed using the dataset. The independence-assumption greatly simplifies the solution, however, it also introduces error to the result as the features in most problems cannot be treated independently. In spite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains
  \cite{Hall2016_DataMining_ML}. 
 %Its advantages are its fast learning and classification times, while its disadvantage is the over-simplification of the independence assumption which makes it inapplicable for many classification scenarios \cite{Hall2016_DataMining_ML}.
 
 
 
+\paragraph{kNN Classifier}
+
+A kNN classifier (k nearest neighbours) searches for $k$ samples in the training set which are most similar to the sample to classify and then predicts the class which is contained in a majority of the found similar samples. To find similar samples, a similarity function has to be computed which calculates the similarity between the features of two samples. Such similarity functions are for example Euclidian distance, Manhattan distance or Chebyshev distance. For each classification, the classifier has to calculate the similarity to each sample in the training set and find the most similar $k$ samples. For big dataset this process can take a long time and another disadvantage is that the whole training set has to be saved for the classifier to work. Parameters for the kNN classifier are the number $k$ of nearest neighbours to search for and the similarity function \cite{Hall2016_DataMining_ML}.
+
+
 
 \paragraph{Decision Trees}
 
-A powerful classification approach is a decision tree. Figure \ref{fig:decision_tree} shows an example of a decision tree which has been learned using the full dataset with the features length and distance. Each node divides the dataset into several groups and at the leave nodes, the class with the majority of the samples is the classification result of the respective branch of the tree. The important task to learn a decision tree is to select the feature which should be used and where to split. This is done at each node by trying different features and values and finding the combination which maximizes certain measures, such as information gain or Gini impurity\footnote{Gini impurity represents how often a randomly chosen sample would be assigned into the wrong class if it was randomly labeled}. To overcome the risk of an over-fitting decision tree, the splitting process is stopped if there is a big majority or a single class at a node. This process is called pruning and can be controlled by a parameter called "confidence factor" \cite{Hall2016_DataMining_ML}.
+A powerful classification approach is a decision tree. Figure \ref{fig:decision_tree} shows an example of a decision tree which has been learned using the full dataset acquired in this thesis with the features length and distance. Each node divides the dataset into several sub-groups and at the leave nodes, the class with the majority of the samples is the classification result of the respective branch of the tree. The important task to learn a decision tree is to select the feature which should be used and where to split. This is done at each node by trying different features and values and finding the combination which maximizes certain measures, such as information gain or Gini impurity\footnote{Gini impurity represents how often a randomly chosen sample would be assigned into the wrong class if it was randomly labeled}. To overcome the risk of an over-fitting decision tree, the splitting process is stopped if there is a big majority or a single class at a node. This process is called pruning and can be controlled by a parameter called "confidence factor" \cite{Hall2016_DataMining_ML}.
 
 \begin{figure}
 	\centering
@@ -565,14 +571,22 @@ A powerful classification approach is a decision tree. Figure \ref{fig:decision_
 
 \paragraph{Random Forest Classifier}
 
-Decision trees can be rather unstable, meaning they can change their output drastically if their input is only altered slightly. To overcome this shortcoming, an ensemble technique, called "random forest" is introduced. A random forest classifier is made up of multiple different trees which have been learned using different (random) subsets of features at each node of every tree. The outcoming N trees are then all classifying using the input features and are then voting to determine the classification result of the random forest classifier. Random forests are usually creating more accurate predictions due to using many different decision trees which in conjunction produce better results as single decision trees. The most important parameters are the number of trees which should be generated, the random seed and the number of features per subset \cite{Hall2016_DataMining_ML}.
+Decision trees can be rather unstable, meaning they can change their output drastically if their input is only altered slightly. To overcome this shortcoming, an ensemble technique, called "random forest" is introduced. A random forest classifier is made up of multiple different trees which have been learned using random subsets of features at each node of the trees during the training process. The outcoming trees are classifying using the input features and are then voting to determine the classification result of the random forest classifier. Random forests are usually creating more accurate predictions due to using many different decision trees which in conjunction produce better results as single decision trees. The most important parameters are the number of trees which should be generated, the random seed and the number of features per subset \cite{Hall2016_DataMining_ML}.
 
 
 
 \paragraph{Neural Networks}
-\paragraph{kNN Classifier}
+
+
+
+
+
+
+
+
+
+
 \paragraph{Support Vector Machines}
-\paragraph{Ensemble Methods}
 
 
 \subsection{Evaluation and Used Tools and Frameworks}
