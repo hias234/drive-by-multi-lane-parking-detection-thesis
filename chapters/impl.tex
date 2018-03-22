@@ -570,8 +570,8 @@ Support vector machines try to find a linear separation between the samples of d
 
 \paragraph{Neural Networks}
 
-A Neural Network (also called MultiLayerPerceptron in some frameworks) is a popular classification technique nowadays, because theoretically neural networks can learn every function possible given a large enough network and enough training time. Simple neural networks are composed of three layers: the input layer, a hidden layer and the output layer. Figure \ref{fig:neural_network} shows an example of such a neural network. 
-
+A Neural Network (also called MultiLayerPerceptron in some frameworks) is a popular classification technique nowadays, because theoretically neural networks can learn every function possible, given a large enough network and enough training time. Simple neural networks are composed of three layers: the input layer, one hidden layer and the output layer. Figure \ref{fig:neural_network} shows an example of such a neural network. 
+%Each unit of the input layer represents one of the calculated features and is connected to every hidden unit. 
 
 \begin{figure}
 	\centering
@@ -581,6 +581,11 @@ A Neural Network (also called MultiLayerPerceptron in some frameworks) is a popu
 	\caption{Example of a simple neural network, showing the weight- $w_x$ and bias-values $b_x$ which are learned to create the best classification result.}
 	\label{fig:neural_network}
 \end{figure}
+
+The output of the neural network is calculated by a process called forward propagation. The resulting value of each unit is obtained by a non-linear formula using all the previous units' values. $f(x) = a(b + \sum_{i=0}^{n} input_i \times w_{i})$ calculates the output of a hidden layer unit. It computes a sum of all input values $input$ multiplied by their weights $w$ and adds a constant bias value $b$. Then the intermediate result is applied to a non-linear activation function, such as a sigmoid or ReLU function. The same formula used to compute the result of the hidden units is used for the output unit to calculate the result of the neural network. The forward propagation of the neural network represents a function $f(x)$ which maps the input features $x$ to the output value $f(x)$.
+
+To use neural networks for classification, the function $f(x)$ has to be learned according to the training samples. As $f(x)$ is calculated using all weights $w_x$ and bias values $b_x$, these values have to be learned. This is done using back propagation. As a first step all weights and biases are initialized randomly. Then for every training sample the result of the current neural network is computed and an error to the desired output is calculated using a loss function, such as the squared-error loss function. Using gradient decent, the weights and biases are then adapted slightly to reduce the value of the loss function.
+
 
 
 
