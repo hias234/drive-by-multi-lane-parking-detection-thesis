@@ -527,7 +527,7 @@ To support that hypothesis, a similar technique as in the ParkNet prototype was 
 	\label{fig:plot_2d_decision_tree}
 \end{figure}
 
-Figure \ref{fig:plot_2d_decision_tree} shows a plot of our full dataset using both used features as well as the learned decision tree boundaries. The black dots represent free spaces, while the orange ones represent parking cars. Magenta and cyan dots are overtaking situations and other parking vehicles, respectively. The dashed red lines represent the decision boundaries which have been learned by our decision tree, which is a similar technique to the ParkNet prototype. All segments in the upper left rectangle are classified as parking cars while all others are classified as free spaces.
+Figure \ref{fig:plot_2d_decision_tree} shows a plot of our full dataset using both used features as well as the learned decision tree boundaries. The black dots represent free spaces, while the orange ones represent parking cars. Magenta and cyan dots are overtaking situations and other parking vehicles, respectively. The dashed red lines represent the decision boundaries which have been learned by our decision tree, which is a similar technique to the ParkNet prototype. All segments in the upper left rectangle are classified as parking cars while all others are classified as free spaces. Figure \ref{fig:plot_2d_decision_tree} shows that there are a lot of missed parking car detections (parking cars which are classified as other objects) and therefore it can be concluded that only leveraging the two features is insufficient for the dataset which has been gathered in this thesis.
 
 
 
@@ -632,11 +632,11 @@ Decision trees can be rather unstable, meaning they can change their output dras
 
 
 
-\subsection{Tested Datasets}
+\subsection{Tested Datasets and Handling Imbalance}
 
 All discussed machine learning models are being tested on multiple different datasets. The two main datasets (full and filtered datasets) which contain all calculated features have been discussed in Section \ref{sec:derived_dataset}. Both of these datasets are being tested as well as datasets which only contain the most important features (distance, length, difference to next/prev segment, number of measures, duration), as discussed in Section \ref{sec:feature_analysis}. The experiments should test which dataset performs best and if the datasets with less features can compete with the datasets containing all of them.
 
-
+Dealing with imbalance in the data is another important factor to handle. As discussed in Section \ref{sec:derived_dataset} our datasets are highly imbalanced. The \emph{free space}-class has in all cases more than four times as many samples as all other classes combined. That fact can create shortcomings in the performance of predicting classes with the minor number or samples in the dataset, therefore it might be beneficial to prepare the dataset to be more balanced. Imbalanced datasets are quite common in a lot of domains. For example, in medical data there are much more negative examples than positive ones when testing a patient's data on a specific disease. There exist a few techniques to handle such imbalances. Under-sampling randomly takes only a fraction of the class with the majority of the sample to create a more balanced dataset, whereas over-sampling operates the opposite way. Furthermore, there also exist combinations of both techniques. All the mentioned approaches should be tested on their impact on the classification performance on the different classes to address the imbalanced dataset.
 
 
 
