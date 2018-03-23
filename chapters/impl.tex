@@ -111,16 +111,8 @@ A camera is leveraged to capture images of the ground truth, here, a Logitech C9
 
 A Python script has been developed which saves all sensor readings during the test runs into a text file for later analysis and evaluation. Furthermore, all images captured by the camera are saved into a specific folder on the Raspberry Pi to be able to derive the ground truth information later on (see Section \ref{sec:ground_truth_tagging}).
 The sensing of all three devices (GPS, Lidar Lite v3, Logitech camera) is performed asynchronously in separate threads so that none of them influence the other sensor's readings. For accessing the GPS receiver the Python GPS library is used whereas for measuring the distance using the Lidar Lite v3 sensor, an open source library available on github.com is used\footnote{\url{https://github.com/Sanderi44/Lidar-Lite}}. 
-%A library called "pygame.camera" was used to capture the images of the webcam. 
 
 Figure \ref{fig:sample_sensor_trace} shows how the sensor data gets collected and furthermore presents a sample of raw sensor data derived during a test drive. The sensor data text file contains GPS and distance measurements. The first column contains the sensor type. The second column gives the time stamp of the Raspberry Pi's system time in seconds. GPS measurements also result in latitude, longitude and speed values while the Lidar Lite measurements result in the measured distance in centimeters.
-
-%\begin{figure}
-%	\centering
-%	\includegraphics{img/sample-sensor-trace.PNG}
-%	\caption{Sample of the collected sensor trace}
-%	\label{fig:sample_sensor_trace}
-%\end{figure}
 
 \begin{figure}
 	\centering
@@ -164,7 +156,7 @@ Additionally, \textbf{266.309 images} were captured to record the ground truth o
 
 
 
-\chapter{Data Processing and Machine Learning Approaches}
+\chapter{Data Processing and Machine Learning Experiments}
 \label{chap:data_processing_and_ml}
 
 This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), data segmentation (Section \ref{sec:data_segmentation}), and feature calculation (Section \ref{sec:feature_calculation}).
@@ -183,7 +175,7 @@ Possible class labels are:
 \begin{figure}
 	\centering
 	\includegraphics[width=0.85\textwidth]{img/ground_truth_tagging_ui.PNG}
-	\caption{User interface for manual tagging of parking situations. \todo{crop}}
+	\caption{User interface for manual tagging of parking situations.}
 	\label{fig:ground_truth_tagging_ui}
 \end{figure}
 
@@ -251,34 +243,6 @@ To configure the threshold, experiments have been conducted with varying thresho
 Figure \ref{fig:segmentation} shows an example of the segmentation process. All points represent distance measurements. The green points represent measurements belonging to a parking car whereas the yellow points show free space measurements. The lines represent detected segments where belong to the same ground truth class. Black lines represent free space and orange lines represent a parking car. Thus, the segmentation shown in Figure \ref{fig:segmentation} has successfully detected three parking car- and two free space segments. 
 
 Another challenge of the segmentation task is to estimate the ground truth classes of the segments. So far, only single sensor reading got a ground truth class assigned. However, as described earlier, each segment consists of multiple sensor measurements and it should be avoided that one segment consists of multiple different ground truth classes. This phenomenon is visible in Figure \ref{fig:segmentation} where both "Free space"-segments are overlapping with measurements marked as "Parking Car". To overcome this problem, the segments are tagged with the label of the majority of the sensor readings. This approach turned out to work well as in most cases only the first and last ground truth values are assigned wrong. 
-
-
-
-
-\section{Feature Calculation}
-\label{sec:feature_calculation}
-
-To conduct machine learning experiments with common machine learning models, feature values for each segment have to be computed using the sensor measurements. These feature values serve as input values of the machine learning model to help classifying the corresponding segment to one of the available class labels. All computed features which were used are described below and a further analysis of the usefulness of the features for the classification tasks will be provided in Section \ref{sec:feature_analysis}.
-
-\begin{description}
-
-\item[Average distance to the sensing vehicle:] The average of the segment's distance sensor measurements to the closest object on the right side of the road in meters.
-
-\item[Length:] The distance the sensing vehicle drove during sensing the segment in meters (the distance between the first and last GPS location).
-
-\item[Duration:] The duration in seconds the sensing vehicle needed to sense the segment (the last time stamp - the first time stamp).
-
-\item[Number of distance measurements:] The number of distance measurements assigned to the segment.
-
-\item[Variance of the distance measurements:] The variance of all distance measurements belonging to the segment.
-
-\item[Speed:] The speed of the sensing vehicle while sensing the segment in m/s.
-
-\item[Acceleration:] The acceleration of the sensing vehicle while sensing the segment in $m/s^2$.
-
-\item[Distance difference to the next/previous segment:] Difference of the average distance measurements to the next/previous segment in meters.
-
-\end{description}
 
 
 
@@ -375,8 +339,6 @@ Two main datasets are being available for the use of machine learning experiment
 
 Table \ref{table:dataset_comparison} shows a comparison of the number of instances per class for both datasets as well as the percentage of each class. One can clearly see that both datasets are highly imbalanced because in both cases the "free space" class is by far the dominating class with 83.6\% and 73.8\%, respectively. However, the filtered dataset contains only about half of the "free space" instances which are in the full dataset and thus the filtered dataset will probably lead to a better classification result as it is more balanced. Of course, this has to be proven by the machine learning experiments which will be covered in the following sections.
 
-Another fact which can be observed is that the classes "overtaking situation" and "other parking vehicle" only have a really small percentage of the whole dataset size in both cases (both classes occur in the two datasets only in less than 2\% of the samples). For a good classification result it will probably be necessary to gain more data for these classes as with only such few instances the variety of the different instances will not be good enough for good classification results.
- 
 \begin{table}
 
 %\resizebox{\textwidth}{!}{%
@@ -419,8 +381,36 @@ Another fact which can be observed is that the classes "overtaking situation" an
 \label{table:dataset_comparison}
 \end{table}
 
+Another fact which can be observed is that the classes "overtaking situation" and "other parking vehicle" only have a really small percentage of the whole dataset size in both cases (both classes occur in the two datasets only in less than 2\% of the samples). For a good classification result it will probably be necessary to gain more data for these classes as with only such few instances the variety of the different instances will not be good enough for good classification results.
+ 
 
 
+
+
+\subsection{Feature Calculation}
+\label{sec:feature_calculation}
+
+To conduct machine learning experiments with common machine learning models, feature values for each segment have to be computed using the sensor measurements. These feature values serve as input values of the machine learning model to help classifying the corresponding segment to one of the available class labels. All computed features which were used are described below and a further analysis of the usefulness of the features for the classification tasks will be provided in the next section.
+
+\begin{description}
+
+\item[Average distance to the sensing vehicle:] The average of the segment's distance sensor measurements to the closest object on the right side of the road in meters.
+
+\item[Length:] The distance the sensing vehicle drove during sensing the segment in meters (the distance between the first and last GPS location).
+
+\item[Duration:] The duration in seconds the sensing vehicle needed to sense the segment (the last time stamp - the first time stamp).
+
+\item[Number of distance measurements:] The number of distance measurements assigned to the segment.
+
+\item[Variance of the distance measurements:] The variance of all distance measurements belonging to the segment.
+
+\item[Speed:] The speed of the sensing vehicle while sensing the segment in m/s.
+
+\item[Acceleration:] The acceleration of the sensing vehicle while sensing the segment in $m/s^2$.
+
+\item[Distance difference to the next/previous segment:] Difference of the average distance measurements to the next/previous segment in meters.
+
+\end{description}
 
 
 \subsection{Feature Analysis}
@@ -437,9 +427,6 @@ The goal of each feature is to help identify the true class of a sample which sh
 \end{description}
 
 Table \ref{table:feature_analysis} shows the results of the feature analysis process for the full and filtered datasets, respectively. The information gain shows that most features of the filtered dataset have a higher score, therefore probably the classification result will lead to a higher accuracy using the filtered dataset. Looking at the information gain of both dataset, six important features can be identified, having an information gain value over $0.1$ (average distance, different to previous and next segment, length, number of measures and duration). The remaining three features have a much lower information gain and therefore probably will not contribute as much to the classification result.
-
-The learner based analysis confirms the results of the information gain analysis. All of the six most important features have been selected for the best feature subset in both datasets. It is also shown that the distance variance is not used in any case while the average speed and average acceleration are used in one case while being left out in the other.
-
 
 
 \begin{table}
@@ -506,6 +493,10 @@ The learner based analysis confirms the results of the information gain analysis
 \caption{Feature analysis showing the information gain and learning based analysis results of all calculated features on the full and filtered dataset.}
 \label{table:feature_analysis}
 \end{table}
+
+
+
+The learner based analysis confirms the results of the information gain analysis. All of the six most important features have been selected for the best feature subset in both datasets. It is also shown that the distance variance is not used in any case while the average speed and average acceleration are used in one case while being left out in the other.
 
 
 
