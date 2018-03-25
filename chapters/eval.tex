@@ -10,6 +10,63 @@ Description of chapter...
 This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen. Figure ... shows the comparison of several machine learning models with different parameters in terms of accuracy, precision and recall of the "parking car"-class and the necessary runtime to learn the model.
 
 
+\begin{table}
+
+
+\resizebox{\textwidth}{!}{%
+\centering
+\bgroup
+\def\arraystretch{1.4}
+\begin{tabular}{| r || c | c | c |}
+\hline
+	&
+   \textbf{Accuracy} & 
+   \textbf{Recall Parking Car} &
+   \textbf{Precision Parking Car} \\
+   &
+	(full / filtered dataset) & 
+	(full / filtered dataset) &
+	(full / filtered dataset) \\
+\hline
+  \textbf{Random Forest} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 \\
+\hline
+  \textbf{Decision Tree} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 \\
+\hline
+  \textbf{Neural Network} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 \\
+\hline
+  \textbf{Naive Bayes} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 \\
+\hline
+  \textbf{kNN classifier} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 \\
+\hline
+  \textbf{Support Vector Machine} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 \\
+\hline
+
+\end{tabular}
+\egroup
+}
+
+\caption{Results of classic machine learning models applied on the full and filtered dataset.}
+\label{table:classic_ml_results}
+\end{table}
+
 
 
 Comparison of all tested algorithms -> accuracy -> different feature sets -> Graphics
