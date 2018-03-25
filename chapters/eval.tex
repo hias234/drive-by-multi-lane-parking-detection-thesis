@@ -3,6 +3,9 @@
 
 Description of chapter...
 
+\section{Optimization Goal}
+
+This section should outline the processes and decisions which have been taken to determine the best performing system which would produce the most accurate parking space maps. To vacant parking spaces the prototype 
 
 
 \section{Machine Learning Results}
@@ -67,6 +70,55 @@ This section discusses the results of the machine learning experiments with comm
 \label{table:classic_ml_results}
 \end{table}
 
+
+\begin{table}
+
+
+\resizebox{\textwidth}{!}{%
+\centering
+\bgroup
+\def\arraystretch{1.4}
+\begin{tabular}{| r || c | c | c | c |}
+\hline
+   Predicted class $\rightarrow$ &
+   \textbf{Free Space} & 
+   \textbf{Parking Car} &
+   \textbf{Overtaking} &
+   \textbf{Other Parking} \\
+   True class $\downarrow$ &
+	 & 
+	 &
+	 \textbf{Situation} &
+	 \textbf{Vehicle} \\
+\hline
+  \textbf{Free Space} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 & \\
+\hline
+  \textbf{Parking Car} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 & \\
+\hline
+  \textbf{Overtaking Situation} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 & \\
+\hline
+  \textbf{Other Parking Vehicle} & 
+   0.361 / 0.502 &
+   0.0 / 0.0 &
+   0.0 / 0.0 & \\
+\hline
+
+\end{tabular}
+\egroup
+}
+
+\caption{Confusion Matrix.}
+\label{table:best_clf_confusion_matrix}
+\end{table}
 
 
 Comparison of all tested algorithms -> accuracy -> different feature sets -> Graphics
