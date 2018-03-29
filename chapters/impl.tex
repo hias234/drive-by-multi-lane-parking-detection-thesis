@@ -640,6 +640,15 @@ Dealing with imbalance in the data is another important factor to handle. As dis
 
 
 
+\subsection{Improving Classification using the Segments' Surroundings}
+
+So far the machine learning models are only classifying using the segment's properties, but its surroundings are ignored. The used features (described in Section \ref{sec:feature_calculation}) are all calculated using only the segment's sensor data. However, the surrounding segments' properties also include information about the class to which the current segment belongs to. 
+For example, one fact which could help in the classification task is that if the segment under investigation has a similar distance to the sensing car as surrounding segments which are labelled as \emph{parked car}, then it is likely that the segment under investigation is also a \emph{parked car}.
+
+To investigate if such information can in fact benefit the classification results, a custom classification model is implemented. First of all, a basic classification task is performed by one of the classifiers mentioned in Section \ref{sec:machine_learning_models}. Then, the dataset is being enhanced by the featured and predicted class labels of the surrounding segments. In the final step, another classification task is performed using the enhanced dataset. This process should help to include information of surrounding segments and it should improve the classification results. The results of the approach can be viewed in Section \todo{todo}.
+
+
+
 
 
 \subsection{Evaluation and Used Tools and Frameworks}
