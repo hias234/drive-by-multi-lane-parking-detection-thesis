@@ -647,10 +647,9 @@ Dealing with imbalance in the data is another important factor to handle. As dis
 \subsection{Improving Classification using the Segments' Surroundings}
 
 So far the machine learning models are only classifying using the segment's properties, but its surroundings are ignored. The used features (described in Section \ref{sec:feature_calculation}) are all calculated using only the segment's sensor data. However, the surrounding segments' properties also include information about the class to which the current segment belongs to. 
-For example, one fact which could help in the classification task is that if the segment under investigation has a similar distance to the sensing car as surrounding segments which are labelled as \emph{parked car}, then it is likely that the segment under investigation is also a \emph{parked car}. Figure \ref{fig:surrounding_segments_similarity} shows a scene where segments from the same class are all approximately at same distance to the sensing vehicle. Segments of the \emph{parking car}-class are all about 2 meters from the sensing vehicles whereas \emph{free spaces} are about 6 meters or more away from the sensing vehicle.
+For example, one fact which could help in the classification task is that if the segment under investigation has a similar distance to the sensing car as surrounding segments which are labelled as \emph{parked car}, then it is likely that the segment under investigation is also a \emph{parked car}. 
 
-To investigate if such information can in fact benefit the classification results, a custom classification model is implemented. First of all, a basic classification task is performed by one of the classifiers mentioned in Section \ref{sec:machine_learning_models}. Then, the dataset is being enhanced by the featured and predicted class labels of the surrounding segments. In the final step, another classification task is performed using the enhanced dataset. This process should help to include information of surrounding segments and it should improve the classification results. The results of the approach can be viewed in Section \todo{todo}.
-
+Figure \ref{fig:surrounding_segments_similarity} shows a scene where segments from the same class are all approximately at same distance to the sensing vehicle. Segments of the \emph{parking car}-class are all about 2 meters from the sensing vehicles whereas \emph{free spaces} are about 6 meters or more away from the sensing vehicle. An investigation on the full dataset confirms this observation. The standard deviation of the distances of all groups of 5 subsequent parking cars has been calculated on the whole dataset. The result was a value of $0.8234$ meters. It shows that subsequent parking cars are usually at the same distance from the sensing vehicle. As one would expect, the more surrounding parking cars are taken, the higher is the value for the standard deviation. For groups of 11 surrounding parking cars, it is $0.9821$ meters.
 
 \begin{figure}
 	\centering
@@ -658,6 +657,8 @@ To investigate if such information can in fact benefit the classification result
 	\caption{Samples from the same class are approximately the same distance away from the sensing vehicle. Black lines (yellow dots) represent free spaces, whereas orange lines (green dots) represent parking cars.}
 	\label{fig:surrounding_segments_similarity}
 \end{figure}
+
+To investigate if such information can in fact benefit the classification results, a custom classification model is implemented. First of all, a basic classification task is performed by one of the classifiers mentioned in Section \ref{sec:machine_learning_models}. Then, the dataset is being enhanced by the features and predicted class labels of the surrounding segments. The number of surrounding segments used is tested in several experiments to find the best amount. In the final step, another classification task is performed using the enhanced dataset. This process should help to include information of surrounding segments and it should improve the classification results. The results of the approach can be viewed in Section \todo{todo}.
 
 
 
