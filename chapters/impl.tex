@@ -193,7 +193,7 @@ Possible class labels are:
 
 
 
-The output of the ground truth tagging process is persistently saved as a text file where each line contains an entry with a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed during the machine learning process as described in \todo{ref}.
+The output of the ground truth tagging process is persistently saved as a text file where each line contains an entry with a time stamp and its corresponding tagged ground truth class label. This ground truth file will be further processed during the data segmentation process which is described in \ref{sec:data_segmentation}. 
 
 
 \begin{figure}
@@ -230,6 +230,10 @@ Due to the fact that all used sensors measure at different frequencies, the sens
 As the used distance sensor measures at a high frequency, it usually collects several distance measurements belonging to the same object. For example, if the sensing vehicle passes a parallel parked car (having a length of 4 meters) at a speed of 30 km/h it will collect approximately 24 measurements belonging to one passed car. It is necessary to group all measurements concerning this car; this is done by data segmentation of the preprocessed data.
 
 There are several strategies how sensor data can be segmented, for example using sliding windows. However, such approaches will not work accurate enough in the case of street side parking detection, as the objects which should be segmented range from a few centimeters to a length of tens of meters. Therefore, a new strategy to segment the sensor data points is proposed. The used segmentation algorithm searches for high frequent changes in the distance signal and starts a new segment when the difference in distance between two consecutive measurements is above a certain segmentation threshold. Furthermore, if the timestamp of two measurements differ more than one second the start of a new segment will also be detected (this can be the case if the sensing vehicle was standing or driving at a very low speed and many measurements have been deleted in the preprocessing steps). 
+
+
+%\lstinputlisting[caption={Data segmentation of raw sensor data.}, language=Python, label={lst:data_segmentation}]{code/data_segmentation.py}
+
 
 To configure the threshold, experiments have been conducted with varying thresholds. The best threshold to detect the segmentation points in the distance sensor signal has been identified by manually reviewing the resulting segments for under- and over-segmentation. The resulting segmentation threshold is $1,05$ meters. This means that if two consecutive measures differ more than $1,05$ meters, the algorithm will assume that the sensor measurement belongs to a new object (e.g., a parking car or an overtaken car) and will detect a new segment.
 
@@ -643,10 +647,17 @@ Dealing with imbalance in the data is another important factor to handle. As dis
 \subsection{Improving Classification using the Segments' Surroundings}
 
 So far the machine learning models are only classifying using the segment's properties, but its surroundings are ignored. The used features (described in Section \ref{sec:feature_calculation}) are all calculated using only the segment's sensor data. However, the surrounding segments' properties also include information about the class to which the current segment belongs to. 
-For example, one fact which could help in the classification task is that if the segment under investigation has a similar distance to the sensing car as surrounding segments which are labelled as \emph{parked car}, then it is likely that the segment under investigation is also a \emph{parked car}.
+For example, one fact which could help in the classification task is that if the segment under investigation has a similar distance to the sensing car as surrounding segments which are labelled as \emph{parked car}, then it is likely that the segment under investigation is also a \emph{parked car}. Figure \ref{fig:surrounding_segments_similarity} shows a scene where segments from the same class are all approximately at same distance to the sensing vehicle. Segments of the \emph{parking car}-class are all about 2 meters from the sensing vehicles whereas \emph{free spaces} are about 6 meters or more away from the sensing vehicle.
 
 To investigate if such information can in fact benefit the classification results, a custom classification model is implemented. First of all, a basic classification task is performed by one of the classifiers mentioned in Section \ref{sec:machine_learning_models}. Then, the dataset is being enhanced by the featured and predicted class labels of the surrounding segments. In the final step, another classification task is performed using the enhanced dataset. This process should help to include information of surrounding segments and it should improve the classification results. The results of the approach can be viewed in Section \todo{todo}.
 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/data_segmentation_example_similar_distances_same_class.png}
+	\caption{Samples from the same class are approximately the same distance away from the sensing vehicle. Black lines (yellow dots) represent free spaces, whereas orange lines (green dots) represent parking cars.}
+	\label{fig:surrounding_segments_similarity}
+\end{figure}
 
 
 
