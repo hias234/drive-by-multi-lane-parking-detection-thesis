@@ -5,7 +5,11 @@ Description of chapter...
 
 \section{Optimization Goal}
 
-This section should outline the processes and decisions which have been taken to determine the best performing system which would produce the most accurate parking space maps. To vacant parking spaces the prototype 
+This section should outline the processes and decisions which have been taken to determine the best performing system which would produce the most accurate parking space maps. Of course the first interesting measure when looking at machine learning experiments is the accuracy. However, it is not always the most important one, when it comes to solving a specific problem. 
+
+In the parking space detection scenario, which is tackled in this thesis, the overall goal is to derive accurate parking space maps using drive-by park sensing. The first step to achieve this goal is to detect parked cars, because only then it can be decided if a spot is vacant or occupied at a specific time (the \emph{free space}-class does not determine if the space is a vacant parking space, it just shows that there is no parking car). Therefore, the most important measure, which should be optimized, is the precision and recall of the \emph{parking car}-class. As secondary goals, precision- and recall-measures of the classes \emph{overtaking situation} and \emph{other parking vehicle} should be optimized. However, these classes have only a minor occurance in the dataset and therefore, the performance is expected to be much worse than for the \emph{parking car}-class.
+
+To be able to compare two results of recall and precision the $f-measure$ (or also called $F_1-score$) has been chosen as comparison measurement. Because it is the harmonic mean of both recall and precision it is well suited for the task. The formula to calculate the $f-measure$ is: $F_1 = 2 \times \frac{precision \times recall}{precision + recall}$.
 
 
 \section{Machine Learning Results}
