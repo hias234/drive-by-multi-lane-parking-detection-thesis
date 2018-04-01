@@ -160,7 +160,9 @@ Additionally, \textbf{266.309 images} were captured to record the ground truth o
 \label{chap:data_processing_and_ml}
 
 This chapter describes all the steps which are necessary to prepare the raw dataset for the use in machine learning. The required steps include manual ground truth tagging (Section \ref{sec:ground_truth_tagging}), data preprocessing (Section \ref{sec:data_preprocessing}), data segmentation (Section \ref{sec:data_segmentation}), and feature calculation (Section \ref{sec:feature_calculation}).
-Furthermore, the use of parking space maps is being discussed to possibly improve the dataset and also the classification results (Section \ref{sec:parking_space_maps}). The derived datasets are described in Section \ref{sec:derived_dataset}, providing an analysis of the datasets and the features. Finally, the machine learning- and deep learning experiments (Sections \ref{sec:machine_learning_experiments} and \ref{sec:deep_learning}) are discussed including the used machine learning models, used tools and the evaluation process.
+Furthermore, the use of parking space maps is being discussed to possibly improve the dataset and also the classification results (Section \ref{sec:parking_space_maps}). 
+The derived datasets are described in Section \ref{sec:derived_dataset}, providing an analysis of the datasets and the features. 
+Finally, the machine learning- and deep learning experiments (Sections \ref{sec:machine_learning_experiments} and \ref{sec:deep_learning}) are discussed including the used machine learning models, used tools and the evaluation process.
 
 
 
@@ -645,16 +647,20 @@ Dealing with imbalance in the data is another important factor to handle. As dis
 
 
 
-\subsection{Evaluation and Used Tools and Frameworks}
+\subsection{Evaluation Methods}
 
 To be able to get reliable results for the performance of the different classifiers it is important to have a comparable evaluation method. The used method in this thesis is 10-fold cross validation. Using this technique, all samples of the dataset are split into 10 equally sized parts (folds). Then one fold is selected as test data while all the other folds are used as training data for the classifier. This process gets repeated 10 times, so that every fold has been used as test data exactly once and has been used for training all the other nine times. Cross validation ensures, that there is no sample in the test data which has been previously learned by the classifier in the training process. Moreover, it is important that every sample gets predicted once, so that the performance measures are realistic.
 
 Another technique which helps to get better performance is to shuffle the dataset, before it is divided into folds for cross validation. The shuffling ensures that it is likely that only one of two consecutive segments is in the test data, while the other one is in the training data. This helps to have more diverse training data as consecutive segments usually are more alike than others. For example, usually perpendicular parking spaces are in the same area. Therefore, if the dataset gets shuffled the ratio between perpendicular parking spaces and other parking spaces will be approximately the same in the test- and training data and lead to a better classification performance.
 
 
-%\subsection{Used Tools and Frameworks}
+
+\subsection{Used Tools and Frameworks}
 
 To conduct the machine learning experiments the dataset is processed using the Python programming language. Furthermore, the classifiers of the "Scikit learn" machine learning framework are used for the experiments and several different configurations of all of them are tested. Scikit learn is a framework for Python which offers all of the above discussed classifiers as well as tools to support the evaluation process (cross validation, shuffling, etc.).
+
+The implementation of re-sampling techniques, to tackle the dataset imbalance, is done with a python framework called \emph{imbalanced-learn} \cite{imblearn_reference}. The imblearn framework is compatible with the Scikit learn framework and is able to perform under-sampling, over-sampling and a combination of both. Under-sampling is done by clustering the data in the majority class to select the best segments which represent the full dataset. Over-sampling is implemented using the SMOTE (Synthetic Minority Over-sampling Technique) algorithm. As the name suggests, SMOTE creates new "synthetic" samples in the feature space rather than by repeating samples several times. The creation of such new samples is done by joining five neighbouring samples to create a new synthetic sample. Finally, imblearn provides a combination of over- and under-sampling.
+
 
 
 
@@ -664,7 +670,7 @@ To conduct the machine learning experiments the dataset is processed using the P
 \section{Deep Learning}
 \label{sec:deep_learning}
 
-Deep learning gained a lot of attention in the last few years because of its raising classification accuracy results. For example, deep learning models became the first classifiers which could compete with humans on simple classification tasks. A deep learning network is a special form of a neural network with a possibly large amount of hidden layers between the input layer and the output layer. Furthermore, in many applications raw sensor measurements are used as input instead of pre-computed feature values, which are derived from the raw sensor values. In theory, a simple neural network containing only one hidden layer can derive any function given enough hidden elements and long enough training time. However, that does not mean that such a simple neural network will find a optimal solution and that it will find it in a finite amount of time. Adding more hidden layers (to get a deep neural network) can help to find a solution more easily and with less training time. 
+Deep learning gained a lot of attention in the last few years because of its rising classification accuracy results. For example, deep learning models became the first classifiers which could compete with humans on simple classification tasks. A deep learning network is a special form of a neural network with a possibly large amount of hidden layers between the input layer and the output layer. Furthermore, in many applications raw sensor measurements are used as input instead of pre-computed feature values, which are derived from the raw sensor values. In theory, a simple neural network containing only one hidden layer can derive any function given enough hidden elements and long enough training time. However, that does not mean that such a simple neural network will find a optimal solution and that it will find it in a finite amount of time. Adding more hidden layers (to get a deep neural network) can help to find a solution more easily and with less training time. 
 Figure \ref{fig:densely_dl_network} shows an example of a deep learning network with several hidden layers which are densely-connected.
 
 Due to its classification power, deep learning should also be tested for the use in classifying parking situations using our datasets. It should be investigated if deep learning can be used to do this kind of classification on raw sensor data and the results should be compared to classical machine learning algorithms (described in Section \ref{sec:machine_learning_models}) using pre-computed feature values.
@@ -692,6 +698,7 @@ In addition to the basic deep neural network, several known strategies should be
 
 Another popular technique to improve deep learning models is the use of convolution. Convolutional neural networks are especially popular for image classification. However, convolution can also be applied on the one-dimensional distance sensor data available in our dataset. Different configurations for the configuration of such a convolutional neural network should be tested and the performance should be compared to the other approaches.
 
+
 \subsection{Tools and Frameworks used for developing Deep Neural Networks}
 
 To implement the deep learning models, the programming language Python\footnote{\url{https://www.python.org/}} (version 3.6.4) is used as well as the Keras\footnote{\url{https://keras.io/}}- and the TensorFlow\footnote{\url{https://www.tensorflow.org/}} frameworks. Keras is used as a wrapper which is using the TensorFlow framework internally and helps to create easy to read representations of deep neural networks. TensorFlow is built for creating neural network models and especially for building deep learning models using a lot of pre-built components. 
@@ -702,6 +709,10 @@ Listing \ref{lst:deep_learning1} shows an example of a deep learning network whi
 
 
 \lstinputlisting[caption={Example of a densly-connected deep learning network containing 5 hidden layers with dropout defined with Keras}, language=Python, label={lst:deep_learning1}]{code/tensorflow_dense_neural_network.py}
+
+
+
+
 
 
 
@@ -721,3 +732,6 @@ Figure \ref{fig:surrounding_segments_similarity} shows a scene where segments fr
 \end{figure}
 
 To investigate if such information can in fact benefit the classification results, a custom classification model is implemented. First of all, a basic classification task is performed by one of the classifiers mentioned in Section \ref{sec:machine_learning_models}. Then, the dataset is being enhanced by the features and predicted class labels of the surrounding segments. The number of surrounding segments used is tested in several experiments to find the best amount. In the final step, another classification task is performed using the enhanced dataset. This process should help to include information of surrounding segments and it should improve the classification results. The results of the approach can be viewed in Section \todo{todo}.
+
+
+
