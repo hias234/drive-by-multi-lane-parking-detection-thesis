@@ -26,7 +26,7 @@ To be able to compare two classification results containing recall- and precisio
 \label{sec:machine_learning_results}
 
 This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen (see Section \ref{sec:evaluation_methods}). 
-Table \ref{table:classic_ml_results} shows the results the best configurations of all tested machine learning models on the full and filtered dataset. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing configuration of each model. 
+Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing parameter set of each model. The best classifier turned out to be a random forest classifier using 1000 trees and entropy as criterion. It gained an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the full and filtered dataset, respectively. Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrix of the random forest classifier applied on the filtered dataset. 
 
 
 \begin{table}
@@ -137,15 +137,9 @@ The results clearly indicate that all tested models perform better on the parkin
 \end{table}
 
 
-Comparison of all tested algorithms -> accuracy -> different feature sets -> Graphics
-
-Description of Graphic
+different feature sets
 
 Maybe binary classification
-
-Filtered Dataset -> Parking Space Maps
-
-Stacked Classifier
 
 
 \section{Deep Learning Results}
