@@ -46,35 +46,41 @@ This section discusses the results of the machine learning experiments with comm
 	(full / filtered dataset) &
 	(full / filtered dataset) \\
 \hline
-  \textbf{Random Forest} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 \\
+  \textbf{Random Forest} & & & \\
+   (entropy, 1000 trees) &
+   0.9600 / 0.9608 &
+   0.8799 / 0.9239 &
+   0.9129 / 0.9377 \\
 \hline
-  \textbf{Decision Tree} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 \\
+  \textbf{Decision Tree} & & & \\
+  (gini impurity, ) &
+   0.9486 / 0.9492 &
+   0.8492 / 0.8987 &
+   0.8753 / 0.9176 \\
 \hline
-  \textbf{Neural Network} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 \\
+  \textbf{Neural Network} & & & \\
+  (5 layers - 50 units each, & & & \\
+  1 million epochs) &
+   0.9440 / 0.9415 &
+   0.8479 / 0.9005 &
+   0.8529 / 0.8891 \\
 \hline
   \textbf{Naive Bayes} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 \\
+   0.4957 / 0.5886 &
+   0.8763 / 0.8822 &
+   0.4622 / 0.5915 \\
 \hline
-  \textbf{kNN classifier} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 \\
+  \textbf{kNN classifier} & & & \\
+  (5 nearest neighbors) &
+   0.9459 / 0.9457 &
+   0.8641 / 0.9175 &
+   0.8618 / 0.8941 \\
 \hline
-  \textbf{Support Vector Machine} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 \\
+  \textbf{Support Vector Machine} & & & \\
+  (kernel: radial basis function) &
+   0.9423 / 0.9359 &
+   0.7951 / 0.8273 &
+   0.9259 / 0.9450 \\
 \hline
 
 \end{tabular}
@@ -154,6 +160,13 @@ Same as Machine Learning REsults
 
 
 
+
+
+
+
+\section{Using the Segment's Surroundings to improve the Classification Results}
+
+TODO
 
 
 
