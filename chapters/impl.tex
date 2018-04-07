@@ -648,6 +648,7 @@ Dealing with imbalance in the data is another important factor to handle. As dis
 
 
 \subsection{Evaluation Methods}
+\label{sec:evaluation_methods}
 
 To be able to get reliable results for the performance of the different classifiers it is important to have a comparable evaluation method. The used method in this thesis is 10-fold cross validation. Using this technique, all samples of the dataset are split into 10 equally sized parts (folds). Then one fold is selected as test data while all the other folds are used as training data for the classifier. This process gets repeated 10 times, so that every fold has been used as test data exactly once and has been used for training all the other nine times. Cross validation ensures, that there is no sample in the test data which has been previously learned by the classifier in the training process. Moreover, it is important that every sample gets predicted once, so that the performance measures are realistic.
 

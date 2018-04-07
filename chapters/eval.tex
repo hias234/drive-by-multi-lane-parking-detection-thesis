@@ -25,7 +25,8 @@ To be able to compare two classification results containing recall- and precisio
 \section{Machine Learning Results}
 \label{sec:machine_learning_results}
 
-This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen. Figure ... shows the comparison of several machine learning models with different parameters in terms of accuracy, precision and recall of the "parking car"-class and the necessary runtime to learn the model.
+This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen (see Section \ref{sec:evaluation_methods}). 
+Table \ref{table:classic_ml_results} shows the results the best configurations of all tested machine learning models on the full and filtered dataset. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing configuration of each model. 
 
 
 \begin{table}
@@ -53,10 +54,16 @@ This section discusses the results of the machine learning experiments with comm
    0.9129 / 0.9377 \\
 \hline
   \textbf{Decision Tree} & & & \\
-  (gini impurity, ) &
+  (gini impurity) &
    0.9486 / 0.9492 &
    0.8492 / 0.8987 &
    0.8753 / 0.9176 \\
+\hline
+  \textbf{kNN classifier} & & & \\
+  (5 nearest neighbors) &
+   0.9459 / 0.9457 &
+   0.8641 / 0.9175 &
+   0.8618 / 0.8941 \\
 \hline
   \textbf{Neural Network} & & & \\
   (5 layers - 50 units each, & & & \\
@@ -65,31 +72,31 @@ This section discusses the results of the machine learning experiments with comm
    0.8479 / 0.9005 &
    0.8529 / 0.8891 \\
 \hline
-  \textbf{Naive Bayes} & 
-   0.4957 / 0.5886 &
-   0.8763 / 0.8822 &
-   0.4622 / 0.5915 \\
-\hline
-  \textbf{kNN classifier} & & & \\
-  (5 nearest neighbors) &
-   0.9459 / 0.9457 &
-   0.8641 / 0.9175 &
-   0.8618 / 0.8941 \\
-\hline
   \textbf{Support Vector Machine} & & & \\
   (kernel: radial basis function) &
    0.9423 / 0.9359 &
    0.7951 / 0.8273 &
    0.9259 / 0.9450 \\
 \hline
+  \textbf{Naive Bayes} & 
+   0.4957 / 0.5886 &
+   0.8763 / 0.8822 &
+   0.4622 / 0.5915 \\
+\hline
 
 \end{tabular}
 \egroup
 }
 
-\caption{Results of classic machine learning models applied on the full and filtered dataset.}
+\caption{Results of the best configuration (best set of parameters) of all tested classic machine learning models applied on the full and filtered dataset.}
 \label{table:classic_ml_results}
 \end{table}
+
+
+The results clearly indicate that all tested models perform better on the parking space map filtered dataset than on the full dataset with all sensed segments. This can be explained due to a more balanced dataset, as a lot of free space segments are filtered out because they are not close to parking zones and thus not relevant.
+
+
+
 
 
 \begin{table}
@@ -112,33 +119,21 @@ This section discusses the results of the machine learning experiments with comm
 	 \textbf{Situation} &
 	 \textbf{Vehicle} \\
 \hline
-  \textbf{Free Space} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 & \\
+  \textbf{Free Space} & 6598 & 81 & 0 & 1 \\
 \hline
-  \textbf{Parking Car} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 & \\
+  \textbf{Parking Car} & 164 & 2017 & 2 & 0 \\
 \hline
-  \textbf{Overtaking Situation} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 & \\
+  \textbf{Overtaking Situation} & 14 & 35 & 17 & 0 \\
 \hline
-  \textbf{Other Parking Vehicle} & 
-   0.361 / 0.502 &
-   0.0 / 0.0 &
-   0.0 / 0.0 & \\
+  \textbf{Other Parking Vehicle} & 37 & 18 & 0 & 5 \\
 \hline
 
 \end{tabular}
 \egroup
 }
 
-\caption{Confusion Matrix.}
-\label{table:best_clf_confusion_matrix}
+\caption{Resulting confusion matrix of the random forest classifier (containing 1000 trees and using entropy as criteria) applied on the parking space map filtered dataset.}
+\label{table:best_clf_confusion_matrix_filtered}
 \end{table}
 
 
