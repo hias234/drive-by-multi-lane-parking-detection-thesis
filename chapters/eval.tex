@@ -11,9 +11,10 @@ This chapter summarizes the results of the machine learning experiments and comp
 \section{Optimization Goal}
 \label{sec:optimization_goal}
 
-This section should outline the processes and decisions which have been taken to determine the best performing system which would produce the most accurate parking space availability estimates. Of course, the first interesting measure when investigating at machine learning experiments is the accuracy. However, the accuracy measure is not always the most important one, when it comes to solving a specific problem. 
+This section should outline the processes and decisions which have been taken to determine the best performing system which would produce the most accurate parking space availability estimates. Of course, the first interesting measure when investigating the results of machine learning experiments is the accuracy. However, that measure is not always the most important one, when it comes to solving a specific problem. 
 
-In the parking space detection scenario, which is tackled in this thesis, the overall goal is to derive accurate parking space availability estimates using drive-by park sensing. It is assumed that detailed parking space maps are available, thus it is sufficient to know where cars are parking to also be able to derive vacant spots (detecting a \emph{free space}-class is not enough as it does not determine if it is allowed to park at this spot). Therefore, the most important measures, which should be optimized, are precision and recall of the \emph{parking car}-class. As secondary goals, precision- and recall-measures of the classes \emph{overtaking situation} and \emph{other parking vehicle} should be optimized. However, these classes have only a minor occurrence in the dataset. This shows that such situations occur relatively rare and therefore are also not as important. Furthermore, the performance is expected to be much worse than for the \emph{parking car}-class because of the few segments which are included in the datasets.
+In the parking space detection scenario, which is tackled in this thesis, the overall goal is to derive accurate parking space availability estimates using drive-by park sensing. It is assumed that detailed parking space maps are available, thus it is sufficient to know where cars are parking to also be able to derive vacant spots (detecting a \emph{free space}-class is not enough as it does not determine if it is allowed to park at this spot). Therefore, the most important measures, which should be optimized, are precision and recall of the \emph{parking car}-class. As secondary goals, precision- and recall-measures of the classes \emph{overtaking situation} and \emph{other parking vehicle} should be optimized. \emph{Overtaking situations} are important to detect distractions which prevent deriving accurate parking space availability estimates whereas \emph{other parking vehicles}, such as parking motorcycles, should be detected because they also show that a specific parking spot is occupied. However, these classes have only a minor occurrence in the dataset. This shows that such situations occur relatively rare and therefore are not as important. 
+%Furthermore, the performance is expected to be much worse than for the \emph{parking car}-class because of the few segments which are included in the datasets.
 
 To be able to compare two classification results containing recall- and precision measurements, the $f-measure$ (or also called $F_1-score$) has been chosen as comparison measurement. Because it is the harmonic mean of both recall and precision it is well suited for the task. The formula to calculate the $f-measure$ is: $F_1 = 2 \times \frac{precision \times recall}{precision + recall}$.
 
@@ -24,9 +25,6 @@ To be able to compare two classification results containing recall- and precisio
 
 \section{Machine Learning Results}
 \label{sec:machine_learning_results}
-
-This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen (see Section \ref{sec:evaluation_methods}). 
-Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing parameter set of each model. The best classifier turned out to be a random forest classifier using 1000 trees and entropy as criterion. It gained an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the full and filtered dataset, respectively. Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrices of the random forest classifier applied on both datasets. 
 
 
 \begin{table}
@@ -91,6 +89,11 @@ Table \ref{table:classic_ml_results} shows the classification results of the bes
 \caption{Results of the best configuration (best set of parameters) of all tested classic machine learning models applied on the full and filtered dataset.}
 \label{table:classic_ml_results}
 \end{table}
+
+
+This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen (see Section \ref{sec:evaluation_methods}). 
+Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing parameter set of each model. The best classifier turned out to be a random forest classifier using 1000 trees and entropy as criterion. It gained an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the full and filtered dataset, respectively. Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrices of the random forest classifier applied on both datasets. 
+
 
 
 The results clearly indicate that all tested models perform better on the parking space map filtered dataset than on the full dataset with all sensed segments. This can be explained due to a more balanced dataset, as a lot of free space segments are filtered out because they are not close to parking zones and thus not relevant.
