@@ -86,23 +86,20 @@ To be able to compare two classification results containing recall- and precisio
 \egroup
 }
 
-\caption{Results of the best configuration (best set of parameters) of all tested classic machine learning models applied on the full and filtered dataset.}
+\caption{Overall accuracy and results for the \emph{parking car}-class of the best configuration (best set of parameters) of all tested classic machine learning models applied on the full and filtered dataset.}
 \label{table:classic_ml_results}
 \end{table}
 
 
 This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen (see Section \ref{sec:evaluation_methods}). 
-Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing parameter set of each model. The best classifier turned out to be a random forest classifier using 1000 trees and entropy as criterion. It gained an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the full and filtered dataset, respectively. Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrices of the random forest classifier applied on both datasets. 
+Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing parameter set of each model. The best classifier is a random forest classifier using 1000 trees and entropy as criterion for node-splitting at the individual decision trees. It gained an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the \emph{parking car}-class on the full and filtered dataset, respectively. 
 
-
-
-The results clearly indicate that all tested models perform better on the parking space map filtered dataset than on the full dataset with all sensed segments. This can be explained due to a more balanced dataset, as a lot of free space segments are filtered out because they are not close to parking zones and thus not relevant.
-
-
-
+Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrices of the random forest classifier applied on both datasets. The results clearly indicate that all tested models perform better on the parking space map filtered dataset than on the full dataset with all sensed segments. This can be explained due to a more balanced dataset, as a lot of free space segments are filtered out because they are not close to parking zones and thus not relevant.
 
 
 \begin{table}
+
+
 
 
 \resizebox{\textwidth}{!}{%
@@ -136,7 +133,7 @@ The results clearly indicate that all tested models perform better on the parkin
 }
 
 \begin{center}
-(b) full dataset\\
+(a) full dataset\\
 \end{center}
 
 \resizebox{\textwidth}{!}{%
@@ -173,9 +170,13 @@ The results clearly indicate that all tested models perform better on the parkin
 (b) filtered dataset\\
 \end{center}
 
-\caption{Resulting confusion matrices of the random forest classifier (containing 1000 trees and using entropy as criteria) applied on the (a) full and the (b) filtered dataset.}
+\caption{Resulting confusion matrices of the random forest classifier (containing 1000 trees and using entropy as criterion for node-splitting) applied on (a) the full dataset and (b) the filtered dataset.}
 \label{table:best_clf_confusion_matrix_filtered}
 \end{table}
+
+
+Another conclusion which can be drawn is that the performance is much worse for the classes \emph{overtaking situation} and \emph{other parking vehicle} than for the \emph{free space}- or \emph{parking car}-class. The best random forest classifier reaches a recall of 0.2575 and a precision of 0.8947 on \emph{overtaking situations}. Therefore, only about a quarter of the overtaking situations are detected. The \emph{other parking vehicle}-class has even worse results: a recall of 0.0833 and a precision of 0.8333.
+The bad results on the two classes is probably cased because there are really few segments of both classes available in the datasets, thus the variety of the data is low and a lot of different cases are not included in the segments which have been sensed. Another explanation is again the the imbalance in both datasets.
 
 
 different feature sets
@@ -188,6 +189,7 @@ Maybe binary classification
 
 
 \subsection{Handling Imbalance using Under- and Oversampling}
+
 
 
 \section{Deep Learning Results}
