@@ -179,16 +179,11 @@ Another conclusion which can be drawn is that the performance is much worse for 
 The bad results on the two classes are probably cased because of the really low number of segments of both classes in the datasets. Thus, the variety of the data is low and a lot of different cases are not included in the segments which have been sensed. Another explanation is again the the imbalance in both datasets.
 
 
-different feature sets
-
-Maybe binary classification
 
 
 
 
-
-
-\subsection{Handling Imbalance using Under- and Oversampling}
+\subsection{Impact of Sampling Techniques in Order to Handle the Dataset Imbalance}
 
 \begin{table}
 
@@ -232,15 +227,21 @@ Maybe binary classification
 \egroup
 }
 
-\caption{Comparison of different sampling techniques and their effect on the performance of a random forest classifier.}
+\caption{Comparison of different sampling techniques and their effect on the performance of a random forest classifier on the filtered dataset.}
 \label{table:comparison_sampling_techniques}
 \end{table}
 
+As the datasets are highly imbalanced, sampling techniques have been tested on their effect to improve the accuracy of the classifier and to improve the accuracy for classes with a low number of samples. Table \ref{table:comparison_sampling_techniques} shows a comparison of different sampling techniques and their impact on different performance measures. The experiments have been performed with the best performing classifier of the previous section (random forest classifier) with the filtered dataset.
+
+All sampling techniques alter the training data to be more balanced, before starting the training process. The test data is not altered to get comparable results to the experiments where no sampling has been performed.
+Over-sampling creates new synthetic samples from the existing ones, while under-sampling uses clustering techniques to find representatives for a lot of different samples. The combination technique uses both techniques in conjunction to find a compromise sampling solution. For a more detailed description of the different sampling techniques see Section \ref{sec:tested_datasets_and_handling_imbalance}. The goal of all these sampling techniques is to create a dataset where all classes have an equal number of samples. 
 
 
 
 
+different feature sets
 
+Maybe binary classification
 
 
 
