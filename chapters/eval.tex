@@ -41,9 +41,9 @@ To be able to compare two classification results containing recall- and precisio
    \textbf{Recall Parking Car} &
    \textbf{Precision Parking Car} \\
    &
-	(full / filtered dataset) & 
-	(full / filtered dataset) &
-	(full / filtered dataset) \\
+	(full / filtered) & 
+	(full / filtered) &
+	(full / filtered) \\
 \hline
   \textbf{Random Forest} & & & \\
    (entropy, 1000 trees) &
@@ -176,7 +176,7 @@ Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrice
 
 
 Another conclusion which can be drawn is that the performance is much worse for the classes \emph{overtaking situation} and \emph{other parking vehicle} than for the \emph{free space}- or \emph{parking car}-class. The best random forest classifier reaches a recall of 0.2575 and a precision of 0.8947 on \emph{overtaking situations}. Therefore, only about a quarter of the overtaking situations are detected. The \emph{other parking vehicle}-class has even worse results: a recall of 0.0833 and a precision of 0.8333.
-The bad results on the two classes is probably cased because there are really few segments of both classes available in the datasets, thus the variety of the data is low and a lot of different cases are not included in the segments which have been sensed. Another explanation is again the the imbalance in both datasets.
+The bad results on the two classes are probably cased because of the really low number of segments of both classes in the datasets. Thus, the variety of the data is low and a lot of different cases are not included in the segments which have been sensed. Another explanation is again the the imbalance in both datasets.
 
 
 different feature sets
@@ -189,6 +189,58 @@ Maybe binary classification
 
 
 \subsection{Handling Imbalance using Under- and Oversampling}
+
+\begin{table}
+
+\resizebox{\textwidth}{!}{%
+\centering
+\bgroup
+\def\arraystretch{1.4}
+\begin{tabular}{| r || c | c | c | c |}
+\hline
+    %& Recall & Prec. & Recall & Prec.\\
+    %& PC & PC & OS & OS \\
+    & \textbf{No} 
+    & \textbf{Over-} 
+    & \textbf{Under-} 
+    & \textbf{Combination} \\
+    & \textbf{sampling} 
+    & \textbf{sampling} 
+    & \textbf{sampling} 
+    & \textbf{Technique} \\
+\hline
+  \textbf{Overall accuracy} & 0.9608 & 0.9479 & 0.6101 & 0.9349 \\
+\hline
+  \textbf{Recall Free Space} & 0.9877 & 0.9664 & 0.5752 & 0.9456 \\
+\hline
+  \textbf{Precision Free Space} & 0.9684 & 0.9772 & 0.9738 & 0.9815 \\
+\hline
+  \textbf{Recall Parking Car} & 0.9239 & 0.9225 & 0.7091 & 0.9257 \\
+\hline
+  \textbf{Precision Parking Car} & 0.9377 & 0.9117 & 0.8336 & 0.8813 \\
+\hline
+  \textbf{Recall Overtaking Sit.} & 0.2575 & 0.3484 & 0.6060 & 0.4393 \\
+\hline
+  \textbf{Precision Overtaking Sit.} & 0.8947 & 0.3066 & 0.0417 & 0.2989 \\
+\hline
+  \textbf{Recall Other p. vehicles} & 0.0833 & 0.4666 & 0.9000 & 0.6166 \\
+\hline
+  \textbf{Precision Other p. vehicles} & 0.8333 & 0.2828 & 0.0242 & 0.2269 \\
+\hline
+
+\end{tabular}
+\egroup
+}
+
+\caption{Comparison of different sampling techniques and their effect on the performance of a random forest classifier.}
+\label{table:comparison_sampling_techniques}
+\end{table}
+
+
+
+
+
+
 
 
 
