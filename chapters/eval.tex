@@ -1,7 +1,7 @@
 \chapter{Results and Discussion}
 \label{chap:evaluation}
 
-This chapter summarizes the results of the machine learning experiments and compares different machine learning models and datasets on their performance. First of all, Section \ref{sec:optimization_goal} discusses the measures which should be optimized to derive most accurate parking space maps. Furthermore, Section \ref{sec:machine_learning_results} shows the results of classical machine learning model, while Section \ref{sec:deep_learning_results} will discuss the results of the deep learning neural networks operating on raw sensor data.
+This chapter summarizes the results of the machine learning experiments and compares different machine learning models and datasets on their performance. First of all, Section \ref{sec:optimization_goal} discusses the measures which should be optimized to derive most accurate parking space availability estimates. Furthermore, Section \ref{sec:machine_learning_results} shows the results of classical machine learning model, while Section \ref{sec:deep_learning_results} will discuss the results of the deep learning neural networks operating on raw sensor data.
 
 
 
@@ -11,9 +11,9 @@ This chapter summarizes the results of the machine learning experiments and comp
 \section{Optimization Goal}
 \label{sec:optimization_goal}
 
-This section should outline the processes and decisions which have been taken to determine the best performing system which would produce the most accurate parking space maps. Of course, the first interesting measure when looking at machine learning experiments is the accuracy. However, it is not always the most important one, when it comes to solving a specific problem. 
+This section should outline the processes and decisions which have been taken to determine the best performing system which would produce the most accurate parking space availability estimates. Of course, the first interesting measure when investigating at machine learning experiments is the accuracy. However, the accuracy measure is not always the most important one, when it comes to solving a specific problem. 
 
-In the parking space detection scenario, which is tackled in this thesis, the overall goal is to derive accurate parking space maps using drive-by park sensing. The first step to achieve this goal is to detect parking cars, because only then it can be decided if a spot is vacant or occupied at a specific time (detecting a \emph{free space}-class is not enough as it does not determine if it is allowed to park at this spot). Therefore, the most important measure, which should be optimized, are precision and recall of the \emph{parking car}-class. As secondary goals, precision- and recall-measures of the classes \emph{overtaking situation} and \emph{other parking vehicle} should be optimized. However, these classes have only a minor occurance in the dataset and therefore, the performance is expected to be much worse than for the \emph{parking car}-class.
+In the parking space detection scenario, which is tackled in this thesis, the overall goal is to derive accurate parking space availability estimates using drive-by park sensing. It is assumed that detailed parking space maps are available, thus it is sufficient to know where cars are parking to also be able to derive vacant spots (detecting a \emph{free space}-class is not enough as it does not determine if it is allowed to park at this spot). Therefore, the most important measures, which should be optimized, are precision and recall of the \emph{parking car}-class. As secondary goals, precision- and recall-measures of the classes \emph{overtaking situation} and \emph{other parking vehicle} should be optimized. However, these classes have only a minor occurrence in the dataset. This shows that such situations occur relatively rare and therefore are also not as important. Furthermore, the performance is expected to be much worse than for the \emph{parking car}-class because of the few segments which are included in the datasets.
 
 To be able to compare two classification results containing recall- and precision measurements, the $f-measure$ (or also called $F_1-score$) has been chosen as comparison measurement. Because it is the harmonic mean of both recall and precision it is well suited for the task. The formula to calculate the $f-measure$ is: $F_1 = 2 \times \frac{precision \times recall}{precision + recall}$.
 
@@ -26,7 +26,7 @@ To be able to compare two classification results containing recall- and precisio
 \label{sec:machine_learning_results}
 
 This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen (see Section \ref{sec:evaluation_methods}). 
-Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing parameter set of each model. The best classifier turned out to be a random forest classifier using 1000 trees and entropy as criterion. It gained an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the full and filtered dataset, respectively. Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrix of the random forest classifier applied on the filtered dataset. 
+Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing parameter set of each model. The best classifier turned out to be a random forest classifier using 1000 trees and entropy as criterion. It gained an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the full and filtered dataset, respectively. Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrices of the random forest classifier applied on both datasets. 
 
 
 \begin{table}
@@ -119,6 +119,40 @@ The results clearly indicate that all tested models perform better on the parkin
 	 \textbf{Situation} &
 	 \textbf{Vehicle} \\
 \hline
+  \textbf{Free Space} & 11718 & 90 & 0 & 1 \\
+\hline
+  \textbf{Parking Car} & 244 & 1950 & 21 & 1 \\
+\hline
+  \textbf{Overtaking Situation} & 63 & 82 & 62 & 0 \\
+\hline
+  \textbf{Other Parking Vehicle} & 54 & 14 & 0 & 1 \\
+\hline
+
+\end{tabular}
+\egroup
+}
+
+\begin{center}
+(b) full dataset\\
+\end{center}
+
+\resizebox{\textwidth}{!}{%
+\centering
+\bgroup
+\def\arraystretch{1.4}
+\begin{tabular}{| r || c | c | c | c |}
+\hline
+   Predicted class $\rightarrow$ &
+   \textbf{Free Space} & 
+   \textbf{Parking Car} &
+   \textbf{Overtaking} &
+   \textbf{Other Parking} \\
+   True class $\downarrow$ &
+	 & 
+	 &
+	 \textbf{Situation} &
+	 \textbf{Vehicle} \\
+\hline
   \textbf{Free Space} & 6598 & 81 & 0 & 1 \\
 \hline
   \textbf{Parking Car} & 164 & 2017 & 2 & 0 \\
@@ -132,7 +166,11 @@ The results clearly indicate that all tested models perform better on the parkin
 \egroup
 }
 
-\caption{Resulting confusion matrix of the random forest classifier (containing 1000 trees and using entropy as criteria) applied on the parking space map filtered dataset.}
+\begin{center}
+(b) filtered dataset\\
+\end{center}
+
+\caption{Resulting confusion matrices of the random forest classifier (containing 1000 trees and using entropy as criteria) applied on the (a) full and the (b) filtered dataset.}
 \label{table:best_clf_confusion_matrix_filtered}
 \end{table}
 
@@ -140,6 +178,13 @@ The results clearly indicate that all tested models perform better on the parkin
 different feature sets
 
 Maybe binary classification
+
+
+
+
+
+
+\subsection{Handling Imbalance using Under- and Oversampling}
 
 
 \section{Deep Learning Results}
