@@ -238,15 +238,19 @@ As the datasets are highly imbalanced, sampling techniques have been tested on t
 All sampling techniques alter the training data by adding or deleting samples so that it is more balanced. The test data is not altered to get comparable results to the experiments where no sampling has been performed.
 Over-sampling creates new synthetic samples from the existing ones, while under-sampling uses clustering techniques to find representatives for a lot of different samples. The combination technique uses both techniques in conjunction to find a compromise sampling solution. For a more detailed description of the different sampling techniques see Section \ref{sec:tested_datasets_and_handling_imbalance}. The goal of all these sampling techniques is to create a dataset where all classes have an equal number of samples. 
 
-The results in Table \ref{table:comparison_sampling_techniques} show that all sampling techniques slightly decrease the performance of the classifier as the overall accuracy is the highest with no sampling at all. Another fact which is shown is that all sampling techniques improve the recall of the classes with a minority of samples (\emph{overtaking situations} and \emph{other parking vehicles}) while at the same time lowering the precision of these classes. This leads to the conclusion that the different sampling techniques make it more likely for the classifier to predict a class which has been a minority class, but using the sampling techniques has an equal amount of samples for the new classification task.
+The results in Table \ref{table:comparison_sampling_techniques} show that all sampling techniques slightly decrease the performance of the classifier as the overall accuracy is the highest with no sampling at all. Another fact which is shown is that the sampling techniques improve the recall of the classes with a minority of samples (\emph{overtaking situations} and \emph{other parking vehicles}) while at the same time lowering the precision of these classes. This leads to the conclusion that the different sampling techniques make it more likely for the classifier to predict a class which has been a minority class, but using the sampling techniques has an equal amount of samples in the new training data.
 
-When comparing the sampling techniques, under-sampling clearly performs worst. This can be explained because the under-sampling algorithm deletes most samples in the dataset to create a balanced new dataset. However, this process removes so much information which is contained in the deleted samples that the overall performance decreases drastically. Over-sampling and the combination technique show similar results in terms of accuracy.
+When comparing the different sampling techniques, under-sampling clearly performs worst. This can be explained because the under-sampling algorithm deletes most samples of the majority classes in the dataset to create a balanced new dataset. The under-sampled dataset has a size of only 240 samples in total whereas the filtered dataset has a size of 8989 samples. However, this process removes so much information when deleting these samples that the overall performance decreases drastically. Over-sampling and the combination technique show similar results in terms of accuracy.
+
+The primary goal of this thesis is to find a classifier with high accuracy on the \emph{parking car}-class (see Section \ref{sec:optimization_goal}). Only the secondary goal is to improve the accuracy of the minority classes, which is the goal of the sampling process. As all sampling techniques decrease the performance on the \emph{parking car}-class, performing over- or under-sampling is counterproductive to the primary goal and therefore is not considered to help in the creation of accurate parking space availability estimates.
 
 
 
 different feature sets
 
 Maybe binary classification
+
+accuracy of different types of parking cars
 
 
 
