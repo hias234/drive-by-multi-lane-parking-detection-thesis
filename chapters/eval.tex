@@ -240,6 +240,7 @@ Over-sampling creates new synthetic samples from the existing ones, while under-
 
 The results in Table \ref{table:comparison_sampling_techniques} show that all sampling techniques slightly decrease the performance of the classifier as the overall accuracy is the highest with no sampling at all. Another fact which is shown is that all sampling techniques improve the recall of the classes with a minority of samples (\emph{overtaking situations} and \emph{other parking vehicles}) while at the same time lowering the precision of these classes. This leads to the conclusion that the different sampling techniques make it more likely for the classifier to predict a class which has been a minority class, but using the sampling techniques has an equal amount of samples for the new classification task.
 
+When comparing the sampling techniques, under-sampling clearly performs worst. This can be explained because the under-sampling algorithm deletes most samples in the dataset to create a balanced new dataset. However, this process removes so much information which is contained in the deleted samples that the overall performance decreases drastically. Over-sampling and the combination technique show similar results in terms of accuracy.
 
 
 
