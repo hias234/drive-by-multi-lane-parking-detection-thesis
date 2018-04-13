@@ -257,7 +257,7 @@ To conclude the results of the tests, all sampling techniques decrease the overa
 \section{Deep Learning Results}
 \label{sec:deep_learning_results}
 
-As deep learning outperformed classical machine learning on many different tasks, it has been evaluated and compared to classical machine learning approaches on the drive-by park sensing task, which is discussed in this thesis. Several different deep learning networks have been created with different amounts of layers and units. All of these neural networks have the raw and unprocessed sensor data as input. Table \ref{table:deep_learning_results} shows the results of the different configurations of deep learning networks as well as the best performing classifier from Section \ref{sec:machine_learning_results} to be able to easily compare the deep learning result to the classical machine learning results obtained during this thesis.
+As deep learning outperforms classical machine learning on many different tasks, it has been evaluated and compared to classical machine learning approaches on the drive-by park sensing task, which is tackled in this thesis. Several different deep learning networks have been created with different amounts of layers and units. All of these neural networks have the raw and unprocessed sensor data as input. Table \ref{table:deep_learning_results} shows the results of the different configurations of deep learning networks as well as the best performing classifier from Section \ref{sec:machine_learning_results} to be able to easily compare the deep learning result to the classical machine learning results obtained during this thesis.
 
 
 
@@ -286,17 +286,25 @@ As deep learning outperformed classical machine learning on many different tasks
    0.9129 / 0.9377 \\
 \hline
   \textbf{Dense Deep Network} & & & \\
-  (5 layers - 128 units each, 200 epochs) &
+  (5 layers - 128 units each & & & \\
+  200 epochs) &
    0.9361 / 0.9365 &
    0.7946 / 0.8987 &
    0.8524 / 0.9078 \\
 \hline
   \textbf{Dense Deep Network} & & & \\
-  (5 layers - 64 units each, 500 epochs, & & & \\
-  20\% dropout) &
+  (5 layers - 64 units each, & & & \\
+  500 epochs, 20\% dropout) &
    0.9379 / 0.9313 &
    0.8434 / 0.8836 &
    0.8147 / 0.8634 \\
+\hline
+  \textbf{1D Convolutional Deep Network} & & & \\
+  (1 convolutional layer, 2 dense layers, & & & \\
+  200 epochs, 20\% dropout) &
+   0.9296 / 0.9311 &
+   0.7563 / 0.8027 &
+   0.8248 / 0.8488 \\
 \hline
 
 \end{tabular}
@@ -308,8 +316,9 @@ As deep learning outperformed classical machine learning on many different tasks
 \end{table}
 
 
+The results shown in Table \ref{table:deep_learning_results} clearly indicate that all deep learning approaches perform worse than the random forest classifier, which was the best performing model out of the classical machine learning classifiers. The best performing deep neural network (5 hidden layers, each containing 128 units, trained in 200 epochs) gains an overall accuracy of about 93.6\% whereas the random forest classifier gets about 96.0\%. Furthermore, the recall / precision on the \emph{parking car}-class also are also worse than for the random forest classifier (0.8987 / 0.9078 for the best performing deep neural network and 0.9239 / 0.9377 for the random forest classifier). For the classes with a minority of samples, the results are similar to the random forest classifier. \emph{Overtaking situations} show a recall of 0.2272 and a precision of 0.4687 whereas \emph{other parking vehicles} get a recall of 0.1833 and a precision of 0.3793.
 
-
+Deep learning gains respectable results when considering that they are operating on the raw sensor data. However, all of the tested configurations do not nearly perform as well as the classical machine learning approaches. Therefore, it can be concluded that for the drive-by parking detection task, classical machine learning models using pre-computed feature values are better suited than deep neural networks operating on raw sensor data.
 
 
 
