@@ -190,7 +190,7 @@ The bad results on the two classes are probably explainable because of the low n
 As mentioned in earlier sections, the datasets consists of three different types of parking cars: Parallel parking cars, perpendicular parking cars and angular parking cars. All of these different types are included in the broader \emph{parking car}-class which gets predicted by the classifiers. In this section the performance of the classification on the different types of cars is being investigated.
 
 Overall the filtered dataset contains 1647 parallel parking cars, 339 perpendicular parking cars and 197 angular parking cars. This shows that most of the parking cars in the dataset are parallel parking cars, which can be explained because of a majority of parallel road side parking spaces in Linz, Austria. The best classifier achieves a recall of 0.9581 on parallel parking cars, 0.7964 on perpendicular parking cars and 0.8578 on angular parking cars. 
-Obviously, the performance of parallel parking cars is the best. That is probably caused because of the longer samples which can be easier detected and because of the majority of samples which are parallel parking cars. Perpendicular parking cars are detected less often because they are shorter in length which may lead to a more likely classification as \emph{free space}. Parking cars which are classified falsely are almost exclusively assigned to the \emph{free space}-class. Only two parallel parking cars have been detected as \emph{overtaking situations} while no parking cars have been detected as \emph{other parking vehicles}.
+Obviously, the performance of parallel parking cars is the best. That is probably caused because parallel parking cars are in comparison longer than the other types. This fact can make it easier to detect them Furthermore, the majority of parallel parking cars also enhances the performance of that type in comparison the the other types of parking cars. Perpendicular parking cars are detected less often because they are shorter in length which may lead to a more likely classification as \emph{free space}. In general, parking cars which are classified falsely are almost exclusively assigned to the \emph{free space}-class. Only two parallel parking cars have been detected as \emph{overtaking situations} while no parking cars have been detected as \emph{other parking vehicles}.
 
 
 
@@ -261,8 +261,6 @@ To conclude the results of the tests, all sampling techniques decrease the overa
 %different feature sets
 
 %Maybe binary classification
-
-%accuracy of different types of parking cars
 
 
 
