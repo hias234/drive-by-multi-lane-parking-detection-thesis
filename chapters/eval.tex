@@ -335,7 +335,54 @@ Deep learning gains respectable results when considering that all tests have bee
 \section{Using the Segment's Surroundings to improve the Classification Results}
 \label{sec:using_surroundings_to_improve_results}
 
-TODO
+To further improve the classification results, a custom classification process has been implemented which should help to increase the accuracy and especially the recall and precision of the \emph{parking car}-class. The classification process should produce better results because it is including the information of surrounding samples when classifying.
+
+In a first step a basic classification result is obtained using the best performing classifier from Section \ref{sec:machine_learning_results} (random forest). 
+ Then a new dataset is created containing all features as well as the class label predicted by the random forest classifier. Furthermore, the class label and the corresponding distances from the sensing vehicles of the $k$ surrounding samples are also appended to the dataset. For the number $k$ of included surrounding segments, several values have been tested to find the best performing value. In a final step another classifier is trained on the new dataset. All machine learning models which have been discussed in Section \ref{sec:machine_learning_results} have been tested on this new dataset. A more detailed description of the process can be found in Section \ref{sec:improv_classification_surrounding_segments}.
+ 
+ 
+ 
+\begin{table}
+
+\resizebox{\textwidth}{!}{%
+\centering
+\bgroup
+\def\arraystretch{1.4}
+\begin{tabular}{| r || c | c |}
+\hline
+    & \textbf{Normal} 
+    & \textbf{Improved Two Staged} \\
+    & \textbf{Random Forest} 
+    & \textbf{Custom Classifier} \\
+\hline
+  \textbf{Overall accuracy} & 0.9608 & 0.9652 \\
+\hline
+  \textbf{Recall Free Space} & 0.9877 & 0.9877 \\
+\hline
+  \textbf{Precision Free Space} & 0.9684 & 0.9730 \\
+\hline
+  \textbf{Recall Parking Car} & 0.9239 & 0.9381 \\
+\hline
+  \textbf{Precision Parking Car} & 0.9377 & 0.9429 \\
+\hline
+  \textbf{Recall Overtaking Sit.} & 0.2575 & 0.3030 \\
+\hline
+  \textbf{Precision Overtaking Sit.} & 0.8947 & 0.9523 \\
+\hline
+  \textbf{Recall Other p. vehicles} & 0.0833 & 0.1833 \\
+\hline
+  \textbf{Precision Other p. vehicles} & 0.8333 & 0.7333 \\
+\hline
+
+\end{tabular}
+\egroup
+}
+
+\caption{Comparison of the best performing random forest classifier to the proposed two staged classification technique on the filtered dataset.}
+\label{table:comparison_random_forest_custom_classifier}
+\end{table}
+ 
+
 
 
 
