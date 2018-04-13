@@ -92,7 +92,7 @@ To be able to compare two classification results containing recall- and precisio
 
 
 This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen (see Section \ref{sec:evaluation_methods}). 
-Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, a lot of different parameter combinations have been tested to find the best performing parameter set of each model. The best performing classifier on the \emph{parking car}-class is a random forest classifier using 1000 trees and entropy as criterion for node-splitting at the individual decision trees. It gains an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the \emph{parking car}-class on the full and filtered dataset, respectively. 
+Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, many different parameter combinations have been tested to find the best performing parameter set of each model. The best performing classifier on the \emph{parking car}-class is a random forest classifier using 1000 trees and entropy as criterion for node-splitting at the individual decision trees. It leads to an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the \emph{parking car}-class on the full and filtered dataset, respectively. 
 
 Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrices of the random forest classifier applied on both datasets. The results clearly indicate that all tested models perform better on the parking space map filtered dataset than on the full dataset with all sensed segments. This can be explained due to a more balanced dataset, as a lot of free space segments are filtered out because they are not close to parking zones and thus not relevant.
 
@@ -178,7 +178,7 @@ Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrice
 Another conclusion which can be drawn is that the performance is much worse for the classes \emph{overtaking situation} and \emph{other parking vehicle} than for the \emph{free space}- or \emph{parking car}-class. The best random forest classifier reaches a recall of 0.2575 and a precision of 0.8947 on \emph{overtaking situations}. Therefore, only about a quarter of the overtaking situations are detected. 
 On the other hand, the high precision shows that only a low number of false positives are detected as overtaking situations. 
 The \emph{other parking vehicle}-class has similar results: a really low recall of 0.0833 and a relatively high precision of 0.8333.
-The bad results on the two classes are probably there because of the low number of segments of both classes included in the datasets. Thus, the variety of the data is low and a lot of different situations are not included in the dataset. Therefore, the classifiers cannot learn all different variations of overtaking situations or other parking vehicles. Another explanation is the imbalance in both datasets.
+The bad results on the two classes are probably explainable because of the low number of segments of both classes included in the datasets. Thus, the variety of the data is low and a lot of different situations are not included in the dataset. Therefore, the classifiers cannot learn all different variations of overtaking situations or other parking vehicles. Another explanation is the imbalance in both datasets.
 
 
 
@@ -186,6 +186,8 @@ The bad results on the two classes are probably there because of the low number 
 
 
 \subsection{Impact of Sampling Techniques in Order to Handle the Dataset Imbalance}
+
+As the datasets are highly imbalanced, sampling techniques have been tested on their effect to improve the overall accuracy of the classifier and to improve the precision and recall for classes with a low number of samples. Table \ref{table:comparison_sampling_techniques} shows a comparison of different sampling techniques and their impact on different performance measures using the best classifier shown in the previous section (random forest). Experiments with other classifiers have been conducted as well but yielded in worse results on the overall accuracy.
 
 \begin{table}
 
@@ -233,31 +235,29 @@ The bad results on the two classes are probably there because of the low number 
 \label{table:comparison_sampling_techniques}
 \end{table}
 
-As the datasets are highly imbalanced, sampling techniques have been tested on their effect to improve the overall accuracy of the classifier and to improve the precision and recall for classes with a low number of samples. Table \ref{table:comparison_sampling_techniques} shows a comparison of different sampling techniques and their impact on different performance measures using the best classifier shown in the previous section (random forest). Experiments with other classifiers have been conducted as well but yielded in worse results on the overall accuracy.
-
 All sampling techniques alter the training data by adding or deleting samples so that it is more balanced. The test data is not altered to get comparable results to the experiments where no sampling has been performed.
 Over-sampling creates new synthetic samples from the existing ones, while under-sampling uses clustering techniques to find representatives for a lot of different samples. The combination technique uses both techniques in conjunction to find a compromise sampling solution. For a more detailed description of the different sampling techniques see Section \ref{sec:tested_datasets_and_handling_imbalance}. The goal of all these sampling techniques is to create a dataset where all classes have an equal number of samples. 
 
 The results in Table \ref{table:comparison_sampling_techniques} show that all sampling techniques slightly decrease the performance of the classifier as the overall accuracy is the highest with no sampling at all. Another fact which is shown is that the sampling techniques improve the recall of the classes with a minority of samples (\emph{overtaking situations} and \emph{other parking vehicles}) while at the same time lowering the precision of these classes. This leads to the conclusion that the different sampling techniques make it more likely for the classifier to predict a class which has been a minority class, but using the sampling techniques has an equal amount of samples in the new training data.
 
-When comparing the different sampling techniques, under-sampling clearly performs worst. This can be explained because the under-sampling algorithm deletes most samples of the majority classes in the dataset to create a balanced new dataset. The under-sampled dataset has a size of only 240 samples in total whereas the filtered dataset has a size of 8989 samples. However, this process removes so much information when deleting these samples that the overall performance decreases drastically. Over-sampling and the combination technique show similar results in terms of accuracy.
+When comparing the different sampling techniques, under-sampling clearly performs worst. This can be explained because the under-sampling algorithm deletes most samples of the majority classes in the dataset to create a balanced new dataset. The under-sampled dataset has a size of only 240 samples in total whereas the filtered dataset has a size of 8989 samples. This process removes so much information when deleting these samples that the overall performance decreases drastically. Over-sampling and the combination technique show similar results in terms of accuracy.
 
-The primary goal of this thesis is to find a classifier with high accuracy on the \emph{parking car}-class (see Section \ref{sec:optimization_goal}). Only the secondary goal is to improve the accuracy of the minority classes, which is the goal of the sampling process. As all sampling techniques decrease the performance on the \emph{parking car}-class, performing over- or under-sampling is counterproductive to the primary goal and therefore is not considered to help in the creation of accurate parking space availability estimates.
+To conclude the results of the tests, all sampling techniques decrease the overall accuracy as well as the f-measure of the majority classes (\emph{free spaces} and \emph{parking cars}). Furthermore, the recall of the minority classes is increased while the precision is decreased. Thus, sampling techniques do help to detect more samples of the minority class while detecting less samples of the majority class. As the primary goal of this thesis is to find a classifier with high accuracy on the \emph{parking car}-class (see Section \ref{sec:optimization_goal}), performing over- or under-sampling is counterproductive to the this goal and therefore is not considered to help in the creation of accurate parking space availability estimates.
 
 
 
-different feature sets
+%different feature sets
 
-Maybe binary classification
+%Maybe binary classification
 
-accuracy of different types of parking cars
+%accuracy of different types of parking cars
 
 
 
 \section{Deep Learning Results}
 \label{sec:deep_learning_results}
 
-Same as Machine Learning REsults
+%Same as Machine Learning REsults
 
 
 
