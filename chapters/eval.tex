@@ -99,9 +99,6 @@ Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrice
 
 \begin{table}
 
-
-
-
 \resizebox{\textwidth}{!}{%
 \centering
 \bgroup
@@ -351,9 +348,14 @@ In a first step a basic classification result is obtained using the best perform
 \begin{tabular}{| r || c | c |}
 \hline
     & \textbf{Normal} 
-    & \textbf{Improved Two Staged} \\
+    & \textbf{Improved Two Staged} 
+    \\
     & \textbf{Random Forest} 
-    & \textbf{Custom Classifier} \\
+    & \textbf{Custom Classifier} 
+    \\
+    & (entropy, 1000 trees)
+    & (10 surrounding samples)
+    \\
 \hline
   \textbf{Overall accuracy} & 0.9608 & 0.9652 \\
 \hline
@@ -378,11 +380,53 @@ In a first step a basic classification result is obtained using the best perform
 \egroup
 }
 
-\caption{Comparison of the best performing random forest classifier to the proposed two staged classification technique on the filtered dataset.}
+\caption{Comparison of the best performing random forest classifier to the best configuration of the proposed two staged classification technique  (two random forests and using 10 surrounding samples) on the filtered dataset.}
 \label{table:comparison_random_forest_custom_classifier}
 \end{table}
  
 
 
 
+
+
+
+
+
+
+
+\begin{table}
+
+\resizebox{\textwidth}{!}{%
+\centering
+\bgroup
+\def\arraystretch{1.4}
+\begin{tabular}{| r || c | c | c | c |}
+\hline
+   Predicted class $\rightarrow$ &
+   \textbf{Free Space} & 
+   \textbf{Parking Car} &
+   \textbf{Overtaking} &
+   \textbf{Other Parking} \\
+   True class $\downarrow$ &
+	 & 
+	 &
+	 \textbf{Situation} &
+	 \textbf{Vehicle} \\
+\hline
+  \textbf{Free Space} & 6598 & 79 & 0 & 3 \\
+\hline
+  \textbf{Parking Car} & 133 & 2048 & 1 & 1 \\
+\hline
+  \textbf{Overtaking Situation} & 14 & 32 & 20 & 0 \\
+\hline
+  \textbf{Other Parking Vehicle} & 36 & 13 & 0 & 11 \\
+\hline
+
+\end{tabular}
+\egroup
+}
+
+\caption{Confusion Matrix of the best found configuration of the proposed two staged classification technique (two random forests and using 10 surrounding samples).}
+\label{table:surrounding_classifier_confusion_matrix}
+\end{table}
 
