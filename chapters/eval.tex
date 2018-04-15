@@ -383,15 +383,13 @@ In a first step a basic classification result is obtained using the best perform
 \end{table}
  
  
-Table \ref{table:comparison_random_forest_custom_classifier} shows the comparison of the normal random forest classifier and the enhanced two-staged technique using information from the surrounding samples. The overall accuracy and the precision/recall values of every class are compared. The enhanced classification technique performs better in almost every performance measure. While the overall accuracy is increased by about 0.5\%, especially the recall and precision of the \emph{parking car}-class gets improved. The f-measure of the \emph{parking car}-class for the normal random forest is 0.9307, the improved classification technique increases this measurement by about one percent to 0.9405. 
+Table \ref{table:comparison_random_forest_custom_classifier} shows the comparison of the normal random forest classifier and the enhanced two-staged technique using information from the surrounding samples. The overall accuracy and the precision/recall values of every class are compared. The enhanced classification technique performs better in almost every performance measure. While the overall accuracy is increased by about 0.5\%, especially the recall and precision of the \emph{parking car}-class gets improved. The f-measure of the \emph{parking car}-class for the normal random forest is 0.9307, the improved classification technique increases this measurement by about one percent to 0.9405. In absolute numbers this means that 31 parking cars are detected which have been missed by the normal random forest classifier. Table \ref{table:surrounding_classifier_confusion_matrix} shows the detailed results in form of a confusion matrix.
 
 The improved classification technique especially helps with classifying perpendicular and angular parking cars. While the normal random forest classifier already detects about 95.8\% of the parallel parking cars, the recall for perpendicular and angular parking cars are only 79.6\% and 85.7\%, respectively. The improved classifier increases the recall of all classes. It reaches 96.2\% for parallel parking cars, 84.6\% for perpendicular parking cars and 88.3\% for angular parking cars. 
 
-%In absolute numbers this means that 31 parking cars are detected which have been missed by the normal random forest classifier. 
 
 
 
-%Table \ref{table:surrounding_classifier_confusion_matrix} shows the detailed 
  
 
 
