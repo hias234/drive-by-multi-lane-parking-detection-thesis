@@ -424,15 +424,17 @@ To conduct machine learning experiments with common machine learning models, fea
 
 The goal of each feature is to help identify the true class of a sample which should be classified. The feature analysis presented in this section should determine if all features are necessary and beneficial to this goal. Too many features maybe do not produce better results and also increase the learning time of all models. Using the tool Weka\footnote{\url{https://www.cs.waikato.ac.nz/ml/weka/}} two analytic approaches have been used, which show for each feature how useful it is for the classification tasks:
 
+
 \begin{description}
 
-\item[Information Gain Analysis:] Weka provides a tool called "InfoGainAttributeEval" which calculates the information gain (also known as entropy) of all the features for the classification task. The features which will contribute more to an accurate classification result will have a higher information gain than others. The resulting values are in the range of 0 to 1.
+\item[Information Gain Analysis:] Weka provides a tool called "InfoGainAttributeEval" which calculates the information gain (also known as entropy) of all the features for the classification task. The information gain represents how good the target class can be predicted using only the investigated feature. The exact formula used is described in the Weka documentation\footnote{\url{http://weka.sourceforge.net/doc.stable-3-8/weka/attributeSelection/InfoGainAttributeEval.html}}. The features which contribute more to an accurate classification result will have a higher information gain than others. The resulting values are in the range of 0 (no information) to 1 (maximum information gain).
 
-\item[Learner based Feature Analysis:] This approach tests several feature subsets on a real machine learning algorithm (a J48 decision tree is used) and identifies the best feature subset. Cross-validation is used for the experiment with different feature subsets and the result is a list of features which works best for the classification task using the tested machine learning algorithm. %The process is repeated with different training sets and counts how often the features are used in the different runs. If a feature is used in all runs it gets a value of 1 whereas if it is never used its value will be 0. So the higher the value is, the more the feature helps in the classification task.
+\item[Learner based Feature Analysis \cite{Kohavi1997_Weka_Wrapper_subset_eval}:] This approach tests several feature subsets on a real machine learning algorithm (a J48 decision tree is used) and searches for the best feature subset using a greedy stepwise search. Cross-validation is used for each experiment with a different feature subset. The result is a list of features which works best for the classification task using the tested machine learning algorithm. %The process is repeated with different training sets and counts how often the features are used in the different runs. If a feature is used in all runs it gets a value of 1 whereas if it is never used its value will be 0. So the higher the value is, the more the feature helps in the classification task.
 
 \end{description}
 
-Table \ref{table:feature_analysis} shows the results of the feature analysis process for the full and filtered datasets, respectively. The information gain shows that most features of the filtered dataset have a higher score, therefore probably the classification result will lead to a higher accuracy using the filtered dataset. Looking at the information gain of both dataset, six important features can be identified, having an information gain value over $0.1$ (average distance, different to previous and next segment, length, number of measures and duration). The remaining three features have a much lower information gain and therefore probably will not contribute as much to the classification result.
+
+Table \ref{table:feature_analysis} shows the results of the feature analysis process for the full and filtered datasets, respectively. The information gain shows that most features of the filtered dataset have a high score. This indicates that the classification result will lead to a higher accuracy using the filtered dataset than using the full dataset. Looking at the information gain of both datasets, six important features can be identified that have an information gain value greater than $0.1$ (average distance, different to previous and next segment, length, number of measures and duration). The remaining three features have a much lower information gain and therefore probably will not contribute as much to the classification result.
 
 
 \begin{table}
@@ -502,26 +504,23 @@ Table \ref{table:feature_analysis} shows the results of the feature analysis pro
 
 
 
-The learner based analysis confirms the results of the information gain analysis. All of the six most important features have been selected for the best feature subset in both datasets. It is also shown that the distance variance is not used in any case while the average speed and average acceleration are used in one case while being left out in the other.
+The learner based analysis confirms the results of the information gain analysis. All of the six most important features have been selected for the best feature subset in both datasets. It is also shown that the distance variance is not used in any case while the average acceleration is only used for the full dataset and the average speed is only used for the filtered dataset
 
 
 
 
 
 
-%Maybe 2-3 Graphics of the most important features (from Weka)
+\subsection{Discussion of Features in Other Parking Detection Systems}
 
+The existing prototype of a parking detection system which is closest related to the prototype presented in this thesis is the ParkNet prototype developed by Mathur et al \cite{Mathur:2010:PDS:1814433.1814448} (see Section \ref{sec:related_driveby_park_sensing_distance}). The datasets of the other related parking detection systems, which are discussed in Section \ref{sec:parksensing}, differ fundamentally from our dataset due to different sampling methods. Thus, only the features of ParkNet are compared to our features (see Table \ref{table:feature_analysis}) in this section.
 
-
-
-\subsection{Comparison to the Datasets of existing Parking Detection Systems}
-
-The existing prototype of a parking detection system which is closest related to the prototype presented in this thesis is the ParkNet prototype developed by Mathur et al \cite{Mathur:2010:PDS:1814433.1814448} (see Section \ref{sec:related_driveby_park_sensing_distance}). The dataset of all other parking detection systems, which are discussed in Section \ref{sec:parksensing}, cannot be compared to our dataset as their approaches are too different. Thus only the dataset of ParkNet is compared to our dataset in this section.
-
-ParkNet also uses the drive-by park sensing approach. It measures the distance to the right side to the road using an ultrasonic distance sensor and tries to find "dips" (segments) in the sensor signal, which represent parking cars. However, ParkNet was only developed, designed and trained for a very restrictive scenario of traffic. It only has been trained and evaluated on single-lane streets with parallel parking cars. 
+ParkNet also uses the drive-by park sensing approach which is used in our prototype. 
+%It measures the distance to the right side to the road using an ultrasonic distance sensor and tries to find "dips" (segments) in the sensor signal, which represent parking cars. 
+However, it was only developed, designed and trained for a very restrictive scenario of traffic. It only has been trained and evaluated on single-lane streets with parallel parking cars.
 The main goal of this thesis is to develop a drive-by parking detection system, which can handle various different situations in city traffic, like for example driving on multi-lane streets, overtaking other vehicles, traffic jams and waiting at traffic lights. While gathering the dataset, all of these situations were faced and our prototype has been trained to detect all of these scenarios.
 
-ParkNet only uses two features to detect parking spaces in their approach, namely the length of segments and the distance from the sensing vehicle. Mathur et al. derived thresholds for both features creating a minimum error calculated on 20\% of their dataset. The thresholds are then used to classify the segments into the classes \emph{parking car} and \emph{other object}. This technique is sufficient for their simple scenario because of their restricted test data. However, on a more complicated dataset which is used in this thesis the results will probably be worse.
+ParkNet only uses two features to detect parking spaces in their approach, namely the \emph{length of segments} and the \emph{distance from the sensing vehicle}. Mathur et al. derived thresholds for both features creating a minimum error calculated on 20\% of their dataset. The thresholds are then used to classify the segments into the classes \emph{parking car} and \emph{other object}. This technique is sufficient for their simple scenario because of their restricted test data. However, on a more complicated dataset which is used in this thesis the results will probably be worse.
 
 To support that hypothesis, a similar technique as in the ParkNet prototype was used to classify segments of our dataset using only the two features \emph{length} and \emph{distance to the sensing vehicle}. A decision tree with a maximum depth of two has been learned using our dataset and evaluated using 10-fold cross-validation. Similar to the two threshold used in ParkNet, our decision tree also learned to divide the two target classes using two thresholds. However, while the ParkNet prototype reaches about 87\% recall on parking cars on their dataset, our approach only gets an recall of about 75\%. The author believes that this can be explained because of the various traffic situations which are included in our dataset but were not in the ParkNet dataset. These more complex scenarios make it harder to classify a parking situation using only the two selected features.
 
