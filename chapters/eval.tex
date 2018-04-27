@@ -24,7 +24,7 @@ To be able to compare two classification results containing recall- and precisio
 
 
 
-\section{Machine Learning Results}
+\section{Traditional Machine Learning Results}
 \label{sec:machine_learning_results}
 
 
@@ -176,7 +176,7 @@ Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrice
 Another conclusion which can be drawn is that the performance is much worse for the classes \emph{overtaking situation} and \emph{other parking vehicle} than for the \emph{free space}- or \emph{parking car}-class. The best random forest classifier reaches a recall of 0.2575 and a precision of 0.8947 on \emph{overtaking situations}. Therefore, only about a quarter of the overtaking situations are detected. 
 On the other hand, the high precision shows that only a low number of false positives are detected as overtaking situations. 
 The \emph{other parking vehicle}-class has similar results: a really low recall of 0.0833 and a relatively high precision of 0.8333.
-The bad results on the two classes are probably explainable because of the low number of segments of both classes included in the datasets. Thus, the variety of the data is low and a lot of different situations are not included in the dataset. Therefore, the classifiers cannot learn all different variations of overtaking situations or other parking vehicles. Another explanation is the imbalance in both datasets.
+The bad results on the two classes are probably explainable because of the low number of segments in both classes included in the datasets. Thus, the variety of the data is low and a lot of different situations are not included in the dataset. Therefore, the classifiers cannot learn all different variations of overtaking situations or other parking vehicles. Another explanation is the imbalance in both datasets.
 
 
 
@@ -185,13 +185,22 @@ The bad results on the two classes are probably explainable because of the low n
 
 \subsection{Results for different Types of Parking Cars}
 
-As mentioned in earlier sections, the datasets consists of three different types of parking cars: Parallel parking cars, perpendicular parking cars and angular parking cars. All of these different types are included in the broader \emph{parking car}-class which gets predicted by the classifiers. In this section the performance of the classification on the different types of cars is being investigated.
+As mentioned in earlier sections, there are three different types of parking cars in the datasets: Parallel parking cars, perpendicular parking cars and angular parking cars (see Figure \ref{fig:types_of_parking_cars}). All of these different types are included in the broader \emph{parking car}-class which gets predicted by the classifiers. In this section the performance of the classification on the different types of cars is investigated.
 
-Overall the filtered dataset contains 1647 parallel parking cars, 339 perpendicular parking cars and 197 angular parking cars. This shows that most of the parking cars in the dataset are parallel parking cars, which can be explained because of a majority of parallel road side parking spaces in Linz, Austria. The best classifier achieves a recall of 0.9581 on parallel parking cars, 0.7964 on perpendicular parking cars and 0.8578 on angular parking cars. 
-Obviously, the performance of parallel parking cars is the best. That is probably caused because parallel parking cars are in comparison longer than the other types. This fact can make it easier to detect them Furthermore, the majority of parallel parking cars also enhances the performance of that type in comparison the the other types of parking cars. Perpendicular parking cars are detected less often because they are shorter in length which may lead to a more likely classification as \emph{free space}. In general, parking cars which are classified falsely are almost exclusively assigned to the \emph{free space}-class. Only two parallel parking cars have been detected as \emph{overtaking situations} while no parking cars have been detected as \emph{other parking vehicles}.
+The filtered dataset contains 1647 parallel parking cars, 339 perpendicular parking cars and 197 angular parking cars. This shows that most of the parking cars in the dataset are parallel parking cars, which can be explained because of a majority of parallel road side parking spaces in Linz, Austria. The best classifier achieves a recall of 0.9581 on parallel parking cars, 0.7964 on perpendicular parking cars and 0.8578 on angular parking cars.
+
+Obviously, the performance of parallel parking cars is the best. That is probably caused because parallel parking cars are in comparison longer than the other types. This fact can make it easier to detect them. Furthermore, the higher number of parallel parking cars included in the dataset also enhances the performance of that type in comparison the the other types of parking cars. Perpendicular parking cars are detected less often because they are shorter in length which may lead to a more likely classification as \emph{free space}. In general, parking cars which are classified falsely are almost exclusively assigned to the \emph{free space}-class. Only two parallel parking cars have been detected as \emph{overtaking situations} while no parking cars have been detected as \emph{other parking vehicles}.
 
 
 
+
+\subsection{Using Feature Subsets for Training}
+
+The used dataset contains in total nine features. Not all of them provide the same amount of information. As discussed in Section \ref{sec:feature_analysis}, six important and three unimportant features have been identified. Training machine learning models on less (but more important) features can enhance the performance, therefore different feature subsets have been tested.
+
+When reducing the dataset to only the six most important features, all tested machine learning models show nearly the same output as when training on the full dataset. A decision tree shows the greatest difference: it results in an f-measure on the \emph{parking car}-class of 0.8976 with all features and 0.8964 with the six most important features. Further reducing the features results in drastically decreasing accuracy. A random forest classifier using all features results in a f-measure of 0.9307. While using only six features does not change the result, using four features reduces the f-measure to 0.9147 and using two features results in an f-measure of 0.8010.
+
+The experiments with different subsets show that using less features does not improve the performance of the classification using our datasets. The only advantage is a slightly decreased learning time for all tested models (on average the training time is 22\% lower when using only six features instead of nine). However, as the learning time is not an important evaluation metric, in the further experiments datasets with all features are used, because they result in the best classification results.
 
 
 
