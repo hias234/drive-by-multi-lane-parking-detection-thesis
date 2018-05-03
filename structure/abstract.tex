@@ -6,4 +6,12 @@
 \chapter*{Abstract}
 \markright{Abstract}
 
-Abstract \ldots
+Traffic congestion in urban areas is getting a big problem nowadays. Not only the increased traffic contributes to traffic jams, but also drivers who are looking for parking spaces. When driving around a long time in the city to find vacant parking spaces, they not only congest the streets, but also emit a lot of green house gases.
+% which are bad for the environment.
+% (for studies of parking space induced traffic see \cite{Nawaz:2013:PSB:2500423.2500438, TexasMobilityReport}). 
+To mitigate these problems, it would be helpful to increase the transparency of the current parking space availability situation to help drivers navigate directly to vacant parking spaces close to their end destination. 
+
+This thesis tackles the task of creating parking space availability maps for cities to make it easier for drivers to find vacant parking spaces. A drive-by approach is chosen to sense vacant and free parking spaces. 
+Using our approach, several vehicles are driving through the city and continuously collect sensor data. All vehicles measure the distance to the right side of the road as well as their position using GPS. Using the distance information, our prototype should be able to decide whether a parking space is occupied or vacant. Furthermore, distracting situations, such as overtaking another vehicle and parking motorcycles or bicycles, should be detected as well to prevent false positives. A prototype vehicle has been equipped with the necessary sensors and several test drives have been taken to collect real world sensor data which is used in the evaluation step.
+
+Because it is non-trivial to find a rule set which could represent the task, machine learning techniques should be tested on their performance. Using a manually tagged dataset containing nine computed features derived from the sensor data, several traditional machine learning algorithms and deep learning approaches are evaluated on their classification performance. Furthermore, several techniques to further improve the classification performance are tested, such as over- and under-sampling. The best performing classifier is a two staged random forest classifier having an overall accuracy of about 96.5\%.
