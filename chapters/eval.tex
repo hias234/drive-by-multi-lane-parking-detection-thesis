@@ -319,9 +319,9 @@ As deep learning outperforms classical machine learning on many different tasks,
   \textbf{1D Convolutional Deep Network} & & & \\
   (1 convolutional layer, 2 dense layers, & & & \\
   200 epochs, 20\% dropout) &
-   0.9296 / 0.9311 &
-   0.7563 / 0.8027 &
-   0.8248 / 0.8488 \\
+   0.9330 / 0.9216 &
+   0.7582 / 0.8334 &
+   0.8484 / 0.8735 \\
 \hline
 
 \end{tabular}
@@ -333,9 +333,12 @@ As deep learning outperforms classical machine learning on many different tasks,
 \end{table}
 
 
-The results shown in Table \ref{table:deep_learning_results} clearly indicate that all deep learning approaches perform worse than the random forest classifier, which was the best performing model out of the classical machine learning classifiers. The best performing deep neural network (5 hidden layers, each containing 128 units, trained in 200 epochs) gains an overall accuracy of about 93.6\% whereas the random forest classifier gets about 96.0\%. Furthermore, the recall / precision on the \emph{parking car}-class also are also worse than for the random forest classifier (0.8987 / 0.9078 for the best performing deep neural network and 0.9239 / 0.9377 for the random forest classifier). For the classes with a minority of samples, the results are similar to the random forest classifier. \emph{Overtaking situations} show a recall of 0.2272 and a precision of 0.4687 whereas \emph{other parking vehicles} get a recall of 0.1833 and a precision of 0.3793.
+The results shown in Table \ref{table:deep_learning_results} clearly indicate that all deep learning approaches perform worse than the random forest classifier, which was the best performing model out of the classical machine learning classifiers. The best performing deep neural network (5 hidden layers, each containing 128 units, trained in 200 epochs) gains an overall accuracy of about 93.6\% whereas the random forest classifier gets about 96.0\%. Furthermore, the recall / precision on the \emph{parking car}-class also are also worse than for the random forest classifier (0.8987 / 0.9078 for the best performing deep neural network and 0.9239 / 0.9377 for the random forest classifier). For the classes with a minority of samples, the results are similar to the random forest classifier. \emph{Overtaking situations} show a recall of 0.3239 and a precision of 0.2452 whereas \emph{other parking vehicles} get a recall of 0.0909 and a precision of 0.1612.
 
 Deep learning gains respectable results when considering that all tests have been performed using raw sensor data. However, all of the tested configurations do not nearly perform as well as the classical machine learning approaches. Therefore, it can be concluded that for the drive-by parking detection task, classical machine learning models using pre-computed feature values are better suited than deep neural networks operating on raw sensor data.
+
+
+
 
 
 
