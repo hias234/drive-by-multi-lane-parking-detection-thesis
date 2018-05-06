@@ -3,8 +3,25 @@
 
 
 
-This thesis focuses on sensing a city's parking space availability situation to increase the transparency of the current parking situation. 
-A known parking space availability situation can help drivers which are searching for vacant parking spaces to directly navigate to a vacant spot and avoid driving around blocks. This can reduce traffic congestion, green house gas emissions, and driver frustration. 
-In this work, an experiment with drive-by parking space detection has been conducted with the goal to create accurate parking space availability maps. The contribution of this thesis should help to show at what accuracy drive-by detection systems can operate. Especially the performance of such a system in real world traffic scenarios on streets with multiple lanes and a lot of traffic is of interest.
+This thesis focuses on sensing a city's parking space availability to increase the transparency of the current city-wide parking situation. 
+A known parking space availability can help drivers, which are searching for vacant parking spaces, to directly navigate to a vacant spot and avoid driving around blocks. This can reduce traffic congestion, green house gas emissions, and driver frustration. 
+In this work, a prototype using a drive-by parking space detection approach has been implemented with the goal to create accurate parking space availability maps. The results of the prototype should show at what accuracy drive-by detection systems can operate. Especially the performance of such a system in real world traffic scenarios on streets with multiple lanes and a lot of traffic is of interest.
 The following paragraphs summarize the most essential aspects of this work, its results, and its most important conclusions.
+
+
+
+As a first step, several existing parking space detection approaches have been investigated and compared to each other to find advantages and disadvantages.
+Many of them deliver promising results. However, most of them would either cause dramatically high costs (e.g. by requiring, installing and maintaining thousands of sensors) or would need a high user base (e.g. a lot of people would need a smartphone app). 
+ Drive-by park sensing approaches, which use 1D distance sensors, have been found as promising. However, all of the reference works are evaluated only on simple scenarios without any distractions, such as overtaking situations. 
+ In this thesis, it should be found if similar results can be achieved in more complex situations like they occur in everyday traffic.
+
+
+As there does not exist a dataset of drive-by park sensing which has been gathered in real world traffic, a mobile workstation with the required sensors was designed, built, and has been mounted on a test vehicle to collect sensor data. With the vehicle 32 test drives have been conducted to gather the required data of all sensors in the car (distance sensor and GPS sensor). Subsequently, the sensor information has been processed, analyzed, and overflow measurements as well as outliers have been removed to increase the quality. Furthermore, to be able to automatically evaluate parking detection systems, several sensor measurements have been grouped together to segments which belong to the same object (e.g. parking car, overtaking car, free space, ...) and the ground truth of these segments has been manually tagged. As next step nine features are calculated on each segments which are used to classify them later on.
+
+
+
+
+
+
+
 
