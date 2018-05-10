@@ -17,7 +17,14 @@ The goal in this thesis is to investigate if a similar accuracy can be achieved 
 
 As a first step, data from real world traffic has been gathered. A prototype system, which collects the necessary sensor data, has been designed, built, and mounted on a test vehicle. The used sensors have been selected to be able to analyze complex traffic scenarios while still coming at a low price. 
 %The total costs of the system are about \euro{240}. 
-In 32 test drives in Linz, sensor data (distance- and GPS-data) has been collected making up a dataset containing all kinds of different situations in real world traffic. To be able to automatically evaluate the dataset, it has been pre-processed, segmented and the ground truth has been tagged manually. Tests on the processed dataset led to the conclusion that the data contained much more variety than similar datasets used in other related work, making it harder to classify the situations correctly (see Section \ref{sec:features_other_pds}). 
+In 32 test drives in Linz, sensor data (distance- and GPS-data) has been collected making up a dataset containing all kinds of different situations in real world traffic. To be able to automatically evaluate the dataset, it has been pre-processed, segmented and the ground truth has been tagged manually. 
+Testing the acquired dataset with an existing approach of drive-by sensing \cite{Mathur:2010:PDS:1814433.1814448}, the performance turned out to be much worse than with the dataset used in the referenced work (see Section \ref{sec:features_other_pds}). The author concludes that this can be explained due to the more complex parking situations in our dataset. 
+%Therefore, the goal of acquiring a complex dataset is achieved.
+
+%Tests on the processed dataset led to the conclusion that the data contained much more variety than similar datasets used in other related work, making it harder to classify the situations correctly (see Section \ref{sec:features_other_pds}). 
+
+To determine the accuracy which can be achieved using drive-by park sensing on complex data, machine learning- as well as deep learning algorithms have been evaluated on their performance. While deep learning algorithms are operating on raw sensor data, for traditional machine learning methods, nine computed features have been introduced. The experiments show that traditional machine learning approaches outperform deep learning on park sensing. A random forest classifier gains the best results with an overall accuracy of about 96\%. Additionally to the general experiments several techniques to improve the classification performance have been tested. 
+
 
 
 
