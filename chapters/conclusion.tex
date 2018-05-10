@@ -6,7 +6,7 @@
 This thesis focuses on sensing a city's parking space availability to increase the transparency of the current city-wide parking situation. 
 A known parking space availability can help drivers, which are searching for vacant parking spaces, to directly navigate to a vacant spot and avoid driving around blocks. This can reduce traffic congestion, green house gas emissions, and driver frustration. 
 In this work, a prototype using a drive-by parking space detection approach has been implemented with the goal to create accurate parking space availability maps. The results of the prototype should show at what accuracy drive-by detection systems can operate. Especially the performance of such a system in real world traffic scenarios on streets with multiple lanes and a lot of traffic is of interest.
-The following paragraphs summarize the most essential aspects of this work, its results, and its most important conclusions.
+This section summarizes the most essential aspects of this work, its results, and its most important conclusions.
 
 
 
@@ -23,11 +23,15 @@ Testing the acquired dataset with an existing approach of drive-by sensing \cite
 
 %Tests on the processed dataset led to the conclusion that the data contained much more variety than similar datasets used in other related work, making it harder to classify the situations correctly (see Section \ref{sec:features_other_pds}). 
 
-To determine the accuracy which can be achieved using drive-by park sensing on complex data, machine learning- as well as deep learning algorithms have been evaluated on their performance. While deep learning algorithms are operating on raw sensor data, for traditional machine learning methods, nine computed features have been introduced. The experiments show that traditional machine learning approaches outperform deep learning on park sensing. A random forest classifier gains the best results with an overall accuracy of about 96\% and a recall on parking cars of about 88\%. Experiments with all techniques also indicate that distractions, such as overtaking situations, are only detected at a very low rate. The author believes that this is caused due to the low count of such samples in the acquired dataset. Sampling techniques can improve their performance. However, they worsen the results of parking cars which is more important and therefore are not considered to help to the overall goal.
+To determine the accuracy which can be achieved using drive-by park sensing on complex data, machine learning- as well as deep learning algorithms have been evaluated on their performance. While deep learning algorithms are operating on raw sensor data, for traditional machine learning methods, nine computed features have been introduced. The experiments show that traditional machine learning approaches outperform deep learning on park sensing. A random forest classifier gains the best results with an overall accuracy of about 96\% and a recall on parking cars of about 88\%. Experiments with all techniques also indicate that distractions, such as overtaking situations, are only detected at a very low rate. The author believes that this is caused due to the low count of such samples in the acquired dataset. Sampling techniques can improve their performance. However, they worsen the detection rate of parking cars which is more important. Thus, sampling techniques are not considered to help achieving the overall goal.
 
 Additionally to the general experiments, several techniques to improve the classification performance have been tested. First, a map of parking space areas in Linz has created by clustering the parking spaces in the dataset. This map has been used to select relevant samples of the dataset (the samples which are close to parking space areas). A random forest classifier using a dataset containing only relevant samples detects about 4\% more parking cars than using the full dataset. Another technique which improved the results was to include the surroundings of a parking situation when classifying it. Using a two-staged classification process with two random forests, the accuracy could be further improved, having an overall accuracy of about 96.5\% and a recall of parking cars of about 93.8\%.
 
-The results indicate that using our setup, complex traffic s
+The results indicate that, using the proposed sensor setup in conjunction with machine learning, drive-by sensing can operate at a high performance also in complex scenes in real world traffic. 
+Studies in other papers \cite{Mathur:2010:PDS:1814433.1814448} suggest, that the achieved accuracy of 93.8\% on parking cars is sufficient to create accurate parking space availability maps.
+Distractions, such as overtaking situations, are detected only at a low rate (about 30\%). However, they only appear quite rarely. Thus, the low detection rate is of minor importance, when creating parking space availability maps.
+
+Future work
 
 
 
