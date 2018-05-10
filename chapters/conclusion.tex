@@ -10,13 +10,15 @@ The following paragraphs summarize the most essential aspects of this work, its 
 
 
 
-As a first step, several existing parking space detection approaches have been investigated and compared to each other to find advantages and disadvantages.
+To analyze the current state of the art, several existing parking space detection approaches have been investigated and compared to each other to find advantages and disadvantages.
 Many of them deliver promising results. However, most of them would either cause dramatically high costs (e.g. by requiring, installing and maintaining thousands of sensors) or would need a high user base (e.g. a lot of people would need a smartphone app). 
  Drive-by park sensing approaches, which use 1D distance sensors, have been found as promising. However, all of the reference works are evaluated only on simple scenarios without any distractions, such as overtaking situations. 
- In this thesis, it should be found if similar results can be achieved in more complex situations like they occur in everyday traffic.
+The goal in this thesis is to investigate if a similar accuracy can be achieved on real world traffic data.
 
+As a first step, data from real world traffic has been gathered. A prototype system, which collects the necessary sensor data, has been designed, built, and mounted on a test vehicle. The used sensors have been selected to be able to analyze complex traffic scenarios while still coming at a low price. 
+%The total costs of the system are about \euro{240}. 
+In 32 test drives in Linz, sensor data (distance- and GPS-data) has been collected making up a dataset containing all kinds of different situations in real world traffic. To be able to automatically evaluate the dataset, it has been pre-processed, segmented and the ground truth has been tagged manually. Tests on the processed dataset led to the conclusion that the data contained much more variety than similar datasets used in other related work investigating drive-by approaches (see Section \ref{sec:features_other_pds}). 
 
-As there does not exist a dataset of drive-by park sensing which has been gathered in real world traffic, a mobile workstation with the required sensors was designed, built, and has been mounted on a test vehicle to collect sensor data. With the vehicle 32 test drives have been conducted to gather the required data of all sensors in the car (distance sensor and GPS sensor). Subsequently, the sensor information has been processed, analyzed, and overflow measurements as well as outliers have been removed to increase the quality. Furthermore, to be able to automatically evaluate parking detection systems, several sensor measurements have been grouped together to segments which belong to the same object (e.g. parking car, overtaking car, free space, ...) and the ground truth of these segments has been manually tagged. As next step, nine features are calculated on each segment which are used to classify them later on.
 
 
 
