@@ -198,7 +198,7 @@ The used dataset contains in total nine features. Not all of them provide the sa
 
 When reducing the dataset to only the six most important features, all tested machine learning models show nearly the same results as when training on the full dataset. A decision tree shows the greatest difference on the two datasets: it results in an f-measure on the \emph{parking car}-class of 0.8976 with all features and 0.8964 with the six most important features. Further reducing the features results in drastically decreasing accuracy. A random forest classifier using all features results in a f-measure of 0.9307. While using only six features does not change the result, using four features reduces the f-measure to 0.9147 and using two features results in an f-measure of 0.8010.
 
-The experiments with different subsets show that using less features does not improve the performance of the classification using our datasets. The only advantage is a slightly decreased learning time for all tested models (on average the training time is 22\% lower when using only six features instead of nine). However, as the learning time is not an important evaluation metric, in the further experiments datasets with all features are used, because they result in the best classification results.
+The experiments with different subsets show that using less features does not improve the performance of the classification using our datasets. The only advantage is a slightly decreased training time for all tested models (on average the training time is 22\% lower when using only six features instead of nine). However, as the training time is not an important evaluation metric, in the further experiments datasets with all features are used, because they result in the best classification results.
 
 
 
@@ -242,6 +242,8 @@ As the datasets are highly imbalanced, sampling techniques have been tested on t
   \textbf{Recall Other p. vehicles} & 0.0833 & 0.4666 & 0.9000 & 0.6166 \\
 \hline
   \textbf{Precision Other p. vehicles} & 0.8333 & 0.2828 & 0.0242 & 0.2269 \\
+\hline
+  \textbf{Evaluation Time [s]} & 230.38 & 637.63 & 560.96 & 82.17 \\
 \hline
 
 \end{tabular}
@@ -383,6 +385,8 @@ Then a new dataset is created containing all features as well as the class label
   \textbf{Recall Other p. vehicles} & 0.0833 & 0.1833 \\
 \hline
   \textbf{Precision Other p. vehicles} & 0.8333 & 0.7333 \\
+\hline
+  \textbf{Evaluation Time [s]} & 230.38 & 476.06 \\
 \hline
 
 \end{tabular}
