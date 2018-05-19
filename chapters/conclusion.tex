@@ -6,18 +6,18 @@
 This thesis focuses on sensing a city's parking space availability to increase the transparency of the current city-wide parking situation. 
 A known parking space availability can help drivers, which are searching for vacant parking spaces, to directly navigate to a vacant spot and avoid driving around blocks. This can reduce traffic congestion, green house gas emissions, and driver frustration. 
 In this work, a prototype using a drive-by parking space detection approach has been implemented with the goal to create accurate parking space availability maps. The results of the prototype should show at what accuracy drive-by detection systems can operate. Especially the performance of such a system in real world traffic scenarios on streets with multiple lanes and a lot of traffic is of interest.
-This section summarizes the most essential aspects of this work, its results, and its most important conclusions.
+This chapter summarizes the most essential aspects of this work, its results, and its most important conclusions.
 
 
 
 To analyze the current state of the art, several existing parking space detection approaches have been investigated and compared to each other to find advantages and disadvantages.
 Many of them deliver promising results. However, most of them would either cause dramatically high costs (e.g. by requiring, installing and maintaining thousands of sensors) or would need a high user base (e.g. a lot of people would need a smartphone app). 
- Drive-by park sensing approaches, which use 1D distance sensors, have been found as promising. However, all of the reference works are evaluated only on simple traffic scenarios and without any distractions, such as overtaking situations. 
+ Drive-by park sensing approaches, which use 1D distance sensors, have been found as promising. Using these approaches several sensing vehicles drive through the city and constantly sense the distance to the nearest obstacle on the right side of the road (in many cases parking cars). This information in conjunction with GPS data is then used to detect parking cars. However, all of the reference works are evaluated only on simple traffic scenarios and without any distractions, such as overtaking situations. 
 The goal of this thesis is to investigate if a similar accuracy can be achieved on real world traffic data.
 
 As a first step, data from real world traffic has been gathered. A prototype system, which collects the necessary sensor data, has been designed, built, and mounted on a test vehicle. The used sensors have been selected to be able to analyze complex traffic scenarios while still coming at a low price. 
 %The total costs of the system are about \euro{240}. 
-In 32 test drives in Linz, sensor data (distance- and GPS-data) has been collected making up a dataset containing all kinds of different situations in real world traffic. To be able to automatically evaluate the dataset, it has been pre-processed, segmented and the ground truth has been tagged manually. 
+In 32 test drives in Linz, sensor data has been collected making up a dataset containing all kinds of different situations in real world traffic. To be able to automatically evaluate the dataset, it has been pre-processed, segmented and the ground truth has been tagged manually. 
 Testing our acquired dataset with an existing approach of drive-by sensing \cite{Mathur:2010:PDS:1814433.1814448}, the performance turned out to be much worse than with the dataset used in their work (see Section \ref{sec:features_other_pds}). The author concludes that due to our more complex dataset, which contains multi lane scenes as well as overtaking situations, the performance of the reference implementation would not be sufficient to lead to satisfying outcome on our dataset.
 
 %The author concludes that this can be explained due to the more complex parking situations in the dataset, which was acquired in this work. 
@@ -32,9 +32,10 @@ Additionally to the general experiments, several techniques to improve the class
 
 The results indicate that, using the proposed sensor setup in conjunction with machine learning, drive-by sensing can operate at a high performance also in complex scenes in real world traffic. 
 A study of Mathur et al. about drive-by park sensing \cite{Mathur:2010:PDS:1814433.1814448} suggests that the achieved accuracy of 93.8\% on detecting parking cars is sufficient to create accurate parking space availability maps.
-Distractions, such as overtaking situations, are detected only at a low rate (about 30\%). However, they only appear quite rarely. Thus, the low detection rate is of minor importance, when deriving a parking space situation.
+Distractions, such as overtaking situations, are detected only at a low rate (about 30\%). However, they only appear quite rarely. Thus, the low detection rate is of minor importance, when deriving a city's parking space situation and does not alter the end result noticeably.
 
 %Future work
+\section{Future Work}
 Due to an increasing number of cars driving in cities, detecting the parking space availability will be an increasingly important task in the future to help drivers find vacant parking spaces easily and to reduce traffic induced by parking space search. While this work shows that it is possible to detect parking cars while driving by, future research has to tackle several following problems. A following research topic to this work would be to acquire a bigger dataset which might help to increase the detection rate for overtaking situations and also might further improve the classification results. Another future research question is how many sensing vehicles would be needed in cities of different sizes and topologies to gain high quality parking space maps. Simulations could be created to gain insight into this topic. Self-driving vehicles provide further research topics, possibly leading to fully autonomous vehicles, which might be able to search vacant parking spaces and park on their own. \todo{todo} Due to the fact that the field of traffic automation and IoT is gaining interest, there will be many more research topics in this area in the near future.
 
 
