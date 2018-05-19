@@ -15,7 +15,7 @@ Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/car.jpg}
+	\includegraphics[width=0.85\textwidth]{img/car.jpg}
 	\caption{Prototype of the sensing car, which is composed of a LIDAR Lite v3 optical distance sensor, a GPS receiver, a camera for ground truth collection and a Raspberry Pi as processing device.}
 	\label{fig:sensing_car}
 \end{figure}
@@ -536,7 +536,7 @@ To verify that length and distance only are not enough features, classification 
 
 Figure \ref{fig:plot_2d_decision_tree} shows a plot of our full dataset using both used features as well as the learned decision tree boundaries. The black dots represent free spaces, while the orange ones represent parking cars. Magenta and cyan dots are overtaking situations and other parking vehicles, respectively. The dashed red lines represent the decision boundaries that have been learned by our decision tree, which is a similar technique to the ParkNet prototype. All segments in the upper left rectangle are classified as \emph{parking cars} while all others are classified as \emph{free spaces}.
 
-While the ParkNet prototype reaches about 87\% recall on parking cars on their dataset, our approach only gets an recall of about 75\%. The author believes that this can be explained because of the various traffic situations which are included in our dataset but were not in the ParkNet dataset. These more complex scenarios make it harder to classify a parking situation using only the two selected features.
+While the ParkNet prototype reaches about 87\% recall on parking cars on their dataset, our very similar approach applied on our own dataset only gets a recall of about 75\%. The author believes that this can be explained because of the various traffic situations which are included in our dataset but were not in the ParkNet dataset. These more complex scenarios make it harder to classify a parking situation using only the two selected features.
 Figure \ref{fig:plot_2d_decision_tree} shows that there are a lot of missed parking car detections (parking cars which are classified as other objects). About 25\% of parked cars are not detected. Thus, it can be concluded that only leveraging the two features is insufficient for the dataset which has been gathered in this thesis.
 
 
@@ -581,6 +581,8 @@ A kNN classifier (k nearest neighbours) searches for the $k$ samples in the trai
 
 \paragraph{Support Vector Machines (SVMs)}
 
+Support vector machines try to find a linear separation between the samples of different classes in the training set in order to predict unknown samples. A hyperplane which maximizes the separation of different classes is computed. In order to do so, the distance of the hyperplane to the closest samples, which are also called support vectors, is maximized. Figure \ref{fig:max_hyperplane} shows the so called maximum margin hyperplane as well as the support vectors which are needed to find it. However, in real world problems it is rarely the case that different classes can be separated using a linear hyperplane. To be able to find such an hyperplane, the feature space is transformed into a higher dimensional one using non-linear mappings. This process increases the chance of finding a hyperplane drastically. However, such transformations need a lot of computations and therefore usually kernel functions, such as a polynomial kernel, are used to speed up this process. 
+
 \begin{figure}
 	\centering
 	\vspace*{5px}
@@ -589,8 +591,6 @@ A kNN classifier (k nearest neighbours) searches for the $k$ samples in the trai
 	\caption{Maximum margin hyperplane and support vectors of a support vector machine (based on Figure 7.2 in \cite{Hall2016_DataMining_ML}).}
 	\label{fig:max_hyperplane}
 \end{figure}
-
-Support vector machines try to find a linear separation between the samples of different classes in the training set in order to predict unknown samples. A hyperplane which maximizes the separation of different classes is computed. In order to do so, the distance of the hyperplane to the closest samples, which are also called support vectors, is maximized. Figure \ref{fig:max_hyperplane} shows the so called maximum margin hyperplane as well as the support vectors which are needed to find it. However, in real world problems it is rarely the case that different classes can be separated using a linear hyperplane. To be able to find such an hyperplane, the feature space is transformed into a higher dimensional one using non-linear mappings. This process increases the chance of finding a hyperplane drastically. However, such transformations need a lot of computations and therefore usually kernel functions, such as a polynomial kernel, are used to speed up this process. 
 
 
 
