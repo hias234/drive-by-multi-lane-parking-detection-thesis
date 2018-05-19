@@ -176,6 +176,7 @@ On the other hand, the high precision shows that only a low number of false posi
 The \emph{other parking vehicle}-class has similar results: a really low recall of 0.0833 and a relatively high precision of 0.8333.
 The bad results on the two classes are probably explainable because of the low number of segments in both classes included in the datasets. Thus, the variety of the data is low and a lot of different situations are not included in the dataset. Therefore, the classifiers cannot learn all different variations of overtaking situations or other parking vehicles. Another explanation is the imbalance in both datasets.
 
+The random forest which performed best has also the highest evaluation time (training and prediction for all 10 folds) with about 230 seconds. Other classifiers sometimes have a considerably lower evaluation time. However, almost all of the 230 seconds were used for training. Once the system is trained it can predict parking situations within milliseconds. Thus, the higher training time for the random forest does not have an impact on the running system.
 
 
 
