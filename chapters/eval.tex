@@ -370,10 +370,10 @@ Deep learning gains respectable results when considering that all tests have bee
 \section{Using Segment Surroundings to improve the Classification Results}
 \label{sec:using_surroundings_to_improve_results}
 
-To further improve the classification results, a custom classification process has been implemented which should help to increase the accuracy and especially the recall and precision of the \emph{parking car}-class. The proposed classification process is expected to yield to better results because it is also including the information of surrounding segments when classifying instead of only considering the properties of the segment which gets classified.
+To further improve the classification results, a custom classification process has been implemented which should help to increase the accuracy and especially the recall and precision of the \emph{parking car}-class. The proposed classification process is expected to yield better results because it is also including the information of surrounding segments when classifying instead of only considering the properties of the segment which gets classified.
 
-In a first step a basic classification result is obtained using the best performing classifier from Section \ref{sec:machine_learning_results} (random forest). 
-Then a new dataset is created containing all features as well as the class label predicted by the random forest classifier. Furthermore, the class label and the corresponding distances from the sensing vehicles of the $k$ surrounding segments are also appended to the dataset. Using this information, the second classifier should be able to include the surrounding segments into its prediction process (e.g. if all surrounding segments, which are parking cars, have a distance of 3m to the sensing vehicle, then it is likely that the current sample is a parking car if it is also about 3m from the sensing vehicle). For the number $k$ of included surrounding segments, several values have been tested to find the best performing value. In a final step a second classifier is trained on the newly created dataset. All machine learning models which have been discussed in Section \ref{sec:machine_learning_results} have been tested on this new dataset. A more detailed description of the process can be found in Section \ref{sec:improv_classification_surrounding_segments}.
+In a first step a basic classification result is obtained using the best performing random forest classifier.
+Then a new dataset is created containing all features as well as the class label predicted by the random forest classifier. Furthermore, the class label and the corresponding distance values of the $k$ surrounding segments are also appended to the dataset. \todo{hinzufügen einer grifik, die dieses neue datenset zeigt, d.h. wie die surrounding samples hinzufegügt werden} Using this information, the second classifier should be able to include the surrounding segments into its prediction process (e.g. if all surrounding segments, which are parking cars, have a distance of 3m to the sensing vehicle, then it is likely that the current sample is a parking car if it is also about 3m from the sensing vehicle). For the number $k$ of included surrounding segments, several values have been tested to find the best performing value. \todo{Ergebnisse zu k dazu bitte in den appendix oder hier listen} In a final step a second classifier is trained on the newly created dataset. All machine learning models which have been discussed in Section \ref{sec:machine_learning_results} have been tested on this new dataset. A more detailed description of the process can be found in Section \ref{sec:improv_classification_surrounding_segments}.
 
 \begin{table}
 
@@ -431,6 +431,7 @@ The performance of predicting the minority classes is also slightly improved. \e
 
 Altogether the proposed two staged approach outperforms all other tested classifiers due to the increased amount of information which has been taken into account. It improves the overall accuracy by about 0.5\% and the f-measure of the \emph{parking car}-class by about 1.0\%. 
 
+\todo{ideen, ansätze wie man overtaking + other parking cars verbessern könnte als ausblick}
 
 
 
