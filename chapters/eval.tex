@@ -114,10 +114,11 @@ To be able to compare two classification results containing recall- and precisio
 \end{table}
 
 
-This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. As evaluation-method 10-fold cross validation has been chosen (see Section \ref{sec:evaluation_methods}). 
-Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, many different parameter combinations have been tested to find the best performing parameter set of each model. The best performing classifier on the \emph{parking car}-class is a random forest classifier using 1000 trees and entropy as criterion for node-splitting at the individual decision trees. It leads to an accuracy of about 96\% and a f-measure value of 0.8961 and 0.9307 for the \emph{parking car}-class on the full and filtered dataset, respectively. 
+This section discusses the results of the machine learning experiments with common machine learning models using computed feature values as input. The following models have been evaluated: Naive Bayes classifiers, support vector machines, neural networks, kNN classifiers, decision trees, and random forests (see Section \ref{sec:machine_learning_models}). As evaluation-method 10-fold cross validation has been chosen (see Section \ref{sec:evaluation_methods}). 
+Table \ref{table:classic_ml_results} shows the classification results of the best configurations of all tested machine learning models on the full and filtered dataset sorted on their performance on the f-measure of the \emph{parking car}-class. For each machine learning model, many different parameter combinations have been tested to find the best performing parameter set of each model. The best performing classifier on the \emph{parking car}-class is a random forest classifier using 1000 trees and entropy as criterion for node-splitting at the individual decision trees. It leads to an accuracy of about 96\% and an f-measure value of 0.8961 and 0.9307 for the \emph{parking car}-class on the full and filtered dataset, respectively. 
 
-Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrices of the random forest classifier applied on both datasets. The results clearly indicate that all tested models perform better on the parking space map filtered dataset than on the full dataset with all sensed segments. This can be explained due to a more balanced dataset, as a lot of free space segments are filtered out because they are not close to parking zones and thus not relevant.
+Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrices of the random forest classifier applied to both datasets. The results clearly indicate that all tested models perform better on the parking space map filtered dataset than on the full dataset with all sensed segments. This can be explained by the more balanced filtered dataset, as a lot of free space segments are filtered out because they are not close to parking zones and thus not relevant.
+As the amount of samples is far more balanced with the filtered dataset, the bias towards free spaces is less present and it is more likely for a sample to be classified as parking car. This fact increases the recall and precision of the \emph{parking car}-class which is the primary objective.
 
 
 \begin{table}
@@ -190,23 +191,23 @@ Table \ref{table:best_clf_confusion_matrix_filtered} shows the confusion matrice
 (b) filtered dataset\\
 \end{center}
 
-\caption{Resulting confusion matrices of the random forest classifier (containing 1000 trees and using entropy as criterion for node-splitting) applied on (a) the full dataset and (b) the filtered dataset.}
+\caption{Confusion matrices of the random forest classifier (containing 1000 trees and using entropy as criterion for node-splitting) applied on (a) the full dataset and (b) the filtered dataset.}
 \label{table:best_clf_confusion_matrix_filtered}
 \end{table}
 
 
-Another conclusion which can be drawn is that the performance is much worse for the classes \emph{overtaking situation} and \emph{other parking vehicle} than for the \emph{free space}- or \emph{parking car}-class. The best random forest classifier reaches a recall of 0.2575 and a precision of 0.8947 on \emph{overtaking situations}. Therefore, only about a quarter of the overtaking situations are detected. 
+Another conclusion which can be drawn is that the performance of the classes \emph{overtaking situation} and \emph{other parking vehicle} is much worse than of the \emph{free space}- or \emph{parking car}-class. The best random forest classifier reaches a recall of 0.2575 and a precision of 0.8947 on \emph{overtaking situations}. Only about a quarter of the overtaking situations are detected. 
 On the other hand, the high precision shows that only a low number of false positives are detected as overtaking situations. 
-The \emph{other parking vehicle}-class has similar results: a really low recall of 0.0833 and a relatively high precision of 0.8333.
-The bad results on the two classes are probably explainable because of the low number of segments in both classes included in the datasets. Thus, the variety of the data is low and a lot of different situations are not included in the dataset. Therefore, the classifiers cannot learn all different variations of overtaking situations or other parking vehicles.
+The \emph{other parking vehicle}-class has similar results: a low recall of 0.0833 and a relatively high precision of 0.8333.
+A possible reason for the bad results of the two classes is the low number of segments in both classes included in the datasets. The variety of the data is low and a lot of different situations are not included in the dataset. Therefore, the classifiers cannot learn all different variations of overtaking situations or other parking vehicles.
 
-The random forest which performed best has also the highest evaluation time (training and prediction for all 10 folds) with about 230 seconds. Other classifiers sometimes have a considerably lower evaluation time. However, almost all of the 230 seconds were used for training. Once the system is trained it can predict parking situations within milliseconds. Thus, the higher training time for the random forest does not have an impact on the running system.
-
-
+The random forest, which performed best, requires the highest evaluation time (training and prediction for all 10 folds) of about 230 seconds. The evaluation time of the other classifiers are considerably shorter. However, almost all of the 230 seconds were used for training the random forest. Once the system is trained, it can predict parking situations within milliseconds. Thus, the long training time of the random forest does not have an impact on the running system.
 
 
 
-\subsection{Results for different Types of Parking Cars}
+
+
+\subsection{Results for Different Types of Parking Cars}
 
 As mentioned in earlier sections, there are three different types of parking cars in the datasets: Parallel parking cars, perpendicular parking cars and angular parking cars (see Figure \ref{fig:types_of_parking_cars}). All of these different types are included in the broader \emph{parking car}-class which gets predicted by the classifiers. In this section the performance of the classification on the different types of cars is investigated.
 
