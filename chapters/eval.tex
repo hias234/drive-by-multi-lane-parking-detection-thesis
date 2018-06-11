@@ -232,6 +232,11 @@ The experiments with different subsets show that using fewer features does not i
 
 As the datasets are highly imbalanced, sampling techniques are tested and compared in terms of overall accuracy of the classifier and precision and recall of classes with a low number of samples. Table \ref{table:comparison_sampling_techniques} shows a comparison of different sampling techniques and their impact on the different performance measures using the best classifier shown in the previous section (random forest). Experiments with other classifiers have been conducted as well but yielded in worse results on the overall accuracy.
 
+All sampling techniques alter the training data by adding or deleting samples so that it is more balanced. The test data are not altered in order to get results that can be compared to the experiments where no sampling has been performed.
+Over-sampling creates new synthetic samples from the existing ones, while under-sampling uses clustering techniques to find representatives for a set of different samples. The combination technique uses both basic techniques to find a compromise sampling solution. For a more detailed description of the different sampling techniques see Section \ref{sec:tested_datasets_and_handling_imbalance}. The goal of all these sampling techniques is to create a dataset where the number of samples of every class is similar. 
+
+The results in Table \ref{table:comparison_sampling_techniques} show that all sampling techniques slightly decrease the performance of the classifier as the overall accuracy is the highest with no sampling at all. Another fact which is shown is that the sampling techniques improve the recall of the classes with a minority of samples (\emph{overtaking situations} and \emph{other parking vehicles}) while at the same time lowering the precision of these classes. This leads to the conclusion that the different sampling techniques make it more likely for the classifier to predict a class which has been a minority class.
+
 \begin{table}
 
 \resizebox{\textwidth}{!}{%
@@ -279,11 +284,6 @@ As the datasets are highly imbalanced, sampling techniques are tested and compar
 \caption{Comparison of different sampling techniques and their effect on the performance of a random forest classifier on the filtered dataset.}
 \label{table:comparison_sampling_techniques}
 \end{table}
-
-All sampling techniques alter the training data by adding or deleting samples so that it is more balanced. The test data are not altered in order to get results that can be compared to the experiments where no sampling has been performed.
-Over-sampling creates new synthetic samples from the existing ones, while under-sampling uses clustering techniques to find representatives for a set of different samples. The combination technique uses both basic techniques to find a compromise sampling solution. For a more detailed description of the different sampling techniques see Section \ref{sec:tested_datasets_and_handling_imbalance}. The goal of all these sampling techniques is to create a dataset where the number of samples of every class is similar. 
-
-The results in Table \ref{table:comparison_sampling_techniques} show that all sampling techniques slightly decrease the performance of the classifier as the overall accuracy is the highest with no sampling at all. Another fact which is shown is that the sampling techniques improve the recall of the classes with a minority of samples (\emph{overtaking situations} and \emph{other parking vehicles}) while at the same time lowering the precision of these classes. This leads to the conclusion that the different sampling techniques make it more likely for the classifier to predict a class which has been a minority class.
 
 When comparing the different sampling techniques, under-sampling clearly performs worst. This can be explained as the under-sampling algorithm deletes most samples of the well-performing majority classes in the dataset to create a balanced new dataset. The under-sampled dataset has a size of only 240 samples in total whereas the whole filtered dataset has a size of 8989 samples. This process removes so much information by deleting these samples that the overall performance decreases drastically. Over-sampling and the combination technique show similar results in terms of accuracy.
 
@@ -470,18 +470,6 @@ In a final step a second classifier is trained on the newly created dataset. All
  
 Table \ref{table:comparison_random_forest_custom_classifier} shows the comparison of the normal random forest classifier and the enhanced two-staged technique using information from the surrounding segments (10 surrounding segments perform best). The overall accuracy and the precision/recall values of every class are compared. The enhanced classification technique performs better in almost every performance measure. While the overall accuracy is increased by about 0.5\%, especially the recall and precision of the \emph{parking car}-class get improved. The f-measure of the \emph{parking car}-class for the normal random forest is 0.9307. The improved classification technique increases this measurement by about one percent to 0.9405. In absolute numbers this means that 31 parking cars are detected which have been missed by the normal random forest classifier. Table \ref{table:surrounding_classifier_confusion_matrix} shows the detailed results in form of a confusion matrix.
 
-The improved classification technique especially helps with classifying perpendicular and angular parking cars. While the normal random forest classifier already detects about 95.8\% of the parallel parking cars, the recall for perpendicular and angular parking cars are only 79.6\% and 85.7\%, respectively. The improved classifier increases the recall of all classes. It reaches 96.2\% for parallel parking cars, 84.6\% for perpendicular parking cars and 88.3\% for angular parking cars. 
-
-The performance of predicting the minority classes is also slightly improved. \emph{Overtaking situations} have a recall of 0.3030 instead of 0.2575 with the normal classifier. Its precision is also increased from 0.8947 to 0.9523. \emph{Other parking vehicles} are also detected more likely. The improved recall is 0.1833 whereas the recall of the normal random forest is 0.0833. The only measurement which is worse with the proposed two staged technique is the precision of \emph{other parking cars}. The new technique results in a value of 0.7333 instead of 0.8333.
-
-Altogether the proposed two staged approach outperforms all other tested classifiers due to the increased amount of information which has been taken into account. It improves the overall accuracy by about 0.5\% and the f-measure of the \emph{parking car}-class by about 1.0\%. 
-
-\todo{ideen, ansätze wie man overtaking + other parking cars verbessern könnte als ausblick}
-
-
-
-
-
 
 \begin{table}
 
@@ -518,4 +506,19 @@ Altogether the proposed two staged approach outperforms all other tested classif
 \caption{Confusion Matrix of the best found configuration of the proposed two staged classification technique (two random forests and using 10 surrounding samples).}
 \label{table:surrounding_classifier_confusion_matrix}
 \end{table}
+
+
+The improved classification technique especially helps with classifying perpendicular and angular parking cars. While the normal random forest classifier already detects about 95.8\% of the parallel parking cars, the recall for perpendicular and angular parking cars are only 79.6\% and 85.7\%, respectively. The improved classifier increases the recall of all classes. It reaches 96.2\% for parallel parking cars, 84.6\% for perpendicular parking cars and 88.3\% for angular parking cars. 
+
+The performance of predicting the minority classes is also slightly improved. \emph{Overtaking situations} have a recall of 0.3030 instead of 0.2575 with the normal classifier. Its precision is also increased from 0.8947 to 0.9523. \emph{Other parking vehicles} are also detected more likely. The improved recall is 0.1833 whereas the recall of the normal random forest is 0.0833. The only measurement which is worse with the proposed two staged technique is the precision of \emph{other parking cars}. The new technique results in a value of 0.7333 instead of 0.8333.
+
+To further improve the classification performance of all classes, a bigger dataset with more variety in the recorded situations would be beneficial. Especially for detecting overtaking vehicles and parking cars- and bicycles, more different samples would increase the accuracy as with the current dataset these classes have only a minor occurrence. 
+
+Altogether the proposed two staged approach outperforms all other tested classifiers due to the increased amount of information which has been taken into account. It improves the overall accuracy by about 0.5\% and the f-measure of the \emph{parking car}-class by about 1.0\%. 
+
+%\todo{ideen, ansätze wie man overtaking + other parking cars verbessern könnte als ausblick}
+
+
+
+
 
