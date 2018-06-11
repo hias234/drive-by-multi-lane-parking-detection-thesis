@@ -744,7 +744,14 @@ Figure \ref{fig:surrounding_segments_similarity} shows a scene where segments fr
 	\label{fig:surrounding_segments_similarity}
 \end{figure}
 
-To investigate if such information can in fact benefit the classification results, a custom classification model is implemented. First of all, a basic classification task is performed by the best single classifier, which has been identified by prior experiments (see Section \ref{sec:machine_learning_models}. Then, the dataset is enhanced by the features and predicted class labels of the surrounding segments. The number of surrounding segments used is tested in several experiments to find the amount, which performs at the highest accuracy. In the final step, another classification task is performed using the enhanced dataset. This process should help to include information of surrounding segments and it should improve the classification results. The results of the approach can be viewed in Section \ref{sec:using_surroundings_to_improve_results}.
+To investigate if such information can in fact benefit the classification results, a custom classification model is implemented. First of all, a basic classification task is performed by the best single classifier, which has been identified by prior experiments (see Section \ref{sec:machine_learning_models}. Then, an enhanced dataset is created by adding the class which was predicted by the first classifier to the existing dataset as well as by inserting features derived by the surrounding segments. For example, the average distance of the surrounding parking cars is added to the enhanced dataset. This should help the stage-two classifier to detect parking cars, because usually a parking car is parked at the same distance as surrounding parking cars. Furthermore, the average distances of the surrounding segments of all other classes are added as well.
+ The number of surrounding segments used is tested in several experiments to find the amount, which performs at the highest accuracy. In the final step, another classification task is performed using the enhanced dataset. This process should help to include information of surrounding segments and it should improve the classification results. Figure \ref{fig:surrounding_segments_classification_process} shows the two-staged classification process and an example of an enhanced dataset which is used by the stage two classifier.
+The results of the approach can be viewed in Section \ref{sec:using_surroundings_to_improve_results}.
 
 
-
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/surrounding-segment-classification-process.eps}
+	\caption{Two-staged classification process. After a stage 1 classifier initially predicts the class of the samples, its results are used to build an enhanced dataset including distance information of the segment's surroundings. A stage 2 classifier predicts the final result using this enhanced dataset.}
+	\label{fig:surrounding_segments_classification_process}
+\end{figure}
