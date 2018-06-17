@@ -335,15 +335,15 @@ As deep learning outperforms classical machine learning for many different tasks
    0.8524 / 0.9078 \\
 \hline
   \textbf{Dense Deep Network} & & & \\
-  (5 layers - 64 units each, & & & \\
-  500 epochs, 20\% dropout) &
-   0.9379 / 0.9313 &
-   0.8434 / 0.8836 &
-   0.8147 / 0.8634 \\
+  (5 layers - 128 units each, & & & \\
+  200 epochs, 10\% dropout) &
+   0.9396 / 0.9350 &
+   0.8253 / 0.8666 &
+   0.8397 / 0.8795 \\
 \hline
   \textbf{1D Convolutional Deep Network} & & & \\
   (1 convolutional layer, 2 dense layers, & & & \\
-  200 epochs, 20\% dropout) &
+  200 epochs) &
    0.9330 / 0.9216 &
    0.7582 / 0.8334 &
    0.8484 / 0.8735 \\
@@ -357,10 +357,10 @@ As deep learning outperforms classical machine learning for many different tasks
 \label{table:deep_learning_results}
 \end{table}
 
-To find the best performing configuration, several different parameters have been tested. Table \ref{table:deep_learning_results} shows only the configurations that yielded best results for normal deep neural networks, neural networks with dropout, and neural networks that use convolutional layers. Three to ten layers have been tested with 32 to 256 units each. For the number of learning epochs (times that the training dataset is used to train the neural network) up to 1.000 epochs have been tested.
+To find the best performing configuration, several different parameters have been tested. Table \ref{table:deep_learning_results} shows only the configurations that yielded best results for normal deep neural networks, neural networks with dropout, and neural networks that use convolutional layers. Networks using five hidden layers have been tested with 32 to 128 units each. For the number of learning epochs (times that the training dataset is used to train the neural network) 50 to 500 epochs have been tested.
 A normal deep learning network with five layers and 128 units each trained in 200 epochs gained the best results with an f-measure of 0.8792 for the \emph{parking car}-class. 
 
-In addition to normal deep learning networks, two strategies for improving performance have been evaluated. Using dropout can help deep learning networks to avoid overfitting. In the experiments 10\%, 20\%, and 50\% dropout have been tested, but the results were worse in all cases. Thus, dropout is not considered to help improving the classification results. Another strategy which has been evaluated, is using convolutional layers. In domains like image recognition convolution greatly improves the performance. However, in our case the convolutional deep learning network performed much worse than the other configurations.
+In addition to normal deep learning networks, two strategies for improving performance have been evaluated. Using dropout can help deep learning networks to avoid overfitting. In the experiments 10\%, 20\% and 50\% dropout have been tested, but the results were worse in all cases. Thus, dropout is not considered to help improving the classification results. Another strategy which has been evaluated, is using convolutional layers. In domains like image recognition convolution greatly improves the performance. However, in our case the convolutional deep learning network performed much worse than the other configurations.
 
 The results shown in Table \ref{table:deep_learning_results} clearly indicate that all deep learning approaches perform worse than the random forest classifier, which was the best performing model out of the classical machine learning classifiers. The best performing deep neural network gains an overall accuracy of about 93.6\% whereas the random forest classifier gets about 96.0\%. Furthermore, the recall / precision on the \emph{parking car}-class also are also worse than for the random forest classifier (0.8987 / 0.9078 for the best performing deep neural network and 0.9239 / 0.9377 for the random forest classifier). For the classes with a minority of samples, the results are similar to the random forest classifier. \emph{Overtaking situations} show a recall of 0.3239 and a precision of 0.2452 whereas \emph{other parking vehicles} get a recall of 0.0909 and a precision of 0.1612.
 
@@ -383,7 +383,7 @@ Furthermore, features which are calculated using the surrounding segments are ap
 %\todo{hinzufügen einer grafik, die dieses neue datenset zeigt, d.h. wie die surrounding samples hinzufegügt werden}
  Using this information, the second classifier should be able to include the surrounding segments into its prediction process (e.g. if all surrounding segments, which are parking cars, have a distance of 3m to the sensing vehicle, then it is likely that the current sample is a parking car if it is also about 3m from the sensing vehicle). For the number $k$ of included surrounding segments, several values have been tested to find the best performing value.
 Table \ref{table:surrounding_different_k_surrounding_segments} shows a comparison of the performance using different values for $k$.
-In a final step a second classifier is trained on the newly created dataset. All machine learning models which have been discussed in Section \ref{sec:machine_learning_results} have been tested on this new dataset. A more detailed description of the process can be found in Section \ref{sec:improv_classification_surrounding_segments}.
+In a final step a second classifier is trained on the newly created dataset. All machine learning models which have been discussed in Section \ref{sec:machine_learning_results} have been tested on this new dataset.
 
 
 \begin{table}
@@ -514,11 +514,11 @@ The improved classification technique especially helps with classifying perpendi
 
 The performance of predicting the minority classes is also slightly improved. \emph{Overtaking situations} have a recall of 0.3030 instead of 0.2575 with the normal classifier. Its precision is also increased from 0.8947 to 0.9523. \emph{Other parking vehicles} are also detected more likely. The improved recall is 0.1833 whereas the recall of the normal random forest is 0.0833. The only measurement which is worse with the proposed two staged technique is the precision of \emph{other parking cars}. The new technique results in a value of 0.7333 instead of 0.8333.
 
-To further improve the classification performance of all classes, a bigger dataset with more variety in the recorded situations would be beneficial. Especially for detecting overtaking vehicles and parking cars- and bicycles, more different samples would increase the accuracy as with the current dataset these classes have only a minor occurrence. 
+To further improve the classification performance of all classes, a bigger dataset with more variety in the recorded situations would be beneficial. Especially for detecting overtaking vehicles and parking motorcycles- and bicycles, more different samples would increase the accuracy as with the current dataset these classes have only a minor occurrence. 
 
 Altogether the proposed two staged approach outperforms all other tested classifiers due to the increased amount of information which has been taken into account. It improves the overall accuracy by about 0.5\% and the f-measure of the \emph{parking car}-class by about 1.0\%. 
 
-\todo{ideen, ansätze wie man overtaking + other parking cars verbessern könnte als ausblick}
+%\todo{ideen, ansätze wie man overtaking + other parking cars verbessern könnte als ausblick}
 
 
 
