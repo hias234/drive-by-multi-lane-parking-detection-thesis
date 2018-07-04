@@ -15,7 +15,7 @@ Long search times for parking spaces are not solely due to the lack of vacant pa
 
 \section{Envisioned Parking Information System}
 
-Detection of road side parking spaces and their states is a challenging task. Of course an obvious approach to the problem would be to put stationary sensors to every parking space in the city, which check, if the corresponding parking space is occupied or vacant. This, however, has the drawback to be very expensive as, for big cities, thousands of sensors would have to be bought, installed, and maintained. Moreover, because the state of parking parking spaces does not often change, the high frequency of sensing with such a system would be rather inefficient.
+Detection of road side parking spaces and their states is a challenging task. Of course an obvious approach to the problem would be to put stationary sensors to every parking space in the city, which check, if the corresponding parking space is occupied or vacant. This, however, has the drawback to be very expensive as, for big cities, thousands of sensors would have to be purchased, installed, and maintained. Moreover, because the state of parking parking spaces does not often change, the high frequency of sensing with such a system would be rather inefficient.
 
 \begin{figure}
 	\centering
@@ -24,7 +24,7 @@ Detection of road side parking spaces and their states is a challenging task. Of
 	\label{fig:envisioned_system}
 \end{figure}
 
-The envisioned system, which is shown in Figure \ref{fig:envisioned_system}, uses a mobile crowd sensing approach to determine the current parking availability situation in urban areas. Several driving vehicles continuously sense their environment using multiple sensors while driving through the streets of the city. These measurements are then used for the analysis of the parking situation, so that parking cars and vacant parking spaces are being detected. 
+The envisioned system, which is shown in Figure \ref{fig:envisioned_system}, uses a mobile crowd sensing approach to determine the current parking availability situation in urban areas. Several driving vehicles continuously sense the road side using multiple sensors while driving through the streets of the city. These measurements are then used for the analysis of the parking situation, so that parking cars and vacant parking spaces are being detected. 
 
 The parking situation analysis can be performed by each sensing vehicle for itself. After obtaining the results, all the derived information may be sent to a central server, which then combines the data of all sensing vehicles and computes a parking availability map. This map of free and occupied parking spaces can then be used for showing users the current parking situation (e.g., through a Web application) so that they can decide if they want to go by car or by public transport. Furthermore, the information of vacant parking spaces could be used effectively by GPS navigation systems which could direct the driver to a vacant parking space close to his end destination and therefore maybe prevent long parking search times.
 
@@ -36,55 +36,29 @@ The parking situation analysis can be performed by each sensing vehicle for itse
 
 \section{Drive-By Parking Space Sensing}
 
-The envisioned system is using a promising novel approach, called drive-by park sensing, to sense a city's parking situation. Drive-by park sensing appraoches are using mobile sensors instead of static ones to derive a city's current parking availability situation. Several prototypes, including the ParkNet prototype by Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448}, which will be discussed later on, show that mobile crowd sensing has the advantage to be usually more cost effective and can provide sufficient accuracy for the purpose of providing parking space availability maps. 
+The envisioned system is using a promising novel approach, called drive-by parking space sensing, to sense a city's parking situation. Drive-by parking space sensing appraoches are using mobile sensors instead of static ones to derive a city's current parking availability situation. Several prototypes, including the ParkNet prototype by Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448}, which will be discussed later on, show that drive-by parking space sensing is feasible and that mobile crowd sensing has the advantage to be cost effective and sufficiently accurate for the purpose of providing parking space availability maps. 
 
-%This thesis will focus on "drive-by park sensing". 
-The idea of drive-by approaches is that there are sensing vehicles which are driving through the city and collecting data of their environment through mounted sensors. Using the collected data, parking cars and vacant parking spaces can be detected. There already exists a prototype implementation of such a system. In 2010, Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} presented their system, called ParkNet, which continuously measures the distance to the nearest obstacle on the side of the road, as well as the location of the sensing vehicle through a GPS sensor. Using these data, they used a distance threshold to detect parking cars and vacant parking spaces. A more detailed description of their work can be found in section \ref{sec:related_driveby_park_sensing_distance}.
+Drive-by approaches employ sensing vehicles which are driving through the city and collecting data of their environment through mounted sensors. Using the collected data, parking cars and vacant parking spaces can be detected. There already exists a prototype implementation of such a system. In 2010, Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} presented their system, called ParkNet, which continuously measures the distance to the nearest obstacle on the side of the road, as well as the location of the sensing vehicle through a GPS sensor. They use a distance threshold to detect parking cars and vacant parking spaces. A more detailed description of their work can be found in section \ref{sec:related_driveby_park_sensing_distance}.
 
 Figure \ref{fig:driveby_standard_parking_situation} shows a standard drive-by scenario of a sensing vehicle that passes two parallel parked cars and a vacant parking space in between them. The distance measurements while passing the parked cars will be much shorter than the measurements taken while passing the vacant parking space. This should allow a basic algorithm to recognize parking cars and vacant parking spaces.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/drive-by-parking-situation-pictogram.eps}
-	\caption{The sensing vehicle passes two parked cars and should identify a vacant spot in between using distance and location measurements.}
+	\caption{The sensing vehicle passes two parked cars and a vacant spot. The vehicle can identify the vacant spot by the increased distance to the road side.}
 	\label{fig:driveby_standard_parking_situation}
 \end{figure}
 
-However, the situation shown in Figure \ref{fig:driveby_standard_parking_situation} is an idealistic one. In real life traffic, there will be much more complex situations to face, which are not as easily detectable and which might influence the success of the detection. For instance, the sensing vehicle might not drive in the right-most lane, therefore the measured distances will be much longer. Another possible issue are other driving cars, motorcycles or bicycles which the sensing car overtakes. Many of such distractions have to be filtered out to counteract false detection results.
-%The existing ParkNet prototype does not take any of such situations into account, because it was only evaluated on parallel parking cars on single lane roads.
+However, the situation shown in Figure \ref{fig:driveby_standard_parking_situation} is an idealistic one. In real traffic, there will be much more complex situations to face, which are not as easily detectable and which might decrease the success of the detection. For instance, the sensing vehicle might not drive in the right-most lane, therefore the measured distances will be much longer. Other possible issues are other driving cars, motorcycles, or bicycles which the sensing car overtakes. Many of such distractions have to be filtered out to counteract false detection results.
 
-The high complexity of urban traffic and the many distractions during sensing make it nearly impossible to create a rule set based on the sensor measurements which would be able to detect parking situations at a sufficient accuracy. Therefore, simple thresholding will not work in real life traffic scenarios. Furthermore, such rule sets would have to be created for each city individually because of the different nature of the roads and the parking spaces. For instance, the distance between lanes and parking spaces can vary highly in two different cities. Thus, to be able to detect parking situations, new methods have to be found, that are more flexible to distractions and changes in the environment.
-
-
-
-%\section{Research Goals}
-
-%The overall goal of this thesis is to study and increase the accuracy of detecting the parking space situation in urban real world traffic scenarios using drive-by park sensing on multi lane roads. Vacant parking spaces and parking cars are detected and distinguished from other common objects beside the road like trees, houses and other objects. To counteract false detections of parking cars while sensing in real world traffic, several distractions are being identified, detected and filtered out. Common distractions include overtaken cars, bicycles and motorcycles as well as passed cars waiting at traffic lights.
-
-
-
-% More specific goals are described below:
-%
-%\begin{description}
-%
-%\item[Obtaining an own dataset of different drive-by scenarios.] A testbed should be built which can be mounted on a standard car. This testbed should collect sensor values of a distance sensor as well as a GPS receiver during test drives in the city of Linz, Austria. Furthermore, the test bed should also capture images to record the ground truth of the sensed scenes.
-%
-%\item[Estimating parking availability using machine learning.] Using the acquired dataset, objects, like parking cars, should be detected and classified. The use of machine learning and deep learning approaches to do so should be evaluated and with the
-%help of parking space maps the count of vacant parking spaces and their location should be derived.
-%
-%\item[Identifying sensing distractions.] There are many scenarios in which the drive-by park sensing will not work as expected. For example, when the sensing vehicle overtakes another driving car, it cannot detect the parking cars behind. Such situations
-%should be detected and classified as distractions.
-%
-%\item[Deriving basic parking space maps.] Parking space maps are necessary for the overall system to work as only using the sensor data it is not possible to determine if it is legal to park at a certain location. As there are no parking space maps with sufficient quality available at city authorities, a basic parking space map should be derived using the acquired dataset.
-%
-%\end{description}
+The high complexity of urban traffic and the many distractions during sensing make it nearly impossible to create a rule set based on the sensor measurements which would be able to detect parking situations at a sufficient accuracy. Therefore, simple thresholding will not work in real life traffic scenarios. Furthermore, such rule sets would have to be created for each city individually because of the different nature of the roads and the parking spaces. For instance, the distance between lanes and parking spaces can vary highly in two different cities \cite{Grassi:2017:PIE:3132211.3134452}. Thus, to be able to detect parking situations, new methods have to be found, that are more flexible to distractions and changes in the environment.
 
 
 
 
 \section{Research Goal and Methodology}
 
-The overall goal of this thesis is to study and increase the accuracy of detecting the parking space situation in urban real world traffic scenarios using drive-by park sensing on multi lane roads. Vacant parking spaces and parking cars are detected and distinguished from other common objects beside the road like trees, houses and other objects. To counteract false detections of parking cars while sensing in real world traffic, several distractions are being identified, detected and filtered out. Common distractions include overtaken cars, bicycles and motorcycles as well as passed cars waiting at traffic lights.
+The overall goal of this thesis is to study and increase the accuracy of detecting the parking space situation in urban real world traffic scenarios using drive-by parking space sensing on multi lane roads. Vacant parking spaces and parking cars are detected and distinguished from other common objects beside the road like trees, houses and other objects. To counteract false detections of parking cars while sensing in real world traffic, several distractions are being identified, detected and filtered out. Common distractions include overtaken cars, bicycles and motorcycles as well as passed cars waiting at traffic lights.
 
 To determine if it is possible to derive parking availability statistics from drive-by sensing in complex road scenarios the following steps of the used research methodology will be taken:
 
