@@ -104,7 +104,7 @@ However, a big concern of mobile applications is power usage. Activity detection
 
 
 
-\subsection{Drive-by Park Sensing Using Cameras}
+\subsection{Drive-by Parking Space Sensing Using Cameras}
 \label{sec:related_driveby_park_sensing_cameras}
 
 In contrast to approaches with stationary sensors which were discussed in Sections \ref{sec:stationary_park_sensing} and \ref{sec:stationary_park_sensing_cameras}, drive-by sensing approaches use sensors which are mounted on vehicles driving through the city to sense vacant and occupied parking spaces. Using such mobile sensors has the goal of achieving a high enough accuracy at a fraction of the costs of stationary solutions. In this section the usage of cameras mounted on driving vehicles to detect parking spaces is discussed.
@@ -124,7 +124,7 @@ Grassi et al. evaluate their prototype with real world experiments in Paris, Los
 
 
 
-\paragraph{Advantages and disadvantages of camera based drive-by park sensing}
+\paragraph{Advantages and disadvantages of camera based drive-by parking space sensing}
 
 In general, cameras can achieve high accuracies while at the same level have to be carefully configured and placed to achieve good results.
 As only the last approach discussed in this section is designed for parking space availability estimation, this paragraph focus only on ParkMaster's advantages and disadvantages. The main arguments, Grassi et al. give to promote their approach is the high enough accuracy and that high hardware costs can be avoided, because of the use of smartphones of end users as processing devices. If smartphones are used, costs would be lower, however, as already discussed in Section \ref{sec:event_detection_park_sensing}, smartphone apps would need to have a high enough distribution for enough drivers to sense available parking space. Furthermore, drivers would have to mount their phone each time they drive through the city and this obviously also costs a lot of battery hours. Therefore, it is not sure if a smartphone based system would give a good enough coverage. Further limitations of drive-by park sensing in general will be discussed in Section \ref{sec:limitations_driveby_sensing}.
@@ -133,42 +133,41 @@ As only the last approach discussed in this section is designed for parking spac
 
 
 
-\subsection{Drive-by Park Sensing using Distance Sensors}
+\subsection{Drive-by Parking Space Sensing using Distance Sensors}
 \label{sec:related_driveby_park_sensing_distance}
 
 Another approach of drive-by sensing is to use a distance sensor instead of a camera as discussed in the previous section. The two approaches discussed in this section are closely related to the work presented in this thesis. First, an approach using an 1D ultrasonic sensor is described. Second, another prototype using two 2D LiDAR scanners is examined.
 
-\paragraph{Drive-by park sensing using a 1D ultrasonic distance sensor}
+\paragraph{Drive-by parking space sensing using a 1D ultrasonic distance sensor}
 
-Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed a drive-by prototype, called ParkNet, in 2010. It consists of an ultrasonic range finder which continuously measures the distance to the nearest obstacle on the right side of the road (at an interval of about 50 ms - 20 measurements per second) and a GPS receiver which records the corresponding locations. Furthermore, a camera is used for obtaining ground truth information through manual tagging of the captured images. Mathur et al. deployed their system on a standard car, which collected test data in drives during daily commuting throughout 2 months in selected areas in Highland Park, New Jersey. Altogether, about 500 miles of street parking scenes were collected during their test period.
+Mathur et al. \cite{Mathur:2010:PDS:1814433.1814448} developed a drive-by prototype, called ParkNet, in 2010. The prototype consists of an ultrasonic range finder which continuously measures the distance to the nearest obstacle on the right side of the road (at an interval of about 50 ms - 20 measurements per second) and a GPS receiver which records the corresponding locations. Furthermore, a camera is used for obtaining ground truth information through manual tagging of the captured images. Mathur et al. deployed their system on a standard car, which collected test data in drives during daily commuting throughout two months in selected areas in Highland Park, New Jersey. Altogether, about 800 kilometers of street parking scenes were collected during their test period.
 
-ParkNet's detection algorithm is based on thresholding. It tries to detect so called "dips", which are parts of the sensor signal caused by parking cars or other objects. Sensor readings are separated from each other by overflow measures which show that at that point the distance is higher than the range of the ultrasonic sensor. In a second step, these dips are compared to two thresholds for the distance and the length of the dip. Both thresholds have been derived by a subset of the data and produce an overall error rate of 12.4\% on this training set. ParkNet assumes that detailed parking space maps are available. They distinguish between a slotted and unslotted model for their parking space detection. In the slotted model, they assign detected parking cars to single parking spaces using the GPS position. However, GPS positions are not always as accurate as they need to be to correctly identify a parking space. Therefore, ParkNet uses an environmental fingerprinting algorithm which corrects GPS positions using multiple test runs on the same street. They identify static objects which are there on all sensor traces and then cluster their positions. Mathur et al. use the first cluster center as true position and correct the surrounding GPS measurements. In the unslotted model, ParkNet estimates the number of free parking spaces by checking for all free spaces if the length is high enough for a car to park in between the two enclosing objects.
+ParkNet's detection algorithm is based on thresholding. It tries to detect so called "dips", which are parts of the sensor signal caused by parking cars or other objects. Sensor readings are separated from each other by overflow measures which show that at that point the distance is higher than the range of the ultrasonic sensor. In a second step, these dips are compared to two thresholds for the distance and the length of the dip. Both thresholds have been derived by a subset of the data and produce an overall error rate of 12.4\% on this training set. ParkNet assumes that detailed parking space maps are available. They distinguish between a slotted and an unslotted model for parking space detection. In the slotted model, detected parking cars are assigned to single parking spaces using the GPS position. However, GPS positions are not always as accurate as they need to be to correctly identify a parking space. Therefore, ParkNet uses an environmental fingerprinting algorithm which corrects GPS positions using multiple test runs on the same street. They identify static objects which are there on all sensor traces and then cluster their positions. Mathur et al. use the first cluster center as true position and correct the surrounding GPS measurements. In the unslotted model, ParkNet estimates the number of free parking spaces by checking for all free spaces if the length is high enough for a car to park in between the two enclosing objects.
 
-Mathur et al. used their self acquired dataset to evaluate their algorithm. On the unslotted model, they tried to estimate the number of vacant parking spaces in a specific street. Their algorithm turned out to have an overall accuracy of about 95\%. For the slotted model they reach an accuracy of 91\% using their environmental fingerprinting approach to correctly assign detected parked cars to parking spaces.
+Mathur et al. use a self-acquired dataset to evaluate the algorithm. On the unslotted model, they estimate the number of vacant parking spaces in a specific street. The algorithm has an overall accuracy of about 95\%. For the slotted model an accuracy of 91\% is reached using environmental fingerprinting to correctly assign detected parked cars to parking spaces.
 
-To show that their system is more cost effective than stationary sensor deployments, Mathur et al. also present a mobility study which has been done in the city of San Francisco, California. They try to estimate the interval in which a sensing vehicle would visit a street. The GPS locations of 536 taxi cabs which were collected during one month are used and the analysis of these data shows that while in the outer San Francisco areas visiting intervals can be as high as hundreds of minutes, in the down town areas 80\% of the streets are visited every 10 minutes. Furthermore, they estimate the costs of running their system to be more than 12 times cheaper than with the use of stationary sensors at each parking space.
-
-
-\paragraph{Drive-by park sensing using two 2D LiDAR distance sensors}
-
-Bock et al. \cite{Bock2015} use two 2D LiDAR distance scanners to approach the problem of drive-by park sensing. They are both deployed on a regular car facing to the right side of the road with an angle of 60 degrees in between them. The position of the vehicle is measured via a GNSS sensor.
-% (global navigation satellite system) which is more accurate than standard GPS receivers (it reaches an accuracy of 15-30 cm in height and 20 cm in horizontal directions for urban scenarios).
-The LiDAR scanners measure at a frequency of up to 300.000 measurements per second and produce 3D point clouds of the sensed scenes. These point clouds are used to detect parking cars. In a first step the data is preprocessed and segmented. For the segmentation Bock et al. use a "similar region growing approach" to differentiate between multiple objects in a single scan. They use a random forest classifier to classify sensed objects into two distinct classes: non-moving objects and other objects. The random forest classifier is being used because it is less prone to overfitting, fast and easy to interpret. As input for the classifier, several calculated features based on the geometry of the sensed objects are used. To distinguish moving cars from non-moving ones, Bock et al. use two LiDAR scanners instead of one. Because of the angle of 60 degrees in between the two sensors, moving vehicles can be identified as they appear at different times in both sensors and therefore at different positions.
-
-For the evaluation of the performance of their prototype, Bock et al. obtained a dataset in Hannover, Germany. They gathered data of 1.313 parallel and perpendicular parking cars as well as 1.360 other objects. Altogether, their approach reaches a high accuracy of 95.8\% recall and 98.4\% precision for parallel parking cars and 93.7\% recall and 97.4\% precision for perpendicular parking cars. However, despite the good results for the detection, 2D LiDAR systems are very expensive in comparison to one dimensional sensors as used by ParkNet (described in the previous paragraph).
+To show that their system is more cost effective than stationary sensor deployments, Mathur et al. also present a mobility study which has been done in the city of San Francisco, California. They estimate the interval in which a sensing vehicle would visit a street. The GPS locations of 536 taxi cabs which were collected during one month are used. The analysis of these data shows that while in the outer San Francisco areas visiting intervals can be as high as hundreds of minutes, in the down town areas 80\% of the streets are visited every 10 minutes. Furthermore, they estimate the costs of running the system to be more than 12 times cheaper than with the use of stationary sensors at each parking space.
 
 
-\paragraph{Advantages and disadvantages using distance sensor based drive-by park sensing}
+\paragraph{Drive-by parking space sensing using two 2D LiDAR distance sensors}
 
-As already discussed the use of 1D distance sensors for a drive-by approach can be much cheaper than stationary sensor deployments while providing a sufficient accuracy with enough sensing vehicles. In contrast to camera based drive-by sensing a higher accuracy can be achieved, due to the fact that detailed distance information is  instantly available and does not have to be derived from camera images. The presented camera based drive-by sensing approach can only detect cars and then estimate the vacant parking spaces using an overall count of parking spaces per road segment. Using distance information distance sensor based drive-by approaches are also able to detect free spaces which improves the overall result. The use of 2D LiDAR distance scanners brings another gain in accuracy, however, such systems are still very expensive and therefore, not suited for the use of a lot of vehicles sensing the parking situation in a city. Further limitations of drive-by park sensing in general will be discussed in the next section.
+Bock et al. \cite{Bock2015} use two 2D LiDAR distance scanners to approach the problem of drive-by park sensing. They are both deployed on a regular car facing to the right side of the road with an angle of 60 degrees in between them. The position of the vehicle is measured via a GPS sensor.
+The LiDAR scanners measure at a frequency of up to 300.000 measurements per second and produce 3D point clouds of the sensed scenes. These point clouds are used to detect parking cars. In a first step the data are preprocessed and segmented. For segmentation, Bock et al. use a "similar region growing approach" to differentiate between multiple objects in a single scan. They use a random forest classifier to classify sensed objects into two distinct classes: non-moving objects and other objects. The random forest classifier is used because it is less prone to overfitting, fast, and easy to interpret. As input for the classifier, several calculated features based on the geometry of the sensed objects are used. To distinguish moving cars from non-moving ones, Bock et al. use two LiDAR scanners instead of one. Because of the angle of 60 degrees in between the two sensors, moving vehicles can be identified as they appear at different times in both sensors and therefore at different positions.
+
+For the evaluation of the performance of their prototype, Bock et al. obtained a dataset in Hannover, Germany. They gathered data of 1.313 parallel and perpendicular parking cars as well as 1.360 other objects. Altogether, the approach reaches a high accuracy of 95.8\% recall and 98.4\% precision for parallel parking cars and 93.7\% recall and 97.4\% precision for perpendicular parking cars. However, despite the good results for the detection, 2D LiDAR systems are very expensive (several thousand euros) in comparison to one dimensional sensors as used by ParkNet (described in the previous paragraph).
 
 
-\subsection{Limitations of current drive-by Park Sensing Approaches}
+\paragraph{Advantages and disadvantages using distance sensor based drive-by parking space sensing}
+
+To summarize, the use of 1D distance sensors for a drive-by approach can be much cheaper than stationary sensor deployments while providing a sufficient accuracy with enough sensing vehicles. In contrast to camera based drive-by sensing a higher accuracy can be achieved, due to the fact that detailed distance information is  instantly available and does not have to be derived from camera images. The presented camera based drive-by sensing approach can only detect cars and then estimate the vacant parking spaces using an overall count of parking spaces per road segment. Using distance information, drive-by approaches are also able to detect free spaces which improves the overall result. The use of 2D LiDAR distance scanners brings another gain in accuracy, however, such systems are still very expensive and therefore, not suited for the use of a lot of vehicles sensing the parking situation in a city. Further limitations of drive-by park sensing in general will be discussed in the next section.
+
+
+\subsection{Limitations of Current Drive-by Parking Space Sensing Approaches}
 \label{sec:limitations_driveby_sensing}
 
-In this section limitations which apply to both camera based- and distance sensor based drive-by park sensing will be discussed. The first limitation is based on the cars which are detectable. Most drive-by sensing approaches currently only try to detect limited types of parking cars. Even if in most cities parallel parking spaces are the most prominent type of parking spaces, obviously there exist a lot of other parking spaces (e.g. perpendicular parking cars and angular parking cars). Camera-based drive-by sensing would have to also learn to detect images of such parking cars and distance sensor based drive-by sensing would have to be much more variable in terms of the length of detected cars as well as the patterns of the detected distance to the obstacle. For instance, in the case of angular parking spaces, the discussed approach of the ParkNet prototype would not work as they only apply thresholding and therefore it is likely that such parking spaces would not be segmented and detected correctly.
+In this section limitations which apply to both camera based- and distance sensor based drive-by park sensing will be discussed. The first limitation is based on the cars which are detectable. Most drive-by sensing approaches currently only detect parallel parking cars. Even if in most cities parallel parking spaces are the most prominent type of parking spaces, obviously there exist a lot of other parking spaces (e.g. perpendicular parking cars and angular parking cars). Camera-based drive-by sensing would have to also learn to detect images of such parking cars and distance sensor based drive-by sensing would have to be much more variable in terms of the length of detected cars as well as the patterns of the detected distance to the obstacle. For instance, in the case of angular parking spaces, the discussed approach of the ParkNet prototype would not work as they only apply thresholding and therefore it is likely that such parking spaces would not be segmented and detected correctly.
 
-Another limitation of drive-by sensing are multi-lane roads. Most of the discussed drive-by sensing approaches only work when the sensing vehicle drives in the right-most lane. In modern cities, there are often multiple lanes and GPS is too inaccurate to estimate the lane, where a vehicle is going. Therefore, to work properly, lane detection would have to performed for the systems to work on multi lane roads. However, it would be preferable to have a algorithm which also works in other lanes than the right most one as then the coverage of detections would be greater. For algorithms to work on non-right lanes, they also have to face several distractions. Of course, the distances to parking cars will be greater if the sensing vehicle is going on a left lane. Additionally, when a sensing vehicle overtakes another car which is going slower, it will record the distances to this vehicle instead of the distance to parked cars. Furthermore, also distractions such as traffic lights or traffic jams have to be taken into account for a real life installation of such prototypes.
+Another limitation of drive-by sensing are multi-lane roads. Most of the discussed drive-by sensing approaches only work when the sensing vehicle drives in the right-most lane. In modern cities, there are often multiple lanes and GPS is too inaccurate to estimate the lane, where a vehicle is going. Therefore, to work properly, lane detection would have to be performed for the systems to work on multi lane roads. Even better, a detection algorithm should also work in other lanes than the right most to increase the coverage of detections. Algorithms that should work on non-right lanes have to face several distractions. Of course, the distances to parking cars will be greater than sensing from the lane closest to the road side. Additionally, when a sensing vehicle overtakes another car which is going slower, it will record the distances to this vehicle instead of the distance to parked cars. Furthermore, also distractions such as traffic lights or traffic jams have to be taken into account for a real life installation of such prototypes.
 
 
 
@@ -176,7 +175,7 @@ Another limitation of drive-by sensing are multi-lane roads. Most of the discuss
 \subsection{Comparison of the existing Park Sensing Approaches}
 \label{sec:comparison_park_sensing_approaches}
 
-Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the park sensing approaches which were discussed in this section. All of the above discussed approaches show high accuracy (>= 90\%) but not all of them are suited for all kinds of park sensing. For instance, the drive-by approaches are not able to detect parking availabilities in dedicated parking lots or parking garages whereas vehicle counting cannot detect the parking situation of road side parking spaces and thus a city's overall parking situation.
+Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the park sensing approaches which were discussed in this section. All of the above discussed approaches show a high accuracy but not all of them are suited for all kinds of park sensing. For instance, the drive-by approaches are not able to detect parking availabilities in dedicated parking lots or parking garages whereas vehicle counting cannot detect the parking situation of road side parking spaces and thus a city's overall parking situation.
 
 \begin{table}
 \resizebox{\textwidth}{!}{%
@@ -202,48 +201,48 @@ Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the p
   - Cameras can only cover limited area \\
   & 91\% \cite{Amato2016} & & - A lot of cameras needed for \\
   & 96\%\cite{DiMauro2016}  & & city-wide deployments \\
-  & & & - affected by lightning and occlusions \\
+  & & & - Affected by lightning and occlusions \\
 \hline
   \textbf{Counting Vehicles} &
   100\% \cite{smarturbanparkingdetection} & 
   about \$45 & 
-  - hardly applicable in open street scenarios \\
-  & & & - gates needed for in- and outgoing vehicles \\
+  - Hardly applicable in open street scenarios \\
+  & & & - Gates needed for in- and outgoing vehicles \\
 \hline
   \textbf{Event-based Sensing} & 
   85\% \cite{Nawaz:2013:PSB:2500423.2500438} & 
   \$0 & 
-  - high user base required (crowd sensing) \\
-  & 89\% \cite{Ma:2014:USP:2674918.2674929} & & - drains battery of the user's smartphones \\
+  - High user base required (crowd sensing) \\
+  & 89\% \cite{Ma:2014:USP:2674918.2674929} & & - Drains battery of the user's smartphones \\
   & 94\% \cite{Nandugudi:2014:PPP:2632048.2632098} & & \\
 \hline
   \textbf{Drive-by Sensing} & 
   90\% \cite{Grassi:2017:PIE:3132211.3134452} & 
   \$0 & 
-  - high user base required (crowd sensing) \\
-  (Camera) & & & - detection of different types of parking cars  \\
-  & & & - multi lane and overtaking situations \\
-  & & & - detecting standing cars (e.g. at traffic light) \\
-  & & & - avoiding multiple detections of the same car \\
+  - High user base required (crowd sensing) \\
+  (Camera) & & & - Detection of different types of parking cars  \\
+  & & & - Multi lane and overtaking situations \\
+  & & & - Detecting standing cars (e.g. at traffic light) \\
+  & & & - Avoiding multiple detections of the same car \\
 \hline
   \textbf{Drive-by Sensing} & 
   93\% \cite{Mathur:2010:PDS:1814433.1814448} & 
   about \$400 & 
-  - detection of different types of parking cars \\
-  (1D-Distance sensor) & & & - multi lane and overtaking situations \\
-  & & & - detecting standing cars (e.g. at traffic light) \\
+  - Detection of different types of parking cars \\
+  (1D-Distance sensor) & & & - Multi lane and overtaking situations \\
+  & & & - Detecting standing cars (e.g. at traffic light) \\
 \hline
 \textbf{Drive-by Sensing} & 
   96\% \cite{Bock2015} & 
   \$1000 - \$5000 & 
-   - high costs per sensor setup \\
-  (2D-Distance sensor) & & & - detecting standing cars (e.g. at traffic light) \\
+   - High costs per sensor setup \\
+  (2D-Distance sensor) & & & - Detecting standing cars (e.g. at traffic light) \\
 \hline
 
 \end{tabular}
 \egroup}
 
-\caption{Comparison of all park sensing approaches}
+\caption{Comparison of park sensing approaches.}
 \label{table:comparison_park_sensing_approaches}
 \end{table}
 
@@ -251,7 +250,7 @@ Table \ref{table:comparison_park_sensing_approaches} shows a comparison of the p
 
 The costs of the different approaches also vary highly. Approaches with stationary sensors usually have the highest accuracy, but also bring the highest costs. Event-based sensing operates on very low costs because it usually uses smartphones as sensing and processing devices. However, to reach a high accuracy a lot of people have to sense parking events. Furthermore, such apps will also drain the user's battery faster than usual.
 
-Drive-by park sensing approaches are in the medium cost range because the vehicles which are sensing have to be equipped with the required sensors, but in contrast to stationary sensing, much fewer sensors can reach a suffcient degree of accuracy. However, there are certain limitations of the current approaches as described in the previous section. In this thesis, a prototype using distance sensor based drive-by park sensing will be developed and evaluated, as the ratio from cost to accuracy seems to be the best of the investigated approaches. To improve accuracy in real life scenarios, machine learning will be used to identify all types of parking cars as well as different distractions such as overtaking while driving on multi lane roads.
+Drive-by park sensing approaches are in the medium cost range because the vehicles which are sensing have to be equipped with the required sensors, but in contrast to stationary sensing, much fewer sensors can reach a sufficient degree of accuracy. However, there are certain limitations of the current approaches as described in the previous section. 
 
 
 \paragraph{Used Machine Learning Approaches}
@@ -268,16 +267,16 @@ Table \ref{table:comparison_ml_approaches} shows an overview of all machine lear
    & \textbf{Accuracy} & \textbf{Dataset}  \\
 %\hline
 \hline
-  \textbf{Convolutional Neural Networks} & 
+  \textbf{Convolutional neural networks} & 
   91\% \cite{Amato2016} & about 700.000 images \cite{Amato2016} \\
-  (Stationary cameras) & 96\% \cite{DiMauro2016} & about 970.000 images \cite{DiMauro2016} \\
+  (stationary cameras) & 96\% \cite{DiMauro2016} & about 970.000 images \cite{DiMauro2016} \\
 \hline
   \textbf{Viola-Jones feature-based} & 90\% \cite{Grassi:2017:PIE:3132211.3134452} & 5.896 parked cars and \\
   \textbf{ cascade classifier} & & 2.280 available
 parking spaces \\
   (camera-based drive-by sensing) &  & \\
 \hline
-  \textbf{Random Forest Classifier} & 96\% \cite{Bock2015} & 1.313 parking cars and  \\
+  \textbf{Random forest classifier} & 96\% \cite{Bock2015} & 1.313 parking cars and  \\
   (2D distance sensor based drive-by sensing) &  & 1.306 other objects \\
 \hline
 
@@ -285,10 +284,12 @@ parking spaces \\
 \egroup
 }
 
-\caption{All used machine learning models to detect a city's parking space availability.}
+\caption{Machine learning models used to detect a city's parking space availability.}
 \label{table:comparison_ml_approaches}
 \end{table}
 
+
+In this thesis, a prototype using distance sensor based drive-by park sensing will be developed and evaluated, as the ratio from cost to accuracy seems to be the best of the investigated approaches. To improve accuracy in real life scenarios, machine learning will be used to identify all types of parking cars as well as different distractions such as overtaking while driving on multi lane roads. 
 
 
 
