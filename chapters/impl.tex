@@ -597,7 +597,7 @@ To use neural networks for classification, the function $f(x)$ has to be learned
 
 \subsection{Decision Trees}
 
-A decision tree is a powerful classification approach. Figure \ref{fig:decision_tree} shows an example of a decision tree which has been learned using the full dataset acquired in this thesis with the features length and distance. Each node of the tree divides the dataset into several sub-groups using separation values of specific features (in Figure \ref{fig:decision_tree}, the root node divides the dataset at the distance of 3.0217). The division into sub-groups goes on and at the leave nodes the class with the majority of the samples is the classification result of the respective branch of the tree. When creating a decision tree, it is  important to select the feature which should be used to split and to find the best split value. This is done at each node by trying different features and values in order to find the combination which maximizes certain measures, such as information gain (entropy) or Gini impurity\footnote{Gini impurity represents how often a randomly chosen sample would be assigned into the wrong class if it was randomly labeled}. To overcome the risk of an over-fitting decision tree, the splitting process is stopped if there is a large majority or a single class at a node. This process is called "pruning". The most important parameters are the criterion function (entropy, gini impurity, ...) and the pruning configuration.
+A decision tree is a powerful classification approach. Figure \ref{fig:decision_tree} shows an example of a decision tree which has been learned using the full dataset acquired in this thesis with the features length and distance. Each node of the tree divides the dataset into several sub-groups using separation values of specific features (in Figure \ref{fig:decision_tree}, the root node divides the dataset at the distance of 3.0217). The division into sub-groups goes on and at the leave nodes the class with the majority of the samples is the classification result of the respective branch of the tree. When creating a decision tree, it is  important to select the feature which should be used to split and to find the best split value. This is done at each node by trying different features and values in order to find the combination which maximizes certain measures, such as information gain (entropy) or Gini impurity\footnote{Gini impurity represents how often a randomly chosen sample would be assigned into the wrong class if it was randomly labelled}. To overcome the risk of an over-fitting decision tree, the splitting process is stopped if there is a large majority or a single class at a node. This process is called "pruning". The most important parameters are the criterion function (entropy, gini impurity, ...) and the pruning configuration.
 
 \begin{figure}
 	\centering
@@ -701,7 +701,7 @@ Listing \ref{lst:deep_learning1} shows an example of a deep learning network whi
 
 
 
-\lstinputlisting[caption={Example of a densly-connected deep learning network containing five hidden layers with dropout defined with Keras}, language=Python, label={lst:deep_learning1}, basicstyle=\small]{code/tensorflow_dense_neural_network.py}
+\lstinputlisting[caption={Example of a densely-connected deep learning network containing five hidden layers with dropout defined with Keras}, language=Python, label={lst:deep_learning1}, basicstyle=\small]{code/tensorflow_dense_neural_network.py}
 
 
 
