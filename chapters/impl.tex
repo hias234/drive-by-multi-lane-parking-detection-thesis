@@ -243,7 +243,7 @@ As it is crucial to have accurate parking space maps, the goal was to obtain suc
 Parking spaces are listed in the downloaded map data but unfortunately, only parking spaces of big parking lots (of shopping malls, etc.) are available but most of the city's road side parking spaces, which are being sensed in this work are not present. Therefore, the parking space maps of OpenStreetMap cannot be used due to insufficient data.
 
 Another possibility to obtain a parking space map is to use data from city authorities in Linz. City authorities keep detailed digital maps of the streets as well as the road side parking spaces. However, the only format available are several DXF- or DWG-files, created using the program AutoCAD\footnote{\url{https://www.autodesk.eu/products/autocad/overview}}, which is commonly used for designing and drawing as well as for geographical applications. There exist libraries which can read all components of DXF-files and their attributes but unfortunately there are no geographical position data attached to the components and therefore the GPS location of all parking spaces is unknown. 
-This fact makes it impossible to use the parking space map in the park sensing prototype as the parking spaces of the map cannot be matched with the sensed segments obtained during the experiments.
+This fact makes it impossible to use the parking space map in the parking space sensing prototype as the parking spaces of the map cannot be matched with the sensed segments obtained during the experiments.
 
 
 
@@ -483,7 +483,7 @@ The learner based analysis confirms the results of the information gain analysis
 
 The existing prototype of a parking detection system which is closest related to the prototype presented in this thesis is the ParkNet prototype developed by Mathur et al \cite{Mathur:2010:PDS:1814433.1814448} (see Section \ref{sec:related_driveby_park_sensing_distance}). The datasets of the other related parking detection systems, which are discussed in Section \ref{sec:parksensing}, differ fundamentally from our dataset due to different sampling methods. Thus, only the features of ParkNet are compared to our features (see Table \ref{table:feature_analysis}) in this section.
 
-ParkNet also uses the drive-by park sensing approach which is used in our prototype. 
+ParkNet also uses the drive-by parking space sensing approach which is used in our prototype. 
 %It measures the distance to the right side to the road using an ultrasonic distance sensor and tries to find "dips" (segments) in the sensor signal, which represent parking cars. 
 However, it was only developed, designed and trained for a very restrictive scenario of traffic. It only has been trained and evaluated on single-lane streets with parallel parking cars.
 The main goal of this thesis is to develop a drive-by parking detection system, which can handle various different situations in city traffic, like for example driving on multi-lane streets, overtaking other vehicles, traffic jams and waiting at traffic lights. While gathering the dataset, all of these situations were faced and our prototype has been trained to detect all of these scenarios.
