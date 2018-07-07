@@ -303,9 +303,9 @@ To improve the classification results, only segments which are close to parking 
 \section{Derived Datasets}
 \label{sec:derived_dataset}
 
-Two main datasets are being available for the use of machine learning experiments. The "full dataset" contains all segments which have been sensed during the test drives while "filtered dataset" has been filtered to only contain segments which are close to areas where parking spaces are located (described in the previous section). Both datasets are made up of samples with all calculated feature values (discussed in Section \ref{sec:feature_calculation}) and the corresponding class label.
+Two main datasets are available for the use in machine learning experiments. The "full dataset" contains all segments which have been sensed during the test drives while the "filtered dataset" has been filtered to only contain segments which are close to areas where parking spaces are located (described in the previous section). Both datasets are made up of samples with all calculated feature values (discussed in Section \ref{sec:feature_calculation}) and the corresponding class label.
 
-Table \ref{table:dataset_comparison} shows a comparison of the number of instances per class for both datasets as well as the percentage of each class. One can clearly see that both datasets are highly imbalanced because in both cases the "free space" class is by far the dominating class with 83.6\% and 73.8\%, respectively. However, the filtered dataset contains only about half of the "free space" instances which are in the full dataset and thus the filtered dataset will probably lead to a better classification result as it is more balanced. Of course, this has to be proven by the machine learning experiments which will be covered in the following sections.
+Table \ref{table:dataset_comparison} shows a comparison of the number of instances per class for both datasets as well as the percentage of each class. One can clearly see that both datasets are highly imbalanced because in both cases the "free space" class is by far the dominating class with 83.6\% and 73.8\%, respectively. However, the filtered dataset contains only about half of the "free space" instances which are in the full dataset and thus the filtered dataset is expected to lead to a better classification result as it is more balanced. Of course, this has to be proven by the machine learning experiments which will be covered in the following sections.
 
 \begin{table}
 
@@ -322,7 +322,7 @@ Table \ref{table:dataset_comparison} shows a comparison of the number of instanc
 \hline
    \textbf{Free Space} & 
    11.811 (82.6\%) & 
-   6.345 (73.8\%) \\
+   6.345 (73.9\%) \\
 \hline
    \textbf{Parking Car} & 
    2.216 (15.5\%) & 
@@ -359,7 +359,8 @@ Another fact which can be observed is that the classes "overtaking situation" an
 \subsection{Feature Calculation}
 \label{sec:feature_calculation}
 
-To conduct machine learning experiments with common machine learning models, feature values for each segment have to be computed using the sensor measurements. These feature values serve as input values of the machine learning model to help classifying the corresponding segment to one of the available class labels. All computed features which were used are described below and a further analysis of the usefulness of the features for the classification tasks will be provided in the next section.
+Machine learning is used to classify a segment as one of the available parking situation (label).
+To conduct machine learning experiments with common machine learning models features serve as input parameters. The feature values for each segment are computed using the sensor measurements. All computed features are described below. A further analysis of the usefulness of the features for the classification tasks will be provided in the next section.
 
 \begin{description}
 
@@ -367,7 +368,7 @@ To conduct machine learning experiments with common machine learning models, fea
 
 \item[Length:] The distance the sensing vehicle drove during sensing the segment in meters (the distance between the first and last GPS location).
 
-\item[Duration:] The duration in seconds the sensing vehicle needed to sense the segment (the last time stamp - the first time stamp).
+\item[Duration:] The duration in seconds the sensing vehicle needed to sense the segment (the difference between last time stamp and the first time stamp).
 
 \item[Number of distance measurements:] The number of distance measurements assigned to the segment.
 
@@ -377,7 +378,9 @@ To conduct machine learning experiments with common machine learning models, fea
 
 \item[Acceleration:] The acceleration of the sensing vehicle while sensing the segment in $m/s^2$.
 
-\item[Distance difference to the next/previous segment:] Difference of the average distance measurements to the next/previous segment in meters.
+\item[Distance difference to the next segment:] Difference of the average distance measurements to the next segment in meters.
+
+\item[Distance difference to the previous segment:] Difference of the average distance measurements to the previous segment in meters.
 
 \end{description}
 
