@@ -2,7 +2,7 @@
 \label{appendix:ml_results}
 \markright{Machine Learning Experiment Results}
 
-This appendix lists the results of the best configuration of all discussed traditional machine learning models in the form of confusion matrices. For each model, a table with the results for the full- and filtered dataset is provided.
+This appendix lists the results of the best configuration of all discussed traditional machine learning models in the form of confusion matrices. Furthermore, the confusion matrix of the best two-stage classifier which uses surrounding segments is also included.
 
 
 % random forest
@@ -471,4 +471,42 @@ This appendix lists the results of the best configuration of all discussed tradi
 
 \caption{Confusion matrices of a naive bayes classifier applied on (a) the full dataset and (b) the filtered dataset.}
 \label{table:cf_nb}
+\end{table}
+
+
+% two-staged classification process
+\begin{table}
+
+\resizebox{\textwidth}{!}{%
+\centering
+\bgroup
+\def\arraystretch{1.4}
+\begin{tabular}{| r || c | c | c | c |}
+\hline
+   Predicted class $\rightarrow$ &
+   \textbf{Free Space} & 
+   \textbf{Parking Car} &
+   \textbf{Overtaking} &
+   \textbf{Other Parking} \\
+   True class $\downarrow$ &
+	 & 
+	 &
+	 \textbf{Situation} &
+	 \textbf{Vehicle} \\
+\hline
+  \textbf{Free Space} & 6598 & 79 & 0 & 3 \\
+\hline
+  \textbf{Parking Car} & 133 & 2048 & 1 & 1 \\
+\hline
+  \textbf{Overtaking Situation} & 14 & 32 & 20 & 0 \\
+\hline
+  \textbf{Other Parking Vehicle} & 36 & 13 & 0 & 11 \\
+\hline
+
+\end{tabular}
+\egroup
+}
+
+\caption{Confusion Matrix of the best found configuration of the implemented two-staged classification technique (see Section \ref{sec:improv_classification_surrounding_segments}) with two random forests and using 10 surrounding samples applied on the filtered dataset.}
+\label{table:cf_tsp}
 \end{table}
