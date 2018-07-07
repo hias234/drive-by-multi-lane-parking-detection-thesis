@@ -523,7 +523,7 @@ This chapter discusses the conducted machine learning- and deep learning experim
 
 
 
-\subsection{Tested Machine Learning Models}
+\section{Tested Machine Learning Models}
 \label{sec:machine_learning_models}
 
 This section discusses machine learning models with respect to their performance on our datasets. Furthermore, all parameters which can be set for the different machine learning models will be presented. As literature for the machine learning technologies, the books "Data Mining: Practical Machine Learning Tools and Techniques" \cite{Hall2016_DataMining_ML}, "Pattern Recognition and Machine Learning" \cite{Bishop:2006:PRM:1162264} and "Machine Learning: A Probabilistic Perspective" \cite{Murphy:2012:MLP:2380985} have been used. The tested machine learning models are:
@@ -531,19 +531,19 @@ This section discusses machine learning models with respect to their performance
   
 
 
-\paragraph{Naïve Bayes Classifier}
+\subsection{Naïve Bayes Classifier}
 
 The Naïve Bayes classifier is based on the theory of conditional probabilities. For each segment the probabilities of all classes are calculated, given the calculated feature values. Let $P(c|F)$ be the probability of a segment being a class $c$ given the features $F = \{l, d\}$ (length and distance). According to Bayes' rule the probability can be calculated as $P(c|F) = \frac{P(F|c) \times P(c)}{P(F)}$, where $P(F|c)$ is the probability of the features $F$ given the class $c$, $P(c)$ is the overall probability of a segment to be the respective class and $P(F)$ is the probability of the occurrence of the features $F$. Using Bayes' rule, probabilities of each class can be calculated given the related features. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of features). Thus, Naïve Bayes introduces the assumption that all features in $F$ are independent to each other. Using this assumption the probabilities can be calculated with a much less complex equation: $P(c|F) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(F)}$. $P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-features given the class $c$. Both of these probabilities can be easily computed using the dataset. The independence-assumption greatly simplifies the solution, however, it also introduces error to the result as the features in most problems cannot be treated independently. Despite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains.
 
 
 
-\paragraph{kNN Classifier}
+\subsection{kNN Classifier}
 
 A kNN classifier (k nearest neighbours) searches for the $k$ samples in the training set which are most similar to the sample which should be classified and then predicts the class which is contained in a majority of the found $k$ samples. To find similar samples, a similarity function has to be computed which calculates the similarity between the features of two samples. Such similarity functions are for example Euclidian distance, Manhattan distance, or Chebyshev distance. For the classification of each sample, the classifier has to calculate the similarity to each sample in the training set and find the most similar $k$ samples. For big datasets this process can take a long time. Another disadvantage is that the whole training set has to be saved for the classifier to work. Parameters for the kNN classifier are the number $k$ of nearest neighbours to search for and the similarity function.
 
 
 
-\paragraph{Support Vector Machines (SVMs)}
+\subsection{Support Vector Machines (SVMs)}
 
 Support vector machines try to find a linear separation between the samples of different classes in the training set in order to predict unknown samples. A hyperplane which maximizes the separation of different classes is computed. In order to do so, the distance of the hyperplane to the closest samples, which are also called support vectors, is maximized. Figure \ref{fig:max_hyperplane} shows the so called maximum margin hyperplane as well as the support vectors which are needed to find it. However, in real world problems it is rarely the case that different classes can be separated using a linear hyperplane. To be able to find such an hyperplane, the feature space is transformed into a higher dimensional one using non-linear mappings. This process increases the chance of finding a hyperplane drastically. However, such transformations need a lot of computations and therefore usually kernel functions, such as a polynomial kernel, are used to speed up this process. 
 
@@ -559,7 +559,7 @@ Support vector machines try to find a linear separation between the samples of d
 
 
 
-\paragraph{Neural Networks}
+\subsection{Neural Networks}
 
 A Neural Network (also called MultiLayerPerceptron in some frameworks) is a popular classification technique nowadays, because theoretically neural networks can learn every function possible, given a large enough network and enough training time. Simple neural networks are composed of three layers: the input layer, one hidden layer, and the output layer. Figure \ref{fig:neural_network} shows an example of such a neural network. 
 
@@ -581,7 +581,7 @@ To use neural networks for classification, the function $f(x)$ has to be learned
 
 
 
-\paragraph{Decision Trees}
+\subsection{Decision Trees}
 
 A decision tree is a powerful classification approach. Figure \ref{fig:decision_tree} shows an example of a decision tree which has been learned using the full dataset acquired in this thesis with the features length and distance. Each node of the tree divides the dataset into several sub-groups using separation values of specific features (in Figure \ref{fig:decision_tree}, the root node divides the dataset at the distance of 3.0217). The division into sub-groups goes on and at the leave nodes the class with the majority of the samples is the classification result of the respective branch of the tree. When creating a decision tree, it is  important to select the feature which should be used to split and to find the best split value. This is done at each node by trying different features and values in order to find the combination which maximizes certain measures, such as information gain (entropy) or Gini impurity\footnote{Gini impurity represents how often a randomly chosen sample would be assigned into the wrong class if it was randomly labeled}. To overcome the risk of an over-fitting decision tree, the splitting process is stopped if there is a large majority or a single class at a node. This process is called "pruning". The most important parameters are the criterion function (entropy, gini impurity, ...) and the pruning configuration.
 
@@ -598,7 +598,7 @@ A decision tree is a powerful classification approach. Figure \ref{fig:decision_
 
 
 
-\paragraph{Random Forest Classifier}
+\subsection{Random Forest Classifier}
 
 Decision trees can be rather unstable, meaning they can change their output drastically if their input is only altered slightly. To overcome this shortcoming, an ensemble technique, called "random forest" is introduced. A random forest classifier is made up of multiple different trees which have been learned using random subsets of features at each node of the trees during the training process. All trees are classifying using the input features and are then voting to determine the classification result of the random forest classifier. Random forests are usually creating more accurate predictions due to using many different decision trees which in conjunction produce better results than single decision trees. The most important parameters are the number of trees which should be generated, the random seed and the maximum number of features per subsets.
 
@@ -606,7 +606,7 @@ Decision trees can be rather unstable, meaning they can change their output dras
 
 
 
-\subsection{Datasets and Handling Imbalance}
+\section{Datasets and Handling Imbalance}
 \label{sec:tested_datasets_and_handling_imbalance}
 
 All discussed machine learning models are being on multiple different datasets. The two main datasets are the full and filtered datasets, which contain all calculated features as discussed in Section \ref{sec:derived_dataset}. Further, datasets that only contain the most important features (distance, length, difference to next/prev segment, number of measures, duration) are used, as discussed in Section \ref{sec:feature_analysis}. The experiments should show which dataset performs best and if the datasets with less features can compete with the datasets containing all of them.
@@ -618,7 +618,7 @@ Imbalanced datasets are quite common in a lot of domains. For example, in medica
 
 
 
-\subsection{Evaluation Methods}
+\section{Evaluation Methods}
 \label{sec:evaluation_methods}
 
 To get reliable and comparable classification results it is important to select a good evaluation method. The used method in this thesis is 10-fold cross validation. Using this technique, all samples of the dataset are split into 10 equally sized parts (folds). Then one fold is selected as test data while all the other folds being used as training data for the classifier. This process is repeated 10 times, so that every fold has been used as test data exactly once and has been used for training all the other nine times. Cross validation ensures, that there is no sample in the test data which has been previously learned by the classifier in the training process. Moreover, it is important that every sample gets predicted once, so that the performance measures are realistic.
@@ -627,7 +627,7 @@ Another technique which helps to get better performance is to shuffle the datase
 
 
 
-\subsection{Used Tools and Frameworks}
+\section{Used Tools and Frameworks}
 
 To conduct the machine learning experiments the dataset is processed using the Python programming language. Furthermore, the classifiers of the "Scikit learn" machine learning framework are used for the experiments and several different configurations of all of them are tested. Scikit learn is a framework for Python which offers all of the above discussed classifiers as well as tools to support the evaluation process (cross validation, shuffling, etc.).
 
