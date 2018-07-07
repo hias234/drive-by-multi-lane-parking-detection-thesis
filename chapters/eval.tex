@@ -246,7 +246,7 @@ As expected, the performance of parallel parking cars is the best. One possible 
 \egroup
 %}
 
-\caption{Frequency of different types of parking cars in our dataset and the achieved recall of the best classifier (random forest).}
+\caption{Frequency of different types of parking cars in our dataset and the achieved recall of our best random forest classifier.}
 \label{table:result_different_types_cars}
 \end{table}
 
@@ -257,7 +257,44 @@ As expected, the performance of parallel parking cars is the best. One possible 
 
 The used dataset contains in total nine features. Not all of them provide the same amount of information. As discussed in Section \ref{sec:feature_analysis}, six important and three not important features have been identified. Training machine learning models on less (but more important) features can enhance the performance, therefore different feature subsets have been tested. In the following, only the filtered dataset is used.
 
-When reducing the dataset to only the six most important features, all tested machine learning models show nearly the same results as when trained with all nine features. A decision tree shows the greatest difference when used on the two datasets: it results in an f-measure on the \emph{parking car}-class of 0.8976 with all features and 0.8964 with the six most important features. Further reducing the features results in drastically decreasing accuracy. A random forest classifier using all features results in a f-measure of 0.9307. While using only six features does not change the result, using four features reduces the f-measure to 0.9147 and using two features results in an f-measure of 0.8010.
+When reducing the dataset to only the six most important features, all tested machine learning models show nearly the same results as when trained with all nine features. A decision tree shows the greatest difference when used on the two datasets: it results in an f-measure on the \emph{parking car}-class of 0.8976 with all features and 0.8964 with the six most important features. Further reducing the features results in drastically decreasing accuracy.
+Figure \ref{table:result_subsets} shows the f-measure of parking cars when using different feature subsets on a random forest classifier.
+While using only six features instead of all nine does not change the result, using four features reduces the f-measure to 0.9147 and using two features results in an f-measure of 0.8010.
+
+\begin{table}
+
+
+%\resizebox{\textwidth}{!}{%
+\centering
+\bgroup
+\def\arraystretch{1.4}
+\begin{tabular}{| r || c |}
+\hline
+	&
+   \textbf{F-Measure of Parking Cars} \\
+\hline
+   \textbf{All nine features}	&
+   0.9307  \\
+\hline
+   \textbf{Six most important features}	&
+   0.9307 \\
+\hline
+   \textbf{Four most important features}	&
+   0.9147 \\
+\hline
+   \textbf{Two most important features}	&
+   0.8010 \\
+\hline
+
+\end{tabular}
+\egroup
+%}
+
+\caption{Classification results of the best performing random forest using different feature subsets.}
+\label{table:result_subsets}
+\end{table}
+
+
 
 The experiments with different subsets show that using fewer features does not improve the performance of the classification using our datasets. The only advantage is a slightly decreased training time for all tested models (on average the training time is 22\% lower when using only six features instead of nine). However, as the training time is not an important evaluation metric, in the further experiments datasets with all features are used, because they result in the best classification results.
 
