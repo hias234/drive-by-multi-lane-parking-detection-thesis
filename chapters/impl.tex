@@ -490,7 +490,7 @@ The main goal of this thesis is to develop a drive-by parking detection system, 
 
 ParkNet only uses two features to detect parking spaces in their approach, namely the \emph{length of segments} and the \emph{distance from the sensing vehicle}. Mathur et al. derived thresholds for both features creating a minimum error calculated on 20\% of their dataset. The thresholds are then used to classify the segments into the classes \emph{parking car} and \emph{other object}. This technique is sufficient for their simple scenario and restricted test data. However, exposed to a more complicated dataset such as is used in this thesis, the results will likely be worse.
 
-To verify that length and distance only are not enough features, classification of segments with only these two features has been carried out. A decision tree with a maximum depth of two has been learned using our dataset and evaluated using 10-fold cross-validation. Similar to the two thresholds used in ParkNet, our decision tree also learned to divide the two target classes using two thresholds. 
+To verify that length and distance only are not enough features, classification of segments with only these two features has been carried out on our dataset. A decision tree with a maximum depth of two has been learned using our dataset and evaluated using 10-fold cross-validation. Similar to the two thresholds used in ParkNet, our decision tree also learned to divide the two target classes using two thresholds. 
 
 \begin{figure}
 	\centering
@@ -516,7 +516,7 @@ Figure \ref{fig:plot_2d_decision_tree} shows that there are a lot of missed park
 \chapter{Machine Learning Experiments}
 \label{chap:machine_learning_experiments}
 
-Many different machine learning approaches exist, which can be used for parking space detection. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best for the parking space sensing scenario, experiments are being performed and the results are compared so that the best model can be identified. 
+Many different machine learning approaches exist which can be used for parking space detection. All of them have their strengths and weaknesses and are applied in different scenarios. To find out which machine learning model works best for the parking space sensing scenario, experiments are being performed and the results are compared so that the best model can be identified. 
 The overall goal of the experiments is to find the feature subset and the machine learning model which in combination produce the highest accuracy in classifying all segments. 
 Additionally, the precision and recall values of the "parking car" class are of interest in our scenario, because detecting parking cars is crucial for creating accurate parking space availability maps.
 
@@ -528,14 +528,22 @@ This chapter discusses the conducted machine learning- and deep learning experim
 \section{Tested Machine Learning Models}
 \label{sec:machine_learning_models}
 
-This section discusses machine learning models with respect to their performance on our datasets. Furthermore, all parameters which can be set for the different machine learning models will be presented. As literature for the machine learning technologies, the books "Data Mining: Practical Machine Learning Tools and Techniques" \cite{Hall2016_DataMining_ML}, "Pattern Recognition and Machine Learning" \cite{Bishop:2006:PRM:1162264} and "Machine Learning: A Probabilistic Perspective" \cite{Murphy:2012:MLP:2380985} have been used. The tested machine learning models are:
+This section discusses well-known machine learning models with respect to their performance on our datasets. Furthermore, all parameters which can be set for the different machine learning models will be presented. As literature for the machine learning technologies, the books "Data Mining: Practical Machine Learning Tools and Techniques" \cite{Hall2016_DataMining_ML}, "Pattern Recognition and Machine Learning" \cite{Bishop:2006:PRM:1162264} and "Machine Learning: A Probabilistic Perspective" \cite{Murphy:2012:MLP:2380985} have been used. The tested machine learning models are:
 
   
 
 
 \subsection{Naïve Bayes Classifier}
 
-The Naïve Bayes classifier is based on the theory of conditional probabilities. For each segment the probabilities of all classes are calculated, given the calculated feature values. Let $P(c|F)$ be the probability of a segment being a class $c$ given the features $F = \{l, d\}$ (length and distance). According to Bayes' rule the probability can be calculated as $P(c|F) = \frac{P(F|c) \times P(c)}{P(F)}$, where $P(F|c)$ is the probability of the features $F$ given the class $c$, $P(c)$ is the overall probability of a segment to be the respective class and $P(F)$ is the probability of the occurrence of the features $F$. Using Bayes' rule, probabilities of each class can be calculated given the related features. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of features). Thus, Naïve Bayes introduces the assumption that all features in $F$ are independent to each other. Using this assumption the probabilities can be calculated with a much less complex equation: $P(c|F) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(F)}$. $P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-features given the class $c$. Both of these probabilities can be easily computed using the dataset. The independence-assumption greatly simplifies the solution, however, it also introduces error to the result as the features in most problems cannot be treated independently. Despite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains.
+The Naïve Bayes classifier is based on the theory of conditional probabilities. For each segment the probabilities of all classes are calculated, given the calculated feature values. Let $P(c|F)$ be the probability of a segment being a class $c$ given the features $F = \{l, d\}$ (length and distance). According to Bayes' rule the probability can be calculated as follows:
+
+\[ P(c|F) = \frac{P(F|c) \times P(c)}{P(F)} \]
+
+$P(F|c)$ is the probability of the features $F$ given the class $c$, $P(c)$ is the overall probability of a segment to be the respective class, and $P(F)$ is the probability of the occurrence of the features $F$. Using Bayes' rule, probabilities of each class can be calculated given the related features. However, calculating the different probabilities in the equation is a non-trivial task and requires a lot of computing resources (especially if there are a lot of features). Thus, Naïve Bayes introduces the assumption that all features in $F$ are independent to each other. Using this assumption the probabilities can be calculated with a much less complex equation: 
+
+\[ P(c|F) = \frac{P(l|c) \times P(d|c) \times P(c)}{P(F)} \]
+
+$P(l|c)$ and $P(d|c)$ are the probabilities of the $length$- and $distance$-features given the class $c$. Both of these probabilities can be easily computed using the dataset. The independence-assumption greatly simplifies the solution, however, it also introduces an error to the result as the features in most problems cannot be treated independently. Despite of its simplicity, the Naïve Bayes classifier can compete with more sophisticated classifiers in a lot of domains.
 
 
 
