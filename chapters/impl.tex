@@ -1,7 +1,7 @@
 \chapter{Testbed - Prototype Implementation}
 \label{chap:referenceimplementation}
 
-As already discussed in Chapter \ref{chap:introduction}, sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. To support this goal, a prototype of drive-by sensing using an optical distance sensor has been designed, implemented, and evaluated. This chapter introduces the prototype and testbed which have been developed to acquire the necessary dataset to run the machine learning experiments. First, the used hardware and sensors are described (Section \ref{sec:test_bed}), then the software to collect test data is being discussed (Section \ref{sec:sensor_measurement_collection}) and finally the acquired raw sensor dataset is shown (Section \ref{sec:raw_dataset}).
+Sensing a city's parking availability and thus making the parking situation more transparent would be highly beneficial for reducing traffic congestion and greenhouse gas emissions as driver's looking for parking spaces in urban areas could navigate directly to vacant parking spaces close to their destinations. To support this goal, a prototype of drive-by sensing using an optical distance sensor has been designed, implemented, and evaluated. This chapter introduces the prototype and testbed which have been developed to acquire the necessary dataset to run the machine learning experiments. First, the used hardware and sensors are described (Section \ref{sec:test_bed}), then the software to collect test data is discussed (Section \ref{sec:sensor_measurement_collection}) and finally the acquired raw sensor dataset is presented (Section \ref{sec:raw_dataset}).
 
 
 
@@ -10,7 +10,7 @@ As already discussed in Chapter \ref{chap:introduction}, sensing a city's parkin
 \section{Used Hardware and Sensor Parts}
 \label{sec:test_bed}
 
-Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For collecting, processing, and saving the sensed data a Raspberry Pi 2 Model B\footnote{\url{https://www.raspberrypi.org/products/raspberry-pi-2-model-b/}} is used. A Raspberry Pi was chosen because of its simplicity to connect and access sensors and moreover because it is really easy to program as it is just a regular Linux-based computer. Furthermore, the price of a Raspberry Pi is also quite low (about \euro{35}), therefore the overall cost of the system will remain low.
+Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For collecting, processing, and saving the sensed data, a Raspberry Pi 2 Model B\footnote{\url{https://www.raspberrypi.org/products/raspberry-pi-2-model-b/}} is used. A Raspberry Pi is chosen because of its simplicity to connect and access sensors and moreover because it is easy to program as it is just a regular Linux-based computer. Furthermore, the price of a Raspberry Pi is also quite low (about \euro{35}), therefore the overall cost of the system will remain low.
 
 
 \begin{figure}
@@ -21,9 +21,11 @@ Figure \ref{fig:sensing_car} shows the sensing car and its mounted sensors. For 
 \end{figure}
 
 
-To determine the location of the sensing vehicles while driving through the city, a Navilock USB GPS receiver\footnote{\url{http://www.navilock.de/produkte/G_61840/merkmale.html?setLanguage=en}} is used. The receiver is connected to the Raspberry Pi using a USB port and measures the GPS location (latitude and longitude) at a rate of about 1 Hz. According to the manufacturer the acquired positions are correct in the range of 2.5 meters. The GPS receiver is mounted on the top of the sensing car using a magnet in order to receive more accurate sensor readings. The Navilock USB GPS sensor costs about \euro{50}.
+To determine the location of the sensing vehicles while driving through the city, a Navilock USB GPS receiver\footnote{\url{http://www.navilock.de/produkte/G_61840/merkmale.html?setLanguage=en}} is used. The receiver is connected to the Raspberry Pi using a USB port. The sensor measures the GPS location (latitude and longitude) at a rate of about 1 Hz. According to the manufacturer, the acquired positions are correct in the range of 2.5 meters. The GPS receiver is mounted with a magnet on the top of the sensing car in order to receive more accurate sensor readings. The Navilock USB GPS sensor costs about \euro{50}.
 
-Two major distance sensor technologies can be differentiated: an ultrasonic range sensor and an optical laser distance sensor. While ultrasonic sensors are cheap and widely used in commercial parking assistance systems, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for drive-by sensing on multi-lane roads or high speed. Due to these limitations an optical distance sensor, the "Lidar Lite v3\footnote{\url{https://www.sparkfun.com/products/14032}}" is used in our testbed. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While the costs of ultrasonic sensors are often below \euro{10}, the Lidar Lite v3 and other comparable sensors cost about \euro{150}.
+Two major distance sensor technologies can be differentiated: an ultrasonic range sensor and an optical laser distance sensor. 
+Experiments of drive-by parking space sensing using an ultrasonic range sensor have been performed prior to this thesis. 
+However, while ultrasonic sensors are cheap and widely used in commercial parking assistance systems, they also have limitations in terms of sensing frequency (about 20 Hz) and range (a few meters). These specifications limit the use of ultrasonic sensors for drive-by sensing on multi-lane roads or high speed. Due to these limitations an optical distance sensor, the "Lidar Lite v3\footnote{\url{https://www.sparkfun.com/products/14032}}" is used in our testbed. It measures the time of flight of an emitted laser signal which is reflected by an object in its way. The Lidar Lite v3 can measure distances from a few centimeters up to 40 meters at a frequency of 1 to 500 Hz. Furthermore, it is able to measure distances with an accuracy of about 2.5 centimeters. However, in comparison to ultrasonic sensors, optical sensors are more expensive. While the costs of ultrasonic sensors are often below \euro{10}, the Lidar Lite v3 and other comparable sensors cost about \euro{150}.
 
 The distance sensor is mounted on the co-driver's door using a sucker handle in order to face the right side of the road and to take measures at about 62 cm above the ground. It is connected to the Raspberry Pi via GPIO (General Purpose Input Output) pins, communicating using an I2C (Inter Integrated Circuit) interface, according to the manufacturer's specifications.
 
@@ -67,43 +69,12 @@ Table \ref{table:comparison_us_lidar} shows a comparison of the characteristics 
 \egroup
 }
 
-\caption{Comparison of ultrasonic sensors and the used Lidar Lite v3 optical distance sensor.}
+\caption{Comparison of an ultrasonic sensor and the used Lidar Lite v3 optical distance sensor.}
 \label{table:comparison_us_lidar}
 \end{table}
 
 A camera is leveraged to capture images of the ground truth, here, a Logitech C922 Pro Stream\footnote{\url{https://www.logitech.com/en-us/product/c922-pro-stream-webcam}} is used. Images with a resolution of 352 x 288 pixels are captured at a frequency of about 30 Hz while the car is sensing parking spaces. The camera is mounted on the co-driver's door on the same horizontal position as the sensor. This way the center of the image will be the position where the distance measurement is taken. The Logitech camera is connected to the Raspberry Pi using an USB port and is available at about \euro{90}.
 
-
-
-
-
-%\begin{table}
-%
-%\bgroup
-%\def\arraystretch{1.5}
-%\begin{tabular}{| r || c | c |}
-%\hline
-%   & 
-%   \textbf{Sampling Frequency} & 
-%   \textbf{Costs per Sensor} \\
-%%\hline
-%\hline
-%  \textbf{Lidar Lite v3} & 
-%   ~200 measurements/s &
-%   \euro{169,00} \\
-%\hline
-%  \textbf{Navilock USB} & 
-%   ~1 measurement/s &
-%   \euro{74,90} \\
-%   \textbf{GPS receiver} & & \\
-%\hline
-%
-%\end{tabular}
-%\egroup
-%
-%\caption{The used sensors}
-%\label{table:sensors_capabilities}
-%\end{table}
 
 
 \section{Collecting Sensor Measurement Data}
@@ -127,8 +98,8 @@ Figure \ref{fig:sample_sensor_trace} shows how the sensor data gets collected an
 \label{sec:raw_dataset}
 
 To obtain a dataset, in total 32 test drives were completed in the city of Linz, Austria. The street scenarios have been selected aiming at a high variability of road scenarios. The test scenes include single lane as well as multi lane streets. While collecting the test measurements the sensing car was driving as it would in regular traffic (not only in the right most lane, etc.) and the scenes also include high and low traffic scenarios. For all street scenarios, measurements have been repeated multiple times.
-Figure \ref{fig:gps_locations_dataset} shows an aggregated GPS trace of all test drives on a map of Linz. Red dots represent parking cars while black dots represent other objects. In total \textbf{444.427 distance measurements} and \textbf{14.997 GPS measurements} were taken, which makes up about 15,9 megabytes of distance and GPS data. 
-Additionally, \textbf{266.309 images} were captured to record the ground truth of the sensed scenes. The images, which make up about \textbf{5.072 megabytes}, are used to determine the ground truth of the recorded scenes. Sensed data and ground truth data are applied to supervised machine learning algorithms later on. Ground truth tagging is described in the following section.
+Figure \ref{fig:gps_locations_dataset} shows an aggregated GPS trace of all test drives on a map of Linz. Red dots represent parking cars while black dots represent other objects. In total, \textbf{444.427 distance measurements} and \textbf{14.997 GPS measurements} were taken, which makes up about 15,9 megabytes of distance and GPS data. 
+Additionally, \textbf{266.309 images} were captured to record the ground truth of the sensed scenes. The images, which make up about \textbf{5.072 megabytes}, are used to determine the ground truth of the recorded scenes. Sensed data and ground truth data are applied to supervised machine learning algorithms later on. Ground truth tagging is described in Section \ref{sec:ground_truth_tagging}.
 
 
 
