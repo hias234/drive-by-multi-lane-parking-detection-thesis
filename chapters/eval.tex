@@ -443,7 +443,7 @@ Deep learning gains respectable results when considering that all tests have bee
 
 
 
-\section{Using Segment Surroundings to improve the Classification Results}
+\section{Using Segment Surroundings to Improve the Classification Results}
 \label{sec:using_surroundings_to_improve_results}
 
 To further improve the classification results, a custom classification process has been implemented which should help to increase the accuracy and especially the recall and precision of the \emph{parking car}-class. The proposed classification process is expected to yield better results because it is also including the information of surrounding segments when classifying instead of only considering the properties of the segment which gets classified.
@@ -465,24 +465,32 @@ In a final step a second classifier is trained on the newly created dataset. All
 \centering
 \bgroup
 \def\arraystretch{1.4}
-\begin{tabular}{| r || c | c | c |}
+\begin{tabular}{| r || c | c | c | c |}
 \hline
     &
+    & 
+   \textbf{Recall} &
+   \textbf{Precision} &
+   \textbf{F-Measure} \\
+    &
    \textbf{Accuracy} & 
-   \textbf{Recall Parking Car} &
-   \textbf{Precision Parking Car} \\
+   \textbf{Parking Car} &
+   \textbf{Parking Car} &
+   \textbf{Parking Car} \\
 \hline
-  \textbf{10 surrounding samples} & 0.9652 & 0.9381 & 0.9429 \\
+  \textbf{10 surrounding samples} & 0.9652 & 0.9381 & 0.9429 & 0.9404 \\
 \hline
-  \textbf{20 surrounding samples} & 0.9649 & 0.9372 & 0.9419 \\
+  \textbf{20 surrounding samples} & 0.9649 & 0.9372 & 0.9419 & 0.9395\\
 \hline
-  \textbf{40 surrounding samples} & 0.9651 & 0.9363 & 0.9428 \\
+  \textbf{40 surrounding samples} & 0.9651 & 0.9363 & 0.9428 & 0.9395 \\
 \hline
-  \textbf{50 surrounding samples} & 0.9648 & 0.9363 & 0.9419 \\
+  \textbf{50 surrounding samples} & 0.9648 & 0.9363 & 0.9419 & 0.9390 \\
 \hline
-  \textbf{5 surrounding samples} & 0.9645 & 0.9358 & 0.9423 \\
+  \textbf{5 surrounding samples} & 0.9645 & 0.9358 & 0.9423 & 0.9390 \\
 \hline
-  \textbf{30 surrounding samples} & 0.9645 & 0.9340 & 0.9418 \\
+  \textbf{30 surrounding samples} & 0.9645 & 0.9340 & 0.9418 & 0.9378 \\
+\hline
+  \textbf{Random forest classifier} & 0.9608 & 0.9239 & 0.9377 & 0.9307 \\
 \hline
 
 \end{tabular}
