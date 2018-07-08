@@ -2,90 +2,19 @@
 \label{appendix:ml_results}
 \markright{Machine Learning Experiment Results}
 
-This appendix lists the results of the best configuration of all discussed traditional machine learning models in the form of confusion matrices. Furthermore, the confusion matrix of the best two-stage classifier which uses surrounding segments is also included.
+This appendix lists the results of all tested traditional machine learning models. The confusion matrices for the random forest classifier (Table \ref{table:best_clf_confusion_matrix_filtered}) and for the two-staged classifier which uses its surroundings (Table \ref{table:surrounding_classifier_confusion_matrix}) are already shown in Chapter \ref{chap:evaluation}. The confusion matrices of the best configuration of all other traditional machine learning models can be found in the following.
+
+%The confusion matrices of the best configuration of each model is provided for the full- and filtered dataset. 
+%This appendix lists the results of the best configuration of all discussed traditional machine learning models in the form of confusion matrices. Furthermore, the confusion matrix of the best two-stage classifier which uses surrounding segments is also included.
 
 
-% random forest
-\begin{table}[h]
-
-\resizebox{\textwidth}{!}{%
-\centering
-\bgroup
-\def\arraystretch{1.4}
-\begin{tabular}{| r || c | c | c | c |}
-\hline
-   Predicted class $\rightarrow$ &
-   \textbf{Free Space} & 
-   \textbf{Parking Car} &
-   \textbf{Overtaking} &
-   \textbf{Other Parking} \\
-   True class $\downarrow$ &
-	 & 
-	 &
-	 \textbf{Situation} &
-	 \textbf{Vehicle} \\
-\hline
-  \textbf{Free Space} & 11718 & 90 & 0 & 1 \\
-\hline
-  \textbf{Parking Car} & 244 & 1950 & 21 & 1 \\
-\hline
-  \textbf{Overtaking Situation} & 63 & 82 & 62 & 0 \\
-\hline
-  \textbf{Other Parking Vehicle} & 54 & 14 & 0 & 1 \\
-\hline
-
-\end{tabular}
-\egroup
-}
-
-\begin{center}
-(a) full dataset\\
-\end{center}
-
-\resizebox{\textwidth}{!}{%
-\centering
-\bgroup
-\def\arraystretch{1.4}
-\begin{tabular}{| r || c | c | c | c |}
-\hline
-   Predicted class $\rightarrow$ &
-   \textbf{Free Space} & 
-   \textbf{Parking Car} &
-   \textbf{Overtaking} &
-   \textbf{Other Parking} \\
-   True class $\downarrow$ &
-	 & 
-	 &
-	 \textbf{Situation} &
-	 \textbf{Vehicle} \\
-\hline
-  \textbf{Free Space} & 6598 & 81 & 0 & 1 \\
-\hline
-  \textbf{Parking Car} & 164 & 2017 & 2 & 0 \\
-\hline
-  \textbf{Overtaking Situation} & 14 & 35 & 17 & 0 \\
-\hline
-  \textbf{Other Parking Vehicle} & 37 & 18 & 0 & 5 \\
-\hline
-
-\end{tabular}
-\egroup
-}
-
-\begin{center}
-(b) filtered dataset\\
-\end{center}
-
-\caption{Confusion matrices of a random forest classifier (containing 1000 trees and using entropy as criterion for node-splitting) applied on (a) the full dataset and (b) the filtered dataset.}
-\label{table:cf_rf}
-\end{table}
 
 
 
 
 
 % decision tree
-\begin{table}
+\begin{table}[h]
 
 \resizebox{\textwidth}{!}{%
 \centering
@@ -155,7 +84,7 @@ This appendix lists the results of the best configuration of all discussed tradi
 (b) filtered dataset\\
 \end{center}
 
-\caption{Confusion matrices of a decision tree (using gini impurity as criterion for node-splitting) applied on (a) the full dataset and (b) the filtered dataset.}
+\caption{Confusion matrices of a \textbf{\textit{decision tree}} (using gini impurity as criterion for node-splitting) applied on (a) the full dataset and (b) the filtered dataset.}
 \label{table:cf_tree}
 \end{table}
 
@@ -235,7 +164,7 @@ This appendix lists the results of the best configuration of all discussed tradi
 (b) filtered dataset\\
 \end{center}
 
-\caption{Confusion matrices of a kNN classifier (using the five nearest neighbours) applied on (a) the full dataset and (b) the filtered dataset.}
+\caption{Confusion matrices of a \textbf{\textit{kNN classifier}} (using the five nearest neighbours) applied on (a) the full dataset and (b) the filtered dataset.}
 \label{table:cf_knn}
 \end{table}
 
@@ -314,7 +243,7 @@ This appendix lists the results of the best configuration of all discussed tradi
 (b) filtered dataset\\
 \end{center}
 
-\caption{Confusion matrices of a neural network (using five layers with each 50 hidden units, trained during 1.000.000 epochs) applied on (a) the full dataset and (b) the filtered dataset.}
+\caption{Confusion matrices of a \textbf{\textit{neural network}} (using five layers with each 50 hidden units, trained during 1.000.000 epochs) applied on (a) the full dataset and (b) the filtered dataset.}
 \label{table:cb_nn}
 \end{table}
 
@@ -391,7 +320,7 @@ This appendix lists the results of the best configuration of all discussed tradi
 (b) filtered dataset\\
 \end{center}
 
-\caption{Confusion matrices of a support vector machine applied on (a) the full dataset and (b) the filtered dataset.}
+\caption{Confusion matrices of a \textbf{\textit{support vector machine}} applied on (a) the full dataset and (b) the filtered dataset.}
 \label{table:cf_svm}
 \end{table}
 
@@ -469,44 +398,7 @@ This appendix lists the results of the best configuration of all discussed tradi
 (b) filtered dataset\\
 \end{center}
 
-\caption{Confusion matrices of a naive bayes classifier applied on (a) the full dataset and (b) the filtered dataset.}
+\caption{Confusion matrices of a \textbf{\textit{naive bayes classifier}} applied on (a) the full dataset and (b) the filtered dataset.}
 \label{table:cf_nb}
 \end{table}
 
-
-% two-staged classification process
-\begin{table}
-
-\resizebox{\textwidth}{!}{%
-\centering
-\bgroup
-\def\arraystretch{1.4}
-\begin{tabular}{| r || c | c | c | c |}
-\hline
-   Predicted class $\rightarrow$ &
-   \textbf{Free Space} & 
-   \textbf{Parking Car} &
-   \textbf{Overtaking} &
-   \textbf{Other Parking} \\
-   True class $\downarrow$ &
-	 & 
-	 &
-	 \textbf{Situation} &
-	 \textbf{Vehicle} \\
-\hline
-  \textbf{Free Space} & 6598 & 79 & 0 & 3 \\
-\hline
-  \textbf{Parking Car} & 133 & 2048 & 1 & 1 \\
-\hline
-  \textbf{Overtaking Situation} & 14 & 32 & 20 & 0 \\
-\hline
-  \textbf{Other Parking Vehicle} & 36 & 13 & 0 & 11 \\
-\hline
-
-\end{tabular}
-\egroup
-}
-
-\caption{Confusion Matrix of the best found configuration of the implemented two-staged classification technique (see Section \ref{sec:improv_classification_surrounding_segments}) with two random forests and using 10 surrounding samples applied on the filtered dataset.}
-\label{table:cf_tsp}
-\end{table}
