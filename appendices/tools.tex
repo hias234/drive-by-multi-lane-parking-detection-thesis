@@ -486,6 +486,92 @@ This appendix lists the results of all tested traditional machine learning model
 %(b) filtered dataset\\
 %\end{center}
 %
-%\caption{Confusion matrices of a \textbf{\textit{naive bayes classifier}} applied on (a) the full dataset and (b) the filtered dataset.}
-%\label{table:cf_nb}
+%\caption{Confusion matrices of a \textbf{\textit{dense deep neural network}} (5 layers with 50 units each, trained in 200 epochs, using raw distance measurements as input) applied on (a) the full dataset and (b) the filtered dataset.}
+%\label{table:cf_dnn}
+%\end{table}
+
+
+
+
+
+
+
+
+
+%
+%
+%
+%% deep learning neural network
+%\begin{table}
+%
+%\resizebox{\textwidth}{!}{%
+%\centering
+%\bgroup
+%\def\arraystretch{1.4}
+%\begin{tabular}{| r || c | c | c | c |}
+%\hline
+%   Predicted class $\rightarrow$ &
+%   \textbf{Free Space} & 
+%   \textbf{Parking Car} &
+%   \textbf{Overtaking} &
+%   \textbf{Other Parking} \\
+%   True class $\downarrow$ &
+%	 & 
+%	 &
+%	 \textbf{Situation} &
+%	 \textbf{Vehicle} \\
+%\hline
+%  \textbf{Free Space} & 5013 & 2159 & 561 & 4078 \\
+%\hline
+%  \textbf{Parking Car} & 55 & 1942 & 78 & 141 \\
+%\hline
+%  \textbf{Overtaking Situation} & 9 & 89 & 79 & 30 \\
+%\hline
+%  \textbf{Other Parking Vehicle} & 1 & 11 & 0 & 57 \\
+%\hline
+%
+%\end{tabular}
+%\egroup
+%}
+%
+%\begin{center}
+%(a) full dataset\\
+%\end{center}
+%
+%\resizebox{\textwidth}{!}{%
+%\centering
+%\bgroup
+%\def\arraystretch{1.4}
+%\begin{tabular}{| r || c | c | c | c |}
+%\hline
+%   Predicted class $\rightarrow$ &
+%   \textbf{Free Space} & 
+%   \textbf{Parking Car} &
+%   \textbf{Overtaking} &
+%   \textbf{Other Parking} \\
+%   True class $\downarrow$ &
+%	 & 
+%	 &
+%	 \textbf{Situation} &
+%	 \textbf{Vehicle} \\
+%\hline
+%  \textbf{Free Space} & 3288 & 1298 & 147 & 1947 \\
+%\hline
+%  \textbf{Parking Car} & 64 & 1926 & 56 & 137 \\
+%\hline
+%  \textbf{Overtaking Situation} & 0 & 22 & 29 & 15 \\
+%\hline
+%  \textbf{Other Parking Vehicle} & 2 & 10 & 0 & 48 \\
+%\hline
+%
+%\end{tabular}
+%\egroup
+%}
+%
+%\begin{center}
+%(b) filtered dataset\\
+%\end{center}
+%
+%\caption{Confusion matrices of a \textbf{\textit{dense deep neural network with 10\% dropout}} (5 layers with 50 units each, trained in 200 epochs, using raw distance measurements as input) applied on (a) the full dataset and (b) the filtered dataset.}
+%\label{table:cf_dnn_dropout}
 %\end{table}
